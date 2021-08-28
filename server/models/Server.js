@@ -8,6 +8,12 @@ const serverSchema = new Schema({
       maxlength: 100,
       trim: true,
     },
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ]
   });
   
   const Server = model('Server', serverSchema);
