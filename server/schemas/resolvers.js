@@ -5,9 +5,18 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find()
+        return User.find()
     },
-    
+    server: async () => {
+        return Server.find()
+    },
+    messages: async () => {
+
+    },
+    server_messages: async (server_id) => {
+        return Server.findOne({_id: server_id}).populate('messages');
+    },
+
   },
 
   Mutation: {
