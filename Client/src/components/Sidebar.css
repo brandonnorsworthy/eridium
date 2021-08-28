@@ -1,0 +1,66 @@
+.sidebarContainer{
+    background: #1c0542;
+}
+.newMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+}
+
+.workspaceContainer{
+    color: white;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    justify-content: space-between;
+    border-bottom: 1px solid #493061;
+}
+
+.mainChannels{
+    padding-top: 20px;
+}
+
+.mainChannelItem{
+    color: rgb(188, 171, 188);
+    display: grid;
+    grid-template-columns: 15% auto;
+    height: 28px;
+    align-items: center;
+    padding-left: 19px;
+    cursor: pointer;
+}
+
+.mainChannelItem:hover {
+    background: #3d1d68
+}
+
+.newChannelContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 28px;
+    padding-left: 19px;
+    padding-right: 12px;
+}
+
+.channel{
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    cursor: pointer;
+}
+
+.channel:hover {
+    background: #3d1d68
+}
+
+.channelsContainer {
+    color: rgb(194, 173, 194);
+    margin-top: 10px;
+
+}
