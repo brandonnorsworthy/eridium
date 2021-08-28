@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const serverSchema = new Schema({
     server_name: {
       type: String,
-      required: 'You need to leave a thought!',
+      required: 'Please enter a server name!',
       minlength: 1,
       maxlength: 100,
       trim: true,
@@ -13,7 +13,13 @@ const serverSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
       }
-    ]
+    ],
+    messages: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Message',
+      },
+    ],
   });
   
   const Server = model('Server', serverSchema);

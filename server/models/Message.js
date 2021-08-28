@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 const messageSchema = new Schema({
     message_body: {
-      type: Text,
+      type: String,
       required: 'You need to leave a thought!',
       minlength: 1,
       maxlength: 2000,
@@ -27,6 +27,6 @@ const messageSchema = new Schema({
       ],
   });
   
-  const Thought = model('Message', messageSchema);
+  const Message = model('Message', messageSchema);
   
   module.exports = Message;

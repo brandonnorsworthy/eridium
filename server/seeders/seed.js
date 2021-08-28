@@ -11,6 +11,7 @@ db.once('open', async () => {
     await User.deleteMany({});
 
     await User.create(userSeeds);
+    await Server.create(serverSeeds);
 
     for (let i = 0; i < messageSeeds.length; i++) {
       const { _id, messageAuthor } = await Message.create(messageSeeds[i]);
