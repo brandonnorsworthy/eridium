@@ -6,6 +6,7 @@
   --shaded-color-1: #28202A;
   --shaded-color-2: #2F2831;
   --shaded-color-3: #352D37;
+  --shaded-color-3a: #362e38;
   --shaded-color-4: #493E4B;
   --shaded-color-5: #7B7B7B;
   --shaded-color-6: #FFFFFF;
@@ -17,4 +18,6 @@
   height: 100vh;
   width: 100vw;
   background-color: var(--shaded-color-4);
+  display: flex;
+  flex-direction: row;
 }
