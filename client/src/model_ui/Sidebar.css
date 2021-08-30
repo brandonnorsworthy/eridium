@@ -15,19 +15,23 @@ aside {
     display: flex;
     flex-direction: column;
     align-items: center;
-    -webkit-user-select: none;
-    /* Chrome all / Safari all */
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
 }
 
 #server-list a {
     width: 45px;
     height: 45px;
     margin-top: 8px;
+    border: 2px solid var(--shaded-color-0);
+    border-radius: 12px;
+    padding: 1px;
+}
+
+#server-list a:hover{
+    border-color: var(--shaded-color-5);
+}
+
+#server-list #active-server {
+    border-color: var(--primary-color) !important;
 }
 
 #server-list img {
@@ -39,7 +43,7 @@ aside {
 
 #eridium-logo {
     margin-top: 8px;
-    border-bottom: 1px solid var(--shaded-color-6);
+    border-bottom: 1px solid var(--shaded-color-5a);
     padding-bottom: 4px;
 }
 
@@ -60,13 +64,6 @@ aside {
     box-shadow: 0 3px 2px -1px var(--shaded-color-0);
     display: flex;
     align-items: center;
-    -webkit-user-select: none;
-    /* Chrome all / Safari all */
-    -moz-user-select: none;
-    /* Firefox all */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
 }
 
 #server-banner:hover {
@@ -89,6 +86,13 @@ aside {
 
 /* content channels */
 
+#content-categories {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
+    height: calc(100vh - 45px - var(--banner-height));
+}
+
 .content-category {
     font-size: 16px;
     margin-top: 5px;
@@ -102,8 +106,20 @@ aside {
     align-items: center;
 }
 
+.category-name:hover {
+    color: var(--shaded-color-6);
+    cursor: pointer;
+}
+
 .category-name p {
+    width: 200px;
     padding-left: 5px;
+}
+
+.add-channel-icon {
+    position: relative;
+    right: 0;
+    margin-right: 15px;
 }
 
 .category-channel {
@@ -149,6 +165,16 @@ aside {
     font-weight: bold;
 }
 
+.add-channel-icon {
+    /* visibility: hidden; */
+}
+
+.category-name:hover .add-channel-icon {
+    visibility: visible;
+    background-color: var(--shaded-color-4);
+    border-radius: 5px;
+}
+
 #active-channel {
     color: var(--shaded-color-6);
     background-color: var(--primary-color);
@@ -170,7 +196,48 @@ aside {
 
 #current-user {
     height: 45px;
+    width: 230px;
+    color: var(--shaded-color-5a);
     background-color: var(--shaded-color-1);
     position: fixed;
     bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+#current-user > * {
+    margin-left: 10px;
+}
+
+#current-user > *:first-child {
+    margin-left: 0px;
+}
+
+#current-user img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+#current-user p {
+    margin-right: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#current-user span {
+    position: absolute;
+    right: 0;
+    padding: 3px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+#current-user span:hover {
+    background-color: var(--shaded-color-4);
+    cursor: pointer;
 }
