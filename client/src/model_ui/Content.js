@@ -14,7 +14,7 @@ function Content() {
             <div id="main-content">
                 <ul>
                     <li className="no-select" id="input-container">
-                        <input></input>
+                        <textarea placeholder="message in"></textarea>
                         <div id="selectables">
                             <div><b>B</b></div>
                             <div><i>I</i></div>
@@ -71,6 +71,86 @@ function Content() {
                             <div className="message-content">
                                 <p><span className="image-name">greatatdownloadingimages(3).png</span></p>
                                 <img src="https://via.placeholder.com/477x207" alt="user uploaded"></img>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">brandon1111</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">1:12 AM</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">48 minutes ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">brandon1111</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">1:12 AM</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">48 minutes ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">brandon1111</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">1:12 AM</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">48 minutes ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">brandon1111</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">1:12 AM</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">48 minutes ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">brandon1111</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">1:12 AM</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">48 minutes ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
                             </div>
                         </div>
                     </li>

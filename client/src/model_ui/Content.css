@@ -12,9 +12,12 @@ main {
     width: 100%;
     height: var(--banner-height);
     box-shadow: 0 3px 2px -1px var(--shaded-color-0);
+    background-color: var(--shaded-color-3);
     display: flex;
     align-items: center;
     color: #fff;
+    position: relative;
+    z-index: 10;
 }
 
 #content-banner>* {
@@ -47,9 +50,12 @@ main {
 /* content */
 
 #main-content {
-    width: calc(100% - 50px);
-    margin: 0px 25px 25px 25px;
+    width: 100%;
+    padding: 0px 0px 25px 0px;
     height: calc(100vh - var(--banner-height) - 25px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
 }
 
 #main-content ul {
@@ -65,8 +71,18 @@ main {
 }
 
 #main-content li {
-    margin-top: 25px;
-    width: 100%;
+    margin-top: 20px;
+    width: calc(100% - 50px);
+    padding: 5px 25px;
+    z-index: 1;
+}
+
+#main-content li:hover {
+    background-color: var(--shaded-color-4a);
+}
+
+#main-content li:first-child:hover {
+    background-color: var(--shaded-color-3) !important;
 }
 
 /* content input */
@@ -79,26 +95,60 @@ main {
     border-radius: 10px;
 }
 
-#input-container div,
-#input-container input {
-    width: 100%;
-    height: 40px;
+#input-container>div, #input-container textarea {
+    font-size: 16px;
+    color: var(--shaded-color-6);
     border: none;
-    padding: 0px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     background-color: var(--shaded-color-4);
 }
 
-#input-container input {
+#input-container textarea {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    width: calc(100% - 40px);
+    line-height: 50%;
+    padding: 20px 20px 0px 20px;
+    margin-bottom: -1px;
+    resize: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
 }
 
-#input-container div {
+#input-container > div {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    width: calc(100%);
+    padding: 0px;
+    height: 40px;
+}
+
+#selectables {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#selectables>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    color: var(--shaded-color-5);
+}
+
+#selectables>div:hover {
+    background-color: var(--shaded-color-5a);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#selectables .material-icons {
+    font-size: 18px;
 }
 
 /* content (messages) */
@@ -117,7 +167,7 @@ main {
     border-radius: 10px;
 }
 
-.message-container > div {
+.message-container>div {
     margin-left: 15px;
 }
 
@@ -162,10 +212,10 @@ main {
 }
 
 .usertag {
-    font-weight: bol;
     padding: 2px;
     color: var(--primary-color);
     background-color: var(--tertiary-color);
+    border-radius: 4px;
 }
 
 .usertag:hover {
