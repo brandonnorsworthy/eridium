@@ -165,12 +165,7 @@ aside {
     font-weight: bold;
 }
 
-.add-channel-icon {
-    /* visibility: hidden; */
-}
-
 .category-name:hover .add-channel-icon {
-    visibility: visible;
     background-color: var(--shaded-color-4);
     border-radius: 5px;
 }

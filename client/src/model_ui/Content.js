@@ -10,12 +10,14 @@ function Content() {
                 <span id="channel-description">post entertaining youtube videos here that arnt actually trash</span>
             </div>
             <div id="content">
-                <div id="input-container">
-                    <input></input>
-                </div>
-                <div className="message-container">
-                    test
-                </div>
+                <ul>
+                    <li id="input-container">
+                        <input></input>
+                    </li>
+                    <li className="message-container">
+                        test
+                    </li>
+                </ul>
             </div>
         </main>
     )
