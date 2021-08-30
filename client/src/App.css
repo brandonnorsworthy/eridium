@@ -14,9 +14,14 @@
   --banner-height: 45px;
 }
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
   background-color: var(--shaded-color-4);
   display: flex;
   flex-direction: row;
