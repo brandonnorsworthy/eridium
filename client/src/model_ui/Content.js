@@ -13,6 +13,9 @@ function Content() {
                 <div id="input-container">
                     <input></input>
                 </div>
+                <div className="message-container">
+                    test
+                </div>
             </div>
         </main>
     )

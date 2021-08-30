@@ -21,7 +21,7 @@ function Sidebar() {
 
             </nav>
             <nav id="content-list">
-                <div id="server-banner">
+                <div className="no-select" id="server-banner">
                     {/* TODO prevent this from possible overflow when servername is long */}
                     <p><b>the eridium server for the cool people of earth</b></p>
                     <span className="material-icons">expand_more</span>
