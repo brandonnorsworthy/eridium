@@ -189,7 +189,7 @@ aside {
     margin-right: 15px;
 }
 
-.category-channel img {
+.direct-message-channel-prefix {
     width: 20px;
     height: 20px;
     object-fit: cover;

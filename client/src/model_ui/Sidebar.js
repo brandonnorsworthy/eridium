@@ -105,25 +105,25 @@ function Sidebar() {
                             <p>brandon111</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/44x150" alt="user profile"></img>
                             <p>guiro33</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/10x150" alt="user profile"></img>
                             <p>andrewsupersaur</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/1450x150" alt="user profile"></img>
                             <p>mguppy</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/50x55" alt="user profile"></img>
                             <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
                     </div>
                 </div>
                 <div id="current-user">
-                    <img src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                    <img src="https://via.placeholder.com/770x150" alt="user profile"></img>
                     <p>jeremeyblanks1986tomswalmartarea</p>
                     <span class="material-icons">settings</span>
                 </div>

@@ -21,6 +21,10 @@ main {
     padding-left: 12px;
 }
 
+#content-banner>*:last-child {
+    margin-right: 10px;
+}
+
 #channel-type-icon {
     color: var(--shaded-color-1);
     font-weight: 500;
@@ -29,11 +33,15 @@ main {
 
 #channel-name {
     font-size: 18px;
+    white-space: nowrap;
 }
 
 #channel-description {
     font-size: 16px;
     color: var(--shaded-color-5a);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* content */
