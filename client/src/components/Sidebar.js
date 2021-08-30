@@ -61,7 +61,7 @@ function Sidebar() {
                 <div id="current-user">
                     <img src={/* TODO current logged in users profile picture */"https://via.placeholder.com/30x30"} alt="user profile"></img>
                     <p>{/* TODO current logged in user */"currentusername"}</p>
-                    <span class="material-icons">settings</span>
+                    <span className="material-icons">settings</span>
                 </div>
             </nav>
         </aside>

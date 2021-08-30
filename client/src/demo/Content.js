@@ -1,7 +1,7 @@
 import React from 'react'
-import './Content.css'
+import './../components/Content.css'
 
-function Content() {
+function DemoContent() {
     return (
         <main>
             <div id="content-banner">
@@ -246,4 +246,4 @@ function Content() {
     )
 }
 
-export default Content
+export default DemoContent

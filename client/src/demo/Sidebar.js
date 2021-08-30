@@ -1,7 +1,7 @@
 import React from 'react'
-import './Sidebar.css'
+import './../components/Sidebar.css'
 
-function Sidebar() {
+function DemoSidebar() {
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -125,11 +125,11 @@ function Sidebar() {
                 <div id="current-user">
                     <img src="https://via.placeholder.com/770x150" alt="user profile"></img>
                     <p>jeremeyblanks1986tomswalmartarea</p>
-                    <span class="material-icons">settings</span>
+                    <span className="material-icons">settings</span>
                 </div>
             </nav>
         </aside>
     )
 }
 
-export default Sidebar
+export default DemoSidebar

@@ -10,6 +10,7 @@ function Content() {
                 <span id="channel-description">{/* TODO current active channel description */"active channels description"}</span>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://github.com/brandonnorsworthy/eridium">GitHub</a>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13">Figma</a>
+                <a style={{ textDecoration: "none", color: "var(--primary-color" }} href="/demo">Demo</a>
             </div>
             <div id="main-content">
                 <ul>
