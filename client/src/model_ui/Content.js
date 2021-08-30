@@ -66,15 +66,16 @@ function Content() {
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">Default</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">1:12 AM</span>
+                                    <span className="message-timestamp">08/21/2021</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">48 minutes ago</span>
+                                    <span className="message-timeago">3 days ago</span>
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p>i feel like i can get better build quality from other brands ya know?</p>
+                                <p>recharge?</p>
                             </div>
                         </div>
                     </li>
@@ -82,15 +83,16 @@ function Content() {
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">ROOL</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">1:12 AM</span>
+                                    <span className="message-timestamp">08/21/2021</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">48 minutes ago</span>
+                                    <span className="message-timeago">3 days ago</span>
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p>and all the RGB still works as I wanted</p>
+                                <p>with recharge for mouse?</p>
                             </div>
                         </div>
                     </li>
@@ -98,15 +100,15 @@ function Content() {
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">Default</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">1:12 AM</span>
+                                    <span className="message-timestamp">08/21/2021</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">48 minutes ago</span>
+                                    <span className="message-timeago">3 days ago</span>
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p>i even bought the razer firefly mouse pad</p>
                             </div>
                         </div>
                     </li>
@@ -114,15 +116,15 @@ function Content() {
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">ROOL</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">1:12 AM</span>
+                                    <span className="message-timestamp">08/21/2021</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">48 minutes ago</span>
+                                    <span className="message-timeago">3 days ago</span>
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p>my peripherals are Logi ones and still work for what I need or use</p>
                             </div>
                         </div>
                     </li>
@@ -130,15 +132,99 @@ function Content() {
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">Default</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">1:12 AM</span>
+                                    <span className="message-timestamp">08/21/2021</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">48 minutes ago</span>
+                                    <span className="message-timeago">3 days ago</span>
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p>you literally have to have synapse v1 & 2 downloaded depending on what you have</p>
+                                <p>my setup is pretty much razer apart from my mouse now</p>
+                                <p>my mouse is the g502 hero</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">Kaomie</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">08/21/2021</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">3 days ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>The Razer garbage tools don't even recognize it anymore</p>
+                                <p>So I cannot even change the settings lmao</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">ROOL</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">08/21/2021</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">3 days ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>or why you said they are now hard to come by</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">Default</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">08/21/2021</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">3 days ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>yeah, it literally says 'Chroma' on the box</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">ROOL</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">08/27/2021</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">3 days ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>V2 is out?</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="message-container">
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <div>
+                            <div className="message-top">
+                                <p className="message-username">Kaomie</p>
+                                <p className="message-times">
+                                    <span className="message-timestamp">08/27/2021</span>
+                                    &nbsp;•&nbsp;
+                                    <span className="message-timeago">3 days ago</span>
+                                </p>
+                            </div>
+                            <div className="message-content">
+                                <p>That's what I have too lolz</p>
+                                <p>The original Krakens</p>
                             </div>
                         </div>
                     </li>

@@ -119,6 +119,8 @@ main {
     resize: none;
     scrollbar-width: thin;
     scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
+    white-space: nowrap;
+    overflow-y: hidden;
 }
 
 #input-container > div {
