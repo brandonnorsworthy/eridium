@@ -7,6 +7,8 @@ import DemoContent from './demo/Content'
 
 function App() {
   return (
+    /* go to localhost:3000/demo for an example of what it will look like */
+    /* components have the templates that will be used for javascript do not touch /demo folder */
     <div className="App">
       <Router>
         <Switch>
