@@ -10,9 +10,6 @@ const resolvers = {
     server: async () => {
         return Server.find()
     },
-    // messages: async () => {
-        
-    // },
     server_messages: async (server_id) => {
         return Server.findOne({_id: server_id}).populate('messages');
     },
@@ -41,22 +38,22 @@ const resolvers = {
 
       return { token, user };
     },
-//     addThought: async (parent, { thoughtText }, context) => {
-//       if (context.user) {
-//         const thought = await Thought.create({
-//           thoughtText,
-//           thoughtAuthor: context.user.username,
-//         });
+    addMessage: async (parent, { messageText }, context) => {
+      if (context.user) {
+        const message = await Message.create({
+          messageText,
+          messageAuthor: context.user.username,
+        });
 
-//         await User.findOneAndUpdate(
-//           { _id: context.user._id },
-//           { $addToSet: { thoughts: thought._id } }
-//         );
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { messages: thought._id } }
+        );
 
-//         return thought;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     },
+        return message;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
 //     addComment: async (parent, { thoughtId, commentText }, context) => {
 //       if (context.user) {
 //         return Thought.findOneAndUpdate(
