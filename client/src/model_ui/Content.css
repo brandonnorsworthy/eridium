@@ -167,6 +167,10 @@ main {
     border-radius: 10px;
 }
 
+.message-profile-pic:hover {
+    cursor: pointer;
+}
+
 .message-container>div {
     margin-left: 15px;
 }
@@ -181,8 +185,14 @@ main {
 }
 
 .message-username {
+    font-weight: 600;
     margin-right: 10px !important;
     color: var(--shaded-color-6)
+}
+
+.message-username:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .message-times {

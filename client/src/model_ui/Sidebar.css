@@ -174,7 +174,7 @@ aside {
     font-weight: bold;
 }
 
-.category-name:hover .add-channel-icon {
+.add-channel-icon:hover {
     background-color: var(--shaded-color-4);
     border-radius: 5px;
 }
