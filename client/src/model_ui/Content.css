@@ -3,7 +3,7 @@
 main {
     width: calc(100vw - 310px);
     height: 100%;
-    background-color: var(--shaded-color-4);
+    background-color: var(--shaded-color-3);
 }
 
 /* content banner */
@@ -17,12 +17,12 @@ main {
     color: #fff;
 }
 
-#content-banner > * {
+#content-banner>* {
     padding-left: 12px;
 }
 
 #channel-type-icon {
-    color: var(--shaded-color-3);
+    color: var(--shaded-color-1);
     font-weight: 500;
     font-size: 28px;
 }
@@ -38,11 +38,115 @@ main {
 
 /* content */
 
-#content {
+#main-content {
+    width: calc(100% - 50px);
+    margin: 0px 25px 25px 25px;
+    height: calc(100vh - var(--banner-height) - 25px);
+}
+
+#main-content ul {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
     display: flex;
+    -webkit-flex-direction: column-reverse;
     flex-direction: column-reverse;
+    float: bottom;
+}
+
+#main-content li {
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* content input */
+
+#input-container {
+    width: 100%;
+}
+
+#input-container {
+    border-radius: 10px;
+}
+
+#input-container div,
+#input-container input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: var(--shaded-color-4);
+}
+
+#input-container input {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#input-container div {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 /* content (messages) */
 
-/* content input */
+.message-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.message-container img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.message-container > div {
+    margin-left: 15px;
+}
+
+.message-top {
+    display: flex;
+}
+
+.message-top p {
+    margin: 0px;
+}
+
+.message-username {
+    color: var(--shaded-color-6)
+}
+
+.message-times {
+    margin-left: 10px !important;
+    color: var(--shaded-color-5);
+}
+
+.message-content {
+    color: var(--shaded-color-6);
+}
+
+.message-content p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.usertag {
+    font-weight: bol;
+    padding: 2px;
+    color: var(--primary-color);
+    background-color: var(--tertiary-color);
+}
+
+.usertag:hover {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
