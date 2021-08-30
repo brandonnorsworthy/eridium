@@ -52,6 +52,7 @@ aside {
 #content-list {
     width: 250px;
     height: 100%;
+    overflow-x: hidden;
     background-color: var(--shaded-color-2);
 }
 
@@ -88,6 +89,7 @@ aside {
 
 #content-categories {
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
     height: calc(100vh - 45px - var(--banner-height));
@@ -124,11 +126,18 @@ aside {
 
 .category-channel {
     height: 30px;
-    /* margin-top: 2px; */
+    padding-right: 5px;
     color: var(--shaded-color-5);
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.category-channel p {
+    width: calc(100% - 30px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #text-channels .category-channel {

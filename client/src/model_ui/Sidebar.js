@@ -6,17 +6,17 @@ function Sidebar() {
         <aside className="no-select">
             <nav id="server-list">
                 <div id="eridium-logo">
-                    <img src="https://via.placeholder.com/150x150" alt="eridium logo"></img>
+                    <img src="https://via.placeholder.com/50x150" alt="eridium logo"></img>
                 </div>
                 {/* TODO loop over all users current servers and display here */}
                 <a href="?" className="server-icon">
-                    <img src="https://via.placeholder.com/150x150" alt="server icon"></img>
+                    <img src="https://via.placeholder.com/222x150" alt="server icon"></img>
                 </a>
                 <a href="?" className="server-icon" id="active-server">
-                    <img src="https://via.placeholder.com/150x150" alt="server icon"></img>
+                    <img src="https://via.placeholder.com/150x440" alt="server icon"></img>
                 </a>
                 <a href="?" className="server-icon">
-                    <img src="https://via.placeholder.com/150x150" alt="server icon"></img>
+                    <img src="https://via.placeholder.com/75x150" alt="server icon"></img>
                 </a>
 
             </nav>
@@ -44,7 +44,7 @@ function Sidebar() {
                         </div>
                         <div className="category-channel">
                             <span className="text-channel-prefix">#</span>
-                            <p>late-night-chitchat</p>
+                            <p>late-night-chitchat-for-the-elite-personell</p>
                         </div>
                         <div className="category-channel">
                             <span className="text-channel-prefix">#</span>
@@ -75,11 +75,11 @@ function Sidebar() {
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>study room 2</p>
+                            <p>study room 2 with a really long name for qa</p>
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>late nights</p>
+                            <p>late nights secondary really long name</p>
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
@@ -118,7 +118,7 @@ function Sidebar() {
                         </div>
                         <div className="category-channel">
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
-                            <p>erinlim2001</p>
+                            <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
                     </div>
                 </div>
