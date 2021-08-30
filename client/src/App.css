@@ -8,9 +8,10 @@
   --shaded-color-3: #352D37;
   --shaded-color-3a: #362e38;
   --shaded-color-4: #493E4B;
+  --shaded-color-4a: #413742;
   --shaded-color-5: #7B7B7B;
+  --shaded-color-5a: #b8b8b8;
   --shaded-color-6: #FFFFFF;
-
   --banner-height: 45px;
 }
 
@@ -18,11 +19,30 @@
   font-family: 'Roboto', sans-serif;
 }
 
+*:focus {
+  outline: none;
+}
+
+body {
+  overflow: hidden;
+}
+
 .App {
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
+  overflow-y: hidden;
   background-color: var(--shaded-color-4);
   display: flex;
   flex-direction: row;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
 }

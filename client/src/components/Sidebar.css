@@ -1,66 +1,247 @@
-.sidebarContainer{
-    background: #1c0542;
-}
-.newMessage{
+aside {
+    width: 310px;
+    height: 100%;
+    background-color: var(--shaded-color-0);
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+}
+
+/* server list */
+
+#server-list {
+    width: 60px;
+    height: 100%;
+    background-color: var(--shaded-color-0);
+    display: flex;
+    flex-direction: column;
     align-items: center;
+}
+
+#server-list a {
+    width: 45px;
+    height: 45px;
+    margin-top: 8px;
+    border: 2px solid var(--shaded-color-0);
+    border-radius: 12px;
+    padding: 1px;
+}
+
+#server-list a:hover{
+    border-color: var(--shaded-color-5);
+}
+
+#server-list #active-server {
+    border-color: var(--primary-color) !important;
+}
+
+#server-list img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#eridium-logo {
+    margin-top: 8px;
+    border-bottom: 1px solid var(--shaded-color-5a);
+    padding-bottom: 4px;
+}
+
+/* content list */
+
+#content-list {
+    width: 250px;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: var(--shaded-color-2);
+}
+
+/* banner */
+
+#server-banner {
+    width: 100%;
+    height: var(--banner-height);
+    color: #fff;
+    box-shadow: 0 3px 2px -1px var(--shaded-color-0);
+    display: flex;
+    align-items: center;
+}
+
+#server-banner:hover {
+    background-color: var(--shaded-color-3a);
     cursor: pointer;
-    width: 36px;
-    height: 36px;
 }
 
-.workspaceContainer{
-    color: white;
-    height: 64px;
+#server-banner p {
+    width: 200px;
+    font-size: 18px;
+    padding-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#server-banner span {
+    margin-right: 8px;
+}
+
+/* content channels */
+
+#content-categories {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
+    height: calc(100vh - 45px - var(--banner-height));
+}
+
+.content-category {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.category-name {
+    padding-left: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
     display: flex;
     align-items: center;
-    padding-left: 19px;
-    justify-content: space-between;
-    border-bottom: 1px solid #493061;
 }
 
-.mainChannels{
-    padding-top: 20px;
-}
-
-.mainChannelItem{
-    color: rgb(188, 171, 188);
-    display: grid;
-    grid-template-columns: 15% auto;
-    height: 28px;
-    align-items: center;
-    padding-left: 19px;
+.category-name:hover {
+    color: var(--shaded-color-6);
     cursor: pointer;
 }
 
-.mainChannelItem:hover {
-    background: #3d1d68
+.category-name p {
+    width: 200px;
+    padding-left: 5px;
 }
 
-.newChannelContainer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 28px;
-    padding-left: 19px;
-    padding-right: 12px;
+.add-channel-icon {
+    position: relative;
+    right: 0;
+    margin-right: 15px;
 }
 
-.channel{
-    height: 28px;
+.category-channel {
+    height: 30px;
+    padding-right: 5px;
+    color: var(--shaded-color-5);
     display: flex;
+    flex-direction: row;
     align-items: center;
+}
+
+.category-channel p {
+    width: calc(100% - 30px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#text-channels .category-channel {
     padding-left: 19px;
+}
+
+#voice-channels .category-channel {
+    padding-left: 15px;
+}
+
+#direct-message-channels .category-channel {
+    padding-left: 18px;
+}
+
+#text-channels .category-channel p {
+    margin-left: 6px;
+}
+
+#voice-channels .category-channel p {
+    margin-left: 13px;
+}
+
+#direct-message-channels .category-channel p {
+    margin-left: 14px;
+}
+
+.category-channel:hover {
+    color: var(--shaded-color-6);
+    background-color: var(--shaded-color-3a);
     cursor: pointer;
 }
 
-.channel:hover {
-    background: #3d1d68
+.category-channel p {
+    font-weight: bold;
 }
 
-.channelsContainer {
-    color: rgb(194, 173, 194);
-    margin-top: 10px;
+.add-channel-icon:hover {
+    background-color: var(--shaded-color-4);
+    border-radius: 5px;
+}
 
+#active-channel {
+    color: var(--shaded-color-6);
+    background-color: var(--primary-color);
+}
+
+.text-channel-prefix {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.direct-message-channel-prefix {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* current logged in user information */
+
+#current-user {
+    height: 45px;
+    width: 230px;
+    color: var(--shaded-color-5a);
+    background-color: var(--shaded-color-1);
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+#current-user > * {
+    margin-left: 10px;
+}
+
+#current-user > *:first-child {
+    margin-left: 0px;
+}
+
+#current-user img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+#current-user p {
+    margin-right: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#current-user span {
+    position: absolute;
+    right: 0;
+    padding: 3px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+#current-user span:hover {
+    background-color: var(--shaded-color-4);
+    cursor: pointer;
 }
