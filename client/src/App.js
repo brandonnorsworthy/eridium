@@ -14,6 +14,10 @@ function App() {
           </Route>
           <Route path="/login">
           </Route>
+          <Route path="/demo">
+            <Sidebar />
+            <Content />
+          </Route>
         </Switch>
       </Router>
     </div>

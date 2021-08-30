@@ -47,9 +47,9 @@ function Content() {
                             <div className="message-top">
                                 <p className="message-username">jeremeyblanks19</p>
                                 <p className="message-times">
-                                    <span className="message-timestamp">12:12 PM</span>
+                                    <span>12:12 PM</span>
                                     &nbsp;•&nbsp;
-                                    <span className="message-timeago">2 hours ago</span>
+                                    <span>2 hours ago</span>
                                 </p>
                             </div>
                             <div className="message-content">

@@ -123,6 +123,7 @@ main {
 
 .message-top {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .message-top p {
@@ -130,12 +131,16 @@ main {
 }
 
 .message-username {
+    margin-right: 10px !important;
     color: var(--shaded-color-6)
 }
 
 .message-times {
-    margin-left: 10px !important;
     color: var(--shaded-color-5);
+}
+
+.message-times span {
+    white-space: nowrap;
 }
 
 .message-content {
