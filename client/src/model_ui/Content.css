@@ -1,0 +1,49 @@
+/* content container */
+
+main {
+    width: calc(100vw - 310px);
+    height: 100%;
+    background-color: var(--shaded-color-4);
+}
+
+/* content banner */
+
+#content-banner {
+    width: 100%;
+    height: var(--banner-height);
+    box-shadow: 0 3px 2px -1px var(--shaded-color-0);
+    display: flex;
+    align-items: center;
+    color: #fff;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
+#content-banner > * {
+    padding-left: 12px;
+}
+
+#channel-type-icon {
+    color: var(--shaded-color-3);
+    font-weight: 500;
+    font-size: 28px;
+}
+
+#channel-name {
+    font-size: 18px;
+}
+
+#channel-description {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--shaded-color-5);
+}
+
+/* content (messages) */
+
+/* content input */

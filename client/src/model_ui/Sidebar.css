@@ -1,0 +1,176 @@
+aside {
+    width: 310px;
+    height: 100%;
+    background-color: var(--shaded-color-0);
+    display: flex;
+    flex-direction: row;
+}
+
+/* server list */
+
+#server-list {
+    width: 60px;
+    height: 100%;
+    background-color: var(--shaded-color-0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
+#server-list a {
+    width: 45px;
+    height: 45px;
+    margin-top: 8px;
+}
+
+#server-list img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#eridium-logo {
+    margin-top: 8px;
+    border-bottom: 1px solid var(--shaded-color-6);
+    padding-bottom: 4px;
+}
+
+/* content list */
+
+#content-list {
+    width: 250px;
+    height: 100%;
+    background-color: var(--shaded-color-2);
+}
+
+/* banner */
+
+#server-banner {
+    width: 100%;
+    height: var(--banner-height);
+    color: #fff;
+    box-shadow: 0 3px 2px -1px var(--shaded-color-0);
+    display: flex;
+    align-items: center;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
+#server-banner:hover {
+    background-color: var(--shaded-color-3a);
+    cursor: pointer;
+}
+
+#server-banner p {
+    width: 200px;
+    font-size: 18px;
+    padding-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#server-banner span {
+    margin-right: 8px;
+}
+
+/* content channels */
+
+.content-category {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.category-name {
+    padding-left: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.category-name p {
+    padding-left: 5px;
+}
+
+.category-channel {
+    height: 30px;
+    /* margin-top: 2px; */
+    color: var(--shaded-color-5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#text-channels .category-channel {
+    padding-left: 19px;
+}
+
+#voice-channels .category-channel {
+    padding-left: 15px;
+}
+
+#direct-message-channels .category-channel {
+    padding-left: 18px;
+}
+
+#text-channels .category-channel p {
+    margin-left: 6px;
+}
+
+#voice-channels .category-channel p {
+    margin-left: 13px;
+}
+
+#direct-message-channels .category-channel p {
+    margin-left: 14px;
+}
+
+.category-channel:hover {
+    color: var(--shaded-color-6);
+    background-color: var(--shaded-color-3a);
+    cursor: pointer;
+}
+
+.category-channel p {
+    font-weight: bold;
+}
+
+#active-channel {
+    color: var(--shaded-color-6);
+    background-color: var(--primary-color);
+}
+
+.text-channel-prefix {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.category-channel img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* current logged in user information */
+
+#current-user {
+    height: 45px;
+    background-color: var(--shaded-color-1);
+    position: fixed;
+    bottom: 0;
+}
