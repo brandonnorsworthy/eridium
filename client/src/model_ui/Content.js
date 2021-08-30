@@ -13,18 +13,6 @@ function Content() {
             </div>
             <div id="main-content">
                 <ul>
-                    <li className="no-select" id="input-container">
-                        <textarea placeholder="message in"></textarea>
-                        <div id="selectables">
-                            <div><b>B</b></div>
-                            <div><i>I</i></div>
-                            <div><u>U</u></div>
-                            <div><s>S</s></div>
-                            <div>{"</>"}</div>
-                            <div><span class="material-icons">link</span></div>
-                            <div><span class="material-icons">attach_file</span></div>
-                        </div>
-                    </li>
                     <li className="message-container">
                         <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
@@ -155,6 +143,18 @@ function Content() {
                         </div>
                     </li>
                 </ul>
+                <div className="no-select" id="input-container" >
+                    <textarea placeholder="message in"></textarea>
+                    <div id="selectables">
+                        <div><b>B</b></div>
+                        <div><i>I</i></div>
+                        <div><u>U</u></div>
+                        <div><s>S</s></div>
+                        <div>{"</>"}</div>
+                        <div><span class="material-icons">link</span></div>
+                        <div><span class="material-icons">attach_file</span></div>
+                    </div>
+                </div>
             </div>
         </main>
     )
