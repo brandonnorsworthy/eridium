@@ -1,4 +1,3 @@
-import { Divider } from '@material-ui/core'
 import React from 'react'
 import './Sidebar.css'
 
@@ -116,6 +115,9 @@ function Sidebar() {
                         <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
                         <p>erinlim2001</p>
                     </div>
+                </div>
+                <div id="current-user">
+
                 </div>
             </nav>
         </aside>

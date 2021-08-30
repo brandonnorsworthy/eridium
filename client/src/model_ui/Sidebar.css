@@ -165,3 +165,12 @@ aside {
     object-fit: cover;
     border-radius: 2px;
 }
+
+/* current logged in user information */
+
+#current-user {
+    height: 45px;
+    background-color: var(--shaded-color-1);
+    position: fixed;
+    bottom: 0;
+}
