@@ -4,10 +4,12 @@ import './Content.css'
 function Content() {
     return (
         <main>
-            <div className="no-select" id="content-banner">
-                <span id="channel-type-icon">#</span>
+            <div id="content-banner">
+                <span className="no-select" id="channel-type-icon">#</span>
                 <p id="channel-name">random-yt-vids</p>
                 <span id="channel-description">post entertaining youtube videos here that arnt actually trash</span>
+                <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://github.com/brandonnorsworthy/eridium">GitHub</a>
+                <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13">Figma</a>
             </div>
             <div id="main-content">
                 <ul>
@@ -24,7 +26,7 @@ function Content() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">brandon1111</p>
@@ -40,7 +42,7 @@ function Content() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">jeremeyblanks19</p>
@@ -56,10 +58,10 @@ function Content() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
-                                <p className="message-username">brandon1111</p>
+                                <p className="message-username">guiro33</p>
                                 <p className="message-times">
                                     <span className="message-timestamp">1:12 AM</span>
                                     &nbsp;•&nbsp;
@@ -67,7 +69,8 @@ function Content() {
                                 </p>
                             </div>
                             <div className="message-content">
-                                <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p>
+                                <p><span className="image-name">greatatdownloadingimages(3).png</span></p>
+                                <img src="https://via.placeholder.com/477x207" alt="user uploaded"></img>
                             </div>
                         </div>
                     </li>
