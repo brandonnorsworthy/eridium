@@ -230,7 +230,7 @@ function Content() {
                     </li>
                 </ul>
                 <div className="no-select" id="input-container" >
-                    <textarea placeholder="message in"></textarea>
+                    <textarea placeholder="message in #random-yt-vids"></textarea>
                     <div id="selectables">
                         <div><b>B</b></div>
                         <div><i>I</i></div>

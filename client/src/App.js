@@ -1,7 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Sidebar from './model_ui/Sidebar'
-import Content from './model_ui/Content'
+import Sidebar from './components/Sidebar'
+import Content from './components/Content'
+import DemoSidebar from './demo/Sidebar'
+import DemoContent from './demo/Content'
 
 function App() {
   return (
@@ -14,9 +16,9 @@ function App() {
           </Route>
           <Route path="/login">
           </Route>
-          <Route path="/demo">
-            <Sidebar />
-            <Content />
+          <Route path="/template">
+            <DemoSidebar />
+            <DemoContent />
           </Route>
         </Switch>
       </Router>
