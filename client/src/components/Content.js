@@ -1,6 +1,5 @@
 import React from 'react'
 import './Content.css'
-// import io from '/socket.io/socket.io.js'
 
 function Content() {
     return (
