@@ -47,9 +47,14 @@ function DemoSidebar() {
 
     function newActiveChannel(e) {
         /* if clicked channel is already active do nothing */
-        if (!(e.target.id === 'active')) {
+        let target = e.target
+        if (!(target.id === 'active')) {
+            if (!(target.tagName === 'DIV')) {
+                target = target.parentElement
+            }
+
             document.getElementById('active-channel').removeAttribute('id');
-            e.target.setAttribute('id', 'active-channel');
+            target.setAttribute('id', 'active-channel');
         }
     }
 
