@@ -16,7 +16,7 @@ function Content() {
                 <ul>
                     {/* TODO loop over li tags to generate messages !!!!!ADD MOST RECENT TO BOTTOM */}
                     <li className="message-container">
-                        <img class="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
+                        <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">{/* TODO message author username */}username</p>
@@ -37,7 +37,7 @@ function Content() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">{/* TODO message author username */}username</p>
@@ -62,8 +62,8 @@ function Content() {
                         <div><u>U</u></div>
                         <div><s>S</s></div>
                         <div>{"</>"}</div>
-                        <div><span class="material-icons">link</span></div>
-                        <div><span class="material-icons">attach_file</span></div>
+                        <div><span className="material-icons">link</span></div>
+                        <div><span className="material-icons">attach_file</span></div>
                     </div>
                 </div>
             </div>
