@@ -37,6 +37,7 @@ const typeDefs = gql`
     me: User
     server: [Server]
     server_messages(_id: ID!): Server
+    user_messages(_id: ID!): User
   }
 
   type Mutation {
