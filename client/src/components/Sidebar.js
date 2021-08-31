@@ -2,6 +2,14 @@ import React from 'react'
 import './Sidebar.css'
 
 function Sidebar() {
+    function displayServerBanner() {
+        document.getElementById("server-banner-dropdown").style.display = "flex"
+    }
+
+    function hideServerBanner() {
+        document.getElementById("server-banner-dropdown").style.display = "none"
+    }
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -14,9 +22,17 @@ function Sidebar() {
                 </a>
             </nav>
             <nav id="content-list">
-                <div className="no-select" id="server-banner">
-                    <p><b>{/* TODO current server name */"current server name"}</b></p>
-                    <span className="material-icons">expand_more</span>
+                <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
+                    <div id="server-banner-button" onClick={displayServerBanner}>
+                        <p><b>{/* TODO current server name */"current server name"}</b></p>
+                        <span className="material-icons">expand_more</span>
+                    </div>
+                    <div id="server-banner-dropdown">
+                        <button>Edit Server</button>
+                        <button>Create Invite</button>
+                        <hr></hr>
+                        <button class="warning">Leave Server</button>
+                    </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
@@ -24,7 +40,7 @@ function Sidebar() {
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>TEXT CHANNELS</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         {/* TODO loop the div below to create the text channels */}
                         <div className="category-channel">
@@ -33,11 +49,11 @@ function Sidebar() {
                         </div>
                     </div>
                     {/* commented out voice channels until implemented */}
-                    <div style={{display:"none"}} className="content-category" id="voice-channels">
+                    <div style={{ display: "none" }} className="content-category" id="voice-channels">
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>VOICE CHANNELS</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         {/* TODO loop the div below to generate the voice channels */}
                         <div className="category-channel">
@@ -49,7 +65,7 @@ function Sidebar() {
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>DIRECT MESSAGES</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         {/* TODO loop over the div below to generate the direct message channels */}
                         <div className="category-channel">

@@ -14,7 +14,7 @@ function DemoContent() {
             <div id="main-content">
                 <ul>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">brandon1111</p>
@@ -30,7 +30,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">jeremeyblanks19</p>
@@ -46,7 +46,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">guiro33</p>
@@ -63,7 +63,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Default</p>
@@ -80,7 +80,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">ROOL</p>
@@ -97,7 +97,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Default</p>
@@ -113,7 +113,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">ROOL</p>
@@ -129,7 +129,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Default</p>
@@ -147,7 +147,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Kaomie</p>
@@ -164,7 +164,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">ROOL</p>
@@ -180,7 +180,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Default</p>
@@ -196,7 +196,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">ROOL</p>
@@ -212,7 +212,7 @@ function DemoContent() {
                         </div>
                     </li>
                     <li className="message-container">
-                        <img class="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
+                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
                         <div>
                             <div className="message-top">
                                 <p className="message-username">Kaomie</p>
@@ -237,8 +237,8 @@ function DemoContent() {
                         <div><u>U</u></div>
                         <div><s>S</s></div>
                         <div>{"</>"}</div>
-                        <div><span class="material-icons">link</span></div>
-                        <div><span class="material-icons">attach_file</span></div>
+                        <div><span className="material-icons">link</span></div>
+                        <div><span className="material-icons">attach_file</span></div>
                     </div>
                 </div>
             </div>

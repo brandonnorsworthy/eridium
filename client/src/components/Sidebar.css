@@ -26,7 +26,7 @@ aside {
     padding: 1px;
 }
 
-#server-list a:hover{
+#server-list a:hover {
     border-color: var(--shaded-color-5);
 }
 
@@ -63,13 +63,21 @@ aside {
     height: var(--banner-height);
     color: #fff;
     box-shadow: 0 3px 2px -1px var(--shaded-color-0);
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
 #server-banner:hover {
     background-color: var(--shaded-color-3a);
     cursor: pointer;
+}
+
+#server-banner-button {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 #server-banner p {
@@ -85,13 +93,70 @@ aside {
     margin-right: 8px;
 }
 
+#server-banner-dropdown {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    width: 90%;
+    border-radius: 5px;
+    margin-top: var(--banner-height);
+    padding: calc(0.05 * (250px / 2));
+    background-color: var(--shaded-color-1a);
+}
+
+#server-banner-dropdown>button {
+    width: 100%;
+    height: var(--banner-height);
+    color: var(--shaded-color-6);
+    background-color: var(--shaded-color-1a);
+    border: none;
+    border-radius: 5px;
+    margin: 0px;
+    padding-left: 8px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#server-banner-dropdown>hr {
+    width: 95%;
+    height: 1px;
+    margin: 8px 0px;
+    border: none;
+    border-radius: 0;
+    background-color: var(--shaded-color-6);
+}
+
+#server-banner-dropdown>button:first-child {
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+}
+
+#server-banner-dropdown>button:last-child {
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    color: var(--warning-color);
+}
+
+#server-banner-dropdown>button:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+#server-banner-dropdown>button:last-child:hover {
+    color: var(--shaded-color-6);
+    background-color: var(--warning-color);
+}
+
 /* content channels */
 
 #content-categories {
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scrollbar-color: var(--shaded-color-0) rgba(255,255,255,0);
+    scrollbar-color: var(--shaded-color-0) rgba(255, 255, 255, 0);
     height: calc(100vh - 45px - var(--banner-height));
 }
 
@@ -211,11 +276,11 @@ aside {
     padding: 0px 10px;
 }
 
-#current-user > * {
+#current-user>* {
     margin-left: 10px;
 }
 
-#current-user > *:first-child {
+#current-user>*:first-child {
     margin-left: 0px;
 }
 

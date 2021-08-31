@@ -32,7 +32,7 @@ function DemoSidebar() {
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>TEXT CHANNELS</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         <div className="category-channel">
                             <span className="text-channel-prefix">#</span>
@@ -67,7 +67,7 @@ function DemoSidebar() {
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>VOICE CHANNELS</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
@@ -98,7 +98,7 @@ function DemoSidebar() {
                         <div className="category-name">
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>DIRECT MESSAGES</p>
-                            <span class="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon">add</span>
                         </div>
                         <div className="category-channel">
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
