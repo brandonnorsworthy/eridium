@@ -58,7 +58,6 @@ function DemoSidebar() {
         }
     }
 
-
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -93,7 +92,7 @@ function DemoSidebar() {
                 {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
                     <div className="content-category" id="text-channels">
-                        <div className="category-name" onClick={hideChannels} data-hidden="false">
+                        <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>TEXT CHANNELS</p>
                             <span className="material-icons add-channel-icon">add</span>
@@ -128,7 +127,7 @@ function DemoSidebar() {
                         </div>
                     </div>
                     <div className="content-category" id="voice-channels">
-                        <div className="category-name" onClick={hideChannels} data-hidden="false">
+                        <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>VOICE CHANNELS</p>
                             <span className="material-icons add-channel-icon">add</span>
@@ -159,7 +158,7 @@ function DemoSidebar() {
                         </div>
                     </div>
                     <div className="content-category" id="direct-message-channels">
-                        <div className="category-name" onClick={hideChannels} data-hidden="false">
+                        <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>DIRECT MESSAGES</p>
                             <span className="material-icons add-channel-icon">add</span>
