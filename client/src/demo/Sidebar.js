@@ -2,6 +2,14 @@ import React from 'react'
 import './../components/Sidebar.css'
 
 function DemoSidebar() {
+    function displayServerBanner() {
+        document.getElementById("server-banner-dropdown").style.display = "flex"
+    }
+
+    function hideServerBanner() {
+        document.getElementById("server-banner-dropdown").style.display = "none"
+    }
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -21,10 +29,17 @@ function DemoSidebar() {
 
             </nav>
             <nav id="content-list">
-                <div className="no-select" id="server-banner">
-                    {/* TODO prevent this from possible overflow when servername is long */}
-                    <p><b>the eridium server for the cool people of earth</b></p>
-                    <span className="material-icons">expand_more</span>
+            <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
+                    <div id="server-banner-button" onClick={displayServerBanner}>
+                        <p><b>{/* TODO current server name */"the eridium server for the cool people of earth"}</b></p>
+                        <span className="material-icons">expand_more</span>
+                    </div>
+                    <div id="server-banner-dropdown">
+                        <button>Edit Server</button>
+                        <button>Create Invite</button>
+                        <hr></hr>
+                        <button class="warning">Leave Server</button>
+                    </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">

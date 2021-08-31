@@ -71,13 +71,16 @@ aside {
 
 #server-banner:hover {
     background-color: var(--shaded-color-3a);
-    cursor: pointer;
 }
 
 #server-banner-button {
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+#server-banner-button:hover {
+    cursor: pointer;
 }
 
 #server-banner p {
