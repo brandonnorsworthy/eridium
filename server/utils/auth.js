@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const secret = 'mysecretssshhhhhhh';
-const expiration = '24h';
+const expiration = '2h';
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -14,7 +14,7 @@ module.exports = {
     if (!token) {
       return req;
     }
-
+    console.log(token);
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;

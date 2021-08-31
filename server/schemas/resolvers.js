@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Message, Server } = require('../models');
-const { signToken } = require('../utils/auth');
+const { signToken, authMiddleware } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -12,6 +12,12 @@ const resolvers = {
     },
     server_messages: async (server_id) => {
         return Server.findOne({_id: server_id}).populate('messages');
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Profile.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 
@@ -36,18 +42,19 @@ const resolvers = {
 
       const token = signToken(user);
 
+      console.log(token);
       return { token, user };
     },
-    addMessage: async (parent, { messageText }, context) => {
-      if (context.user) {
+    addMessage: async (parent, { message_body }, context) => {
+        if (context.user) {
         const message = await Message.create({
-          messageText,
-          messageAuthor: context.user.username,
+          message_body: message_body,
+          message_author: context.user.username,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { messages: thought._id } }
+          { $addToSet: { messages: message._id } }
         );
 
         return message;
