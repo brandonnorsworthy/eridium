@@ -37,13 +37,15 @@ const typeDefs = gql`
     me: User
     server: [Server]
     server_messages(_id: ID!): Server
+    user_messages(_id: ID!): User
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!):Auth
     login(email: String!, password: String!): Auth
     addMessage(message_body: String!): Message
-    removeMessage(_id: ID!): Message
+    deleteMessage(messageId: ID!): Message
+    addServer(server_name: String!): Server
   }
 `;
 
