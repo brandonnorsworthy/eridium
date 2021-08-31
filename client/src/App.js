@@ -4,6 +4,8 @@ import Sidebar from './components/Sidebar'
 import Content from './components/Content'
 import DemoSidebar from './demo/Sidebar'
 import DemoContent from './demo/Content'
+import Login from './components/Login'
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/login">
+            <Login />
           </Route>
           <Route path="/demo">
             <DemoSidebar />
