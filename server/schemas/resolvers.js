@@ -115,6 +115,10 @@ const resolvers = {
         },
 
         // Add server
+        addServer: async (parent, { server_name }) => {
+            const server = await Server.create({ server_name });
+            return { server };
+        },
     }
 };
 

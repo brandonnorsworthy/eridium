@@ -45,6 +45,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addMessage(message_body: String!): Message
     deleteMessage(messageId: ID!): Message
+    addServer(server_name: String!): Server
   }
 `;
 
