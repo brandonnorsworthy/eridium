@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Content.css'
+import io from 'socket.io-client';
 
 function Content() {
+    useEffect(() => {    // Update the document title using the browser API    document.title = `You clicked ${count} times`;  });
+        var socket = io();
+    });
+
     return (
         <main>
             <div id="content-banner">
