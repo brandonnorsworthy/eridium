@@ -20,12 +20,24 @@ function Sidebar() {
                 target = target.parentElement
             }
 
-            if (target.nextSibling.style.display === 'none') {
+            let nextSibling = target.nextElementSibling;
+
+            if (target.dataset.hidden === 'true') {
+                target.dataset.hidden = 'false'
                 target.firstChild.textContent = 'expand_more'
-                target.nextSibling.style.display = 'block'
+
+                while (nextSibling) {
+                    nextSibling.style.display = 'flex'
+                    nextSibling = nextSibling.nextElementSibling;
+                }
             } else {
+                target.dataset.hidden = 'true'
                 target.firstChild.textContent = 'chevron_right'
-                target.nextSibling.style.display = 'none'
+
+                while (nextSibling) {
+                    nextSibling.style.display = 'none'
+                    nextSibling = nextSibling.nextElementSibling;
+                }
             }
         }
         return

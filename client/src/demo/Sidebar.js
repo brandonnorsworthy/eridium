@@ -25,7 +25,9 @@ function DemoSidebar() {
                 target.firstChild.textContent = 'expand_more'
 
                 while (nextSibling) {
-                    nextSibling.style.display = 'flex'
+                    if (!(nextSibling.id === 'active-channel')) {
+                        nextSibling.style.display = 'flex'
+                    }
                     nextSibling = nextSibling.nextElementSibling;
                 }
             } else {
@@ -33,7 +35,9 @@ function DemoSidebar() {
                 target.firstChild.textContent = 'chevron_right'
 
                 while (nextSibling) {
-                    nextSibling.style.display = 'none'
+                    if (!(nextSibling.id === 'active-channel')) {
+                        nextSibling.style.display = 'none'
+                    }
                     nextSibling = nextSibling.nextElementSibling;
                 }
             }
@@ -89,31 +93,31 @@ function DemoSidebar() {
                             <p>TEXT CHANNELS</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>general</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>coding-chat</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>late-night-chitchat-for-the-elite-personell</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>spoonkid-gaming</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>counting</p>
                         </div>
-                        <div className="category-channel" id="active-channel">
+                        <div className="category-channel" onClick={newActiveChannel} id="active-channel">
                             <span className="text-channel-prefix">#</span>
                             <p>random-yt-vids</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>api-stuff</p>
                         </div>
@@ -155,23 +159,23 @@ function DemoSidebar() {
                             <p>DIRECT MESSAGES</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
                             <p>brandon111</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/44x150" alt="user profile"></img>
                             <p>guiro33</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/10x150" alt="user profile"></img>
                             <p>andrewsupersaur</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/1450x150" alt="user profile"></img>
                             <p>mguppy</p>
                         </div>
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/50x55" alt="user profile"></img>
                             <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
