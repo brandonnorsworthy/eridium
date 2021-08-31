@@ -29,7 +29,6 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
       }
@@ -41,8 +40,6 @@ const resolvers = {
       }
 
       const token = signToken(user);
-
-      console.log(token);
       return { token, user };
     },
     addMessage: async (parent, { message_body }, context) => {
