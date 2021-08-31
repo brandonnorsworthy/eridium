@@ -31,6 +31,14 @@ function Sidebar() {
         return
     }
 
+    function newActiveChannel(e) {
+        /* if clicked channel is already active do nothing */
+        if (!(e.target.id === 'active')) {
+            document.getElementById('active-channel').removeAttribute('id');
+            e.target.setAttribute('id','active-channel');
+        }
+    }
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -64,7 +72,7 @@ function Sidebar() {
                     </div>
                     <div className="content-category" id="text-channels">
                         {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel">
+                        <div className="category-channel" id="active-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>{/* TODO text channel name */"channel name here"}</p>
                         </div>
@@ -77,7 +85,7 @@ function Sidebar() {
                     </div>
                     <div style={{ display: "none" }} className="content-category" id="voice-channels">
                         {/* TODO loop the div below to generate the voice channels */}
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <span className="material-icons voice-channel-prefix">volume_down</span>
                             <p>{/* TODO voice channel name */"voice channel name"}</p>
                         </div>
@@ -89,7 +97,7 @@ function Sidebar() {
                     </div>
                     <div className="content-category" id="direct-message-channels">
                         {/* TODO loop over the div below to generate the direct message channels */}
-                        <div className="category-channel">
+                        <div className="category-channel" onClick={newActiveChannel}>
                             <img className="direct-message-channel-prefix" src={/* TODO other users profile pic */"https://via.placeholder.com/20x20"} alt="user profile"></img>
                             <p>{/* TODO other users username */"users username here"}</p>
                         </div>
