@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Message, Server } = require('../models');
-const { signToken, authMiddleware } = require('../utils/auth');
+const { signToken} = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -48,7 +48,7 @@ const resolvers = {
         },
         // Send message on server and to one user
         addMessage: async (parent, { message_body }, context) => {
-            if (context.user) {
+            // if (context.user) {
                 const message = await Message.create({
                     message_body: message_body,
                     message_author: context.user.username,
@@ -65,15 +65,16 @@ const resolvers = {
                 );
 
                 return message;
-            }
+            // }
             throw new AuthenticationError('You need to be logged in!');
         },
-        // Send a message to one user
-
         // Edit a message sent on server
+
         // Edit a message sent to one user
         // Delete a message sent on server
         // Delete a message sent to one user
+
+        // Add server
 
         //     addComment: async (parent, { thoughtId, commentText }, context) => {
         //       if (context.user) {
