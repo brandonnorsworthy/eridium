@@ -4,6 +4,7 @@ const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
+const { Server } = require("socket.io");
 
 const db = require('./config/connection');
 
@@ -14,6 +15,18 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
+});
+
+const io = new Server(server);
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+  });
 });
 
 server.applyMiddleware({ app });
