@@ -68,65 +68,53 @@ const resolvers = {
             // }
             throw new AuthenticationError('You need to be logged in!');
         },
-        // Edit a message sent on server
-
-        // Edit a message sent to one user
-        // Delete a message sent on server
-        // Delete a message sent to one user
-
-        // Add server
-
-        //     addComment: async (parent, { thoughtId, commentText }, context) => {
-        //       if (context.user) {
-        //         return Thought.findOneAndUpdate(
-        //           { _id: thoughtId },
-        //           {
-        //             $addToSet: {
-        //               comments: { commentText, commentAuthor: context.user.username },
-        //             },
-        //           },
-        //           {
-        //             new: true,
-        //             runValidators: true,
-        //           }
-        //         );
-        //       }
-        //       throw new AuthenticationError('You need to be logged in!');
-        //     },
-        //     removeThought: async (parent, { thoughtId }, context) => {
-        //       if (context.user) {
-        //         const thought = await Thought.findOneAndDelete({
-        //           _id: thoughtId,
-        //           thoughtAuthor: context.user.username,
+        // Edit a message sent on server or to a user
+        // editMessage: async (parent, { message_body }, context) => {
+        //     // if (context.user) {
+        //         const message = await Message.create({
+        //             message_body: message_body,
+        //             message_author: context.user.username,
         //         });
 
         //         await User.findOneAndUpdate(
-        //           { _id: context.user._id },
-        //           { $pull: { thoughts: thought._id } }
+        //             { _id: context.user._id },
+        //             { $addToSet: { messages: message._id } }
         //         );
 
-        //         return thought;
-        //       }
-        //       throw new AuthenticationError('You need to be logged in!');
-        //     },
-        //     removeComment: async (parent, { thoughtId, commentId }, context) => {
-        //       if (context.user) {
-        //         return Thought.findOneAndUpdate(
-        //           { _id: thoughtId },
-        //           {
-        //             $pull: {
-        //               comments: {
-        //                 _id: commentId,
-        //                 commentAuthor: context.user.username,
-        //               },
-        //             },
-        //           },
-        //           { new: true }
+        //         await Server.findOneAndUpdate(
+        //             { _id: context.server._id },
+        //             { $addToSet: { messages: message._id } }
         //         );
-        //       }
-        //       throw new AuthenticationError('You need to be logged in!');
-        //     },
-        //   },
+
+        //         return message;
+        //     // }
+        //     throw new AuthenticationError('You need to be logged in!');
+        // },
+        
+        // Delete a message sent on server or to a user
+        deleteMessage: async (parent, { messageId }, context) => {
+            // if (context.user) {
+                const message = await Message.findOneAndDelete({
+                    _id: messageId,
+                    message_author: context.user.username,
+                });
+
+                await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { messages: message._id } }
+                );
+
+                await Server.findOneAndUpdate(
+                    { _id: context.server._id },
+                    { $pull: { messages: message._id } }
+                );
+
+                return message;
+            // }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+
+        // Add server
     }
 };
 
