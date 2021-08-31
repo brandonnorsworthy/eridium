@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Message, Server } = require('../models');
-const { signToken } = require('../utils/auth');
+const { signToken, authMiddleware } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -10,11 +10,14 @@ const resolvers = {
     server: async () => {
         return Server.find()
     },
-    // messages: async () => {
-        
-    // },
     server_messages: async (server_id) => {
         return Server.findOne({_id: server_id}).populate('messages');
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Profile.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 
@@ -26,7 +29,6 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
       }
@@ -38,25 +40,24 @@ const resolvers = {
       }
 
       const token = signToken(user);
-
       return { token, user };
     },
-//     addThought: async (parent, { thoughtText }, context) => {
-//       if (context.user) {
-//         const thought = await Thought.create({
-//           thoughtText,
-//           thoughtAuthor: context.user.username,
-//         });
+    addMessage: async (parent, { message_body }, context) => {
+        if (context.user) {
+        const message = await Message.create({
+          message_body: message_body,
+          message_author: context.user.username,
+        });
 
-//         await User.findOneAndUpdate(
-//           { _id: context.user._id },
-//           { $addToSet: { thoughts: thought._id } }
-//         );
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { messages: message._id } }
+        );
 
-//         return thought;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     },
+        return message;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
 //     addComment: async (parent, { thoughtId, commentText }, context) => {
 //       if (context.user) {
 //         return Thought.findOneAndUpdate(
