@@ -10,6 +10,25 @@ function DemoSidebar() {
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
+    function hideChannels(e) {
+        /* if they clicked the add a new channel button immediately stop */
+        let target = e.target
+        if (!(target.textContent === 'add')) {
+            if (!(target.tagName === 'DIV')) {
+                target = target.parentElement
+            }
+
+            if (target.nextSibling.style.display === 'none') {
+                target.firstChild.textContent = 'expand_more'
+                target.nextSibling.style.display = 'block'
+            } else {
+                target.firstChild.textContent = 'chevron_right'
+                target.nextSibling.style.display = 'none'
+            }
+        }
+        return
+    }
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -29,7 +48,7 @@ function DemoSidebar() {
 
             </nav>
             <nav id="content-list">
-            <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
+                <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
                     <div id="server-banner-button" onClick={displayServerBanner}>
                         <p><b>{/* TODO current server name */"the eridium server for the cool people of earth"}</b></p>
                         <span className="material-icons">expand_more</span>
@@ -38,17 +57,17 @@ function DemoSidebar() {
                         <button>Edit Server</button>
                         <button>Create Invite</button>
                         <hr></hr>
-                        <button class="warning">Leave Server</button>
+                        <button className="warning">Leave Server</button>
                     </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
+                    <div className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>TEXT CHANNELS</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div className="content-category" id="text-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>TEXT CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         <div className="category-channel">
                             <span className="text-channel-prefix">#</span>
                             <p>general</p>
@@ -78,12 +97,12 @@ function DemoSidebar() {
                             <p>api-stuff</p>
                         </div>
                     </div>
+                    <div className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>VOICE CHANNELS</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div className="content-category" id="voice-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>VOICE CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
                             <p>lobby</p>
@@ -109,12 +128,12 @@ function DemoSidebar() {
                             <p>afk</p>
                         </div>
                     </div>
+                    <div className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>DIRECT MESSAGES</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div className="content-category" id="direct-message-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>DIRECT MESSAGES</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         <div className="category-channel">
                             <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
                             <p>brandon111</p>

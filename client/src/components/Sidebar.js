@@ -2,12 +2,33 @@ import React from 'react'
 import './Sidebar.css'
 
 function Sidebar() {
-    function displayServerBanner() {
+    function displayServerBanner(e) {
+        /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
     }
 
-    function hideServerBanner() {
+    function hideServerBanner(e) {
+        /* BRANDON server banner replace icon when leave banner */
         document.getElementById("server-banner-dropdown").style.display = "none"
+    }
+
+    function hideChannels(e) {
+        /* if they clicked the add a new channel button immediately stop */
+        let target = e.target
+        if (!(target.textContent === 'add')) {
+            if (!(target.tagName === 'DIV')) {
+                target = target.parentElement
+            }
+
+            if (target.nextSibling.style.display === 'none') {
+                target.firstChild.textContent = 'expand_more'
+                target.nextSibling.style.display = 'block'
+            } else {
+                target.firstChild.textContent = 'chevron_right'
+                target.nextSibling.style.display = 'none'
+            }
+        }
+        return
     }
 
     return (
@@ -31,17 +52,17 @@ function Sidebar() {
                         <button>Edit Server</button>
                         <button>Create Invite</button>
                         <hr></hr>
-                        <button class="warning">Leave Server</button>
+                        <button className="warning">Leave Server</button>
                     </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
+                    <div className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>TEXT CHANNELS</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div className="content-category" id="text-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>TEXT CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         {/* TODO loop the div below to create the text channels */}
                         <div className="category-channel">
                             <span className="text-channel-prefix">#</span>
@@ -49,24 +70,24 @@ function Sidebar() {
                         </div>
                     </div>
                     {/* commented out voice channels until implemented */}
+                    <div style={{ display: "none" }} className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>VOICE CHANNELS</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div style={{ display: "none" }} className="content-category" id="voice-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>VOICE CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         {/* TODO loop the div below to generate the voice channels */}
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
                             <p>{/* TODO voice channel name */"voice channel name"}</p>
                         </div>
                     </div>
+                    <div className="category-name" onClick={hideChannels}>
+                        <span className="material-icons hide-category-icon">expand_more</span>
+                        <p>DIRECT MESSAGES</p>
+                        <span className="material-icons add-channel-icon">add</span>
+                    </div>
                     <div className="content-category" id="direct-message-channels">
-                        <div className="category-name">
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>DIRECT MESSAGES</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
                         {/* TODO loop over the div below to generate the direct message channels */}
                         <div className="category-channel">
                             <img className="direct-message-channel-prefix" src={/* TODO other users profile pic */"https://via.placeholder.com/20x20"} alt="user profile"></img>
