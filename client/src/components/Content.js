@@ -1,54 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom';
+import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
 import io from 'socket.io-client';
 
 let socket = null
+socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
 
 function Content() {
+    const [messages, setMessages] = React.useState([]);
+
     useEffect(() => {
-        socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
+        // console.log(messages)
+
+        // socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
         socket.on('chat message', function (msg) {
-            console.log(msg)
-            // var item = document.getElementById('message-list').createElement('li');
-            // item.textContent = msg;
+            setMessages([{ id: uuidv4(), message: msg }, ...messages]);
         });
     });
 
     function formSubmit(e) {
-        if (e.key === 'Enter' && e.target.value) {
+        if (e.key === 'Enter' && e.target.value.trim() !== '') {
             socket.emit('chat message', e.target.value.trim());
-            // console.log(e.target.value.trim())
             e.target.value = '';
-
-            //spawn the message
-            // document.getElementById('message-list').appendChild(createMessage(e.target.value))
         }
-    }
-
-
-
-    function createMessage(message) {
-        return (
-            <li className="message-container">
-                <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
-                <div>
-                    <div className="message-top">
-                        <p className="message-username">{/* TODO message author username */}username</p>
-                        <p className="message-times">
-                            <span className="message-timestamp">{/* TODO message timestamp */}11:12 AM</span>
-                            &nbsp;•&nbsp;
-                            <span className="message-timeago">{/* TODO how long ago message occured */}3 hours ago</span>
-                        </p>
-                    </div>
-                    <div className="message-content">
-                        {/* example of @message */}
-                        {/* <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p> */}
-                        <p>
-                            {message}
-                        </p>
-                    </div>
-                </div>
-            </li>)
     }
 
     return (
@@ -64,44 +39,30 @@ function Content() {
             <div id="main-content">
                 <ul id="message-list">
                     {/* TODO loop over li tags to generate messages !!!!!ADD MOST RECENT TO BOTTOM */}
-                    <li className="message-container">
-                        <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
-                        <div>
-                            <div className="message-top">
-                                <p className="message-username">{/* TODO message author username */}username</p>
-                                <p className="message-times">
-                                    <span className="message-timestamp">{/* TODO message timestamp */}11:12 AM</span>
-                                    &nbsp;•&nbsp;
-                                    <span className="message-timeago">{/* TODO how long ago message occured */}3 hours ago</span>
-                                </p>
-                            </div>
-                            <div className="message-content">
-                                {/* example of @message */}
-                                {/* <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p> */}
-                                <p>{/* TODO users message */}Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet repellat pariatur quae obcaecati tempora doloribus vel perferendis voluptatem illum, neque saepe tenetur? Fuga ipsum, tenetur illo temporibus vero quod labore?
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet repellat pariatur quae obcaecati tempora doloribus vel perferendis voluptatem illum, neque saepe tenetur? Fuga ipsum, tenetur illo temporibus vero quod labore?
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet repellat pariatur quae obcaecati tempora doloribus vel perferendis voluptatem illum, neque saepe tenetur? Fuga ipsum, tenetur illo temporibus vero quod labore?
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="message-container">
-                        <img className="message-profile-pic" src="https://via.placeholder.com/150x150" alt="profile"></img>
-                        <div>
-                            <div className="message-top">
-                                <p className="message-username">{/* TODO message author username */}username</p>
-                                <p className="message-times">
-                                    <span className="message-timestamp">{/* TODO message timestamp */}08/15/2021</span>
-                                    &nbsp;•&nbsp;
-                                    <span className="message-timeago">{/* TODO how long ago message occured */}3 days ago</span>
-                                </p>
-                            </div>
-                            <div className="message-content">
-                                <p><span className="image-name">{/* TODO image file name shows here */"downloadedimage(3).png"}</span></p>
-                                <img src={/* TODO uploaded attachment url */"https://via.placeholder.com/500x200"} alt="user uploaded"></img>
-                            </div>
-                        </div>
-                    </li>
+                    {
+                        messages.map((message) => (
+                            <li key={message.id} className="message-container">
+                                <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
+                                <div>
+                                    <div className="message-top">
+                                        <p className="message-username">{/* TODO message author username */}username</p>
+                                        <p className="message-times">
+                                            <span className="message-timestamp">{/* TODO message timestamp */}11:12 AM</span>
+                                            &nbsp;•&nbsp;
+                                            <span className="message-timeago">{/* TODO how long ago message occured */}3 hours ago</span>
+                                        </p>
+                                    </div>
+                                    <div className="message-content">
+                                        {/* example of @message */}
+                                        {/* <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p> */}
+                                        <p>
+                                            {message.message}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <div className="no-select" id="input-container" >
                     <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
