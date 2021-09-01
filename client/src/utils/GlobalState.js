@@ -6,8 +6,8 @@ const { Provider } = StoreContext;
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useProductReducer({
-    messages: [],
-    loggedIn: false,
+    isLoggedIn: false,
+    messages: []
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
