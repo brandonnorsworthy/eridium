@@ -7,7 +7,8 @@ const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 
 const db = require('./config/connection');
-const PORT = process.env.PORT || 3001;
+const APOLLOPORT = process.env.PORT || 3001;
+const SOCKETPORT = (parseInt(APOLLOPORT) + 10);
 const app = express();
 
 const apolloServer = new ApolloServer({
@@ -41,21 +42,28 @@ io.on('connection', (socket) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 } else {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', process.env.NODE_ENV)
+  app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
-app.get('*', (req, res) => {
+app.get('/api/port', (req, res) => {
+  console.log('user retrieving port from server', SOCKETPORT)
+  res.json({port: SOCKETPORT})
+})
+
+app.get('/', (req, res) => {
+  console.log('user getting index route')
   res.sendFile(path.join('index.html'));
 });
 
 db.once('open', () => {
-  console.log(PORT, typeof (PORT), PORT + 10, parseInt(PORT) + 10)
-  app.listen(PORT, () => {
-    console.log("[server]", `API server running on port ${PORT}!`);
-    console.log("[server]", `Use GraphQL at http://localhost:${PORT}${apolloServer.graphqlPath}`);
+  console.log(APOLLOPORT, typeof (APOLLOPORT), APOLLOPORT + 10, SOCKETPORT)
+  app.listen(APOLLOPORT, () => {
+    console.log("[server]", `API server running on port ${APOLLOPORT}!`);
+    console.log("[server]", `Use GraphQL at http://localhost:${APOLLOPORT}${apolloServer.graphqlPath}`);
   });
 
-  socketServer.listen(parseInt(PORT) + 10, () => {
-    console.log("[server]", 'socketIO Server running on port', parseInt(PORT) + 10)
+  socketServer.listen(SOCKETPORT, () => {
+    console.log("[server]", 'socketIO Server running on port', SOCKETPORT)
   })
 });
