@@ -1,11 +1,12 @@
-import React, { useState, useMutation } from 'react';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './Login.css'
 
-function Login() {
+function Login(props) {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const login = useMutation(LOGIN);
+    const [login] = useMutation(LOGIN);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -16,6 +17,7 @@ function Login() {
             const token = mutationResponse.data.login.token;
             Auth.login(token);
         } catch (e) {
+            console.log('u made it');
             console.log(e);
         }
     };
