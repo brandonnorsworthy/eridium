@@ -4,7 +4,7 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './Login.css'
 
-function Login(props) {
+function Login() {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login] = useMutation(LOGIN);
 
@@ -17,7 +17,6 @@ function Login(props) {
             const token = mutationResponse.data.login.token;
             Auth.login(token);
         } catch (e) {
-            console.log('u made it');
             console.log(e);
         }
     };
