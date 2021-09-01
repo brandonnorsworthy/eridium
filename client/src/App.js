@@ -12,6 +12,7 @@ import Content from './components/Content'
 import DemoSidebar from './demo/Sidebar'
 import DemoContent from './demo/Content'
 import Login from './components/Login'
+import Signup from './components/Signup'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,6 +43,9 @@ function App() {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
             </Route>
             <Route path="/demo">
               <DemoSidebar />
