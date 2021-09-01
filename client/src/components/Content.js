@@ -83,19 +83,23 @@ function Content() {
     )
 }
 
-function sleep(ms) {
+async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function askForPort() {
-    fetch('/api/port')
+    // let location = window.location.hostname + ':3001/api/port'
+    let location = '/api/port'
+    fetch(location)
         .then((data) => {
-            console.log(data)
+            console.log(data.port)
             setPortVariable(data.port)
         })
         .catch((err) => {
-            sleep(2000);
-            askForPort();
+            console.log(err)
+            sleep(1000).then(() => {
+                askForPort();
+            });
         })
 }
 
