@@ -5,7 +5,7 @@ import './Login.css'
 
 function Login() {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error }] = useMutation(LOGIN);
+    const login = useMutation(LOGIN);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -30,7 +30,7 @@ function Login() {
 
     return (
         <div className="form-content">
-            {/* <form className="form" onSubmit={handleFormSubmit}>
+            <form className="form" onSubmit={handleFormSubmit}>
                 <p>
                     Sign In
                 </p>
@@ -42,10 +42,9 @@ function Login() {
                         name="email"
                         className="form-input"
                         placeholder="Email"
-                        value={values.email}
+                        value={formState.email}
                         onChange={handleChange}
                     />
-                    {errors.email && <p>{errors.email}</p>}
                 </div>
                 <div className="form-inputs">
                     <label htmlFor="password" className="form-label">Password
@@ -55,10 +54,9 @@ function Login() {
                         name="password"
                         className="form-input"
                         placeholder="Password"
-                        value={values.password}
+                        value={formState.password}
                         onChange={handleChange}
                     />
-                    {errors.password && <p>{errors.password}</p>}
                 </div>
                 <span className="form-input-login">
                     Need an account? <br />Click here to <a href="?">Sign Up</a>
@@ -67,7 +65,7 @@ function Login() {
                     SIGN UP
                 </button>
 
-            </form> */}
+            </form>
         </div>
     )
 }
