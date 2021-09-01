@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMutation } from 'react';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './Login.css'
@@ -30,7 +30,7 @@ function Login() {
 
     return (
         <div className="form-content">
-            <form className="form" onSubmit={handleFormSubmit}>
+            {/* <form className="form" onSubmit={handleFormSubmit}>
                 <p>
                     Sign In
                 </p>
@@ -67,7 +67,7 @@ function Login() {
                     SIGN UP
                 </button>
 
-            </form>
+            </form> */}
         </div>
     )
 }
