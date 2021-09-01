@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
 import io from 'socket.io-client';
+import moment from 'moment'
 
 let socket = null
 socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
 
 function Content() {
-    const [messages, setMessages] = React.useState([]);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        // console.log(messages)
-
-        // socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
         socket.on('chat message', function (msg) {
             setMessages([{ id: uuidv4(), message: msg }, ...messages]);
         });
@@ -47,9 +44,9 @@ function Content() {
                                     <div className="message-top">
                                         <p className="message-username">{/* TODO message author username */}username</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{/* TODO message timestamp */}11:12 AM</span>
+                                            <span className="message-timestamp">{/* TODO message timestamp */moment().format("h:mm a")}</span>
                                             &nbsp;•&nbsp;
-                                            <span className="message-timeago">{/* TODO how long ago message occured */}3 hours ago</span>
+                                            <span className="message-timeago">{/* TODO how long ago message occured */moment().fromNow()}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">
