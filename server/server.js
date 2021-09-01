@@ -1,38 +1,33 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
+const cors = require('cors');
 
 /* made files */
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 
 const db = require('./config/connection');
-const PORT = process.env.PORT || 3000;
+const APOLLOPORT = process.env.PORT || 3001;
+const SOCKETPORT = (parseInt(APOLLOPORT) + 10);
 const app = express();
 
-/*
-Express = 
-GraphQL = 3001
-REACT = 3005
-SocketIO = 3010
-*/
-
-const server = new ApolloServer({
+const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
 
+/* mongo */
+apolloServer.applyMiddleware({ app });
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors())
+
 /* SOCKET IO */
-const http = require('http');
-const socketServer = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(socketServer, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
-  }
-});
+const socketServer = require('http').createServer(app)
+const io = require('socket.io')(socketServer)
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
 
@@ -46,28 +41,31 @@ io.on('connection', (socket) => {
   });
 });
 
-/* mongo */
-server.applyMiddleware({ app });
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+} else {
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', process.env.NODE_ENV)
+  app.use(express.static(path.join(__dirname, '../client/public')));
+}
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.get('/api/port', (req, res) => {
+  console.log('user retrieving port from server', SOCKETPORT)
+  res.json({port: SOCKETPORT})
+})
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '../client/build')));
-// }
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+app.get('/', (req, res) => {
+  console.log('user getting index route')
+  res.sendFile(path.join('index.html'));
+});
 
 db.once('open', () => {
-  app.listen(PORT, () => {
-    console.log("[server]", `API server running on port ${PORT}!`);
-    console.log("[server]", `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(APOLLOPORT, typeof (APOLLOPORT), APOLLOPORT + 10, SOCKETPORT)
+  app.listen(APOLLOPORT, () => {
+    console.log("[server]", `API server running on port ${APOLLOPORT}!`);
+    console.log("[server]", `Use GraphQL at http://localhost:${APOLLOPORT}${apolloServer.graphqlPath}`);
   });
 
-  let socketIOPort = PORT + 10
-  socketServer.listen(socketIOPort, () => {
-    console.log("[server]", 'socketIO Server running on port', socketIOPort)
+  socketServer.listen(SOCKETPORT, () => {
+    console.log("[server]", 'socketIO Server running on port', SOCKETPORT)
   })
 });
