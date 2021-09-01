@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null
-socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
+socket = io(`http://${window.location.hostname}:3011`, { transports: ["websocket"] });
 
 function Content() {
     const [messages, setMessages] = useState([]);
