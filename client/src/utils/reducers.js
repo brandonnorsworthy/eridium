@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import {
     UPDATE_MESSAGES,
     ADD_MESSAGE,
+    UPDATE_ACCOUNT_STATUS,
 } from './actions';
 
 export const reducer = (state, action) => {
@@ -24,7 +25,7 @@ export const reducer = (state, action) => {
                 ...state,
                 isLoggedIn: !action.isLoggedIn,
             }
-            
+
         default:
             return state;
     }
