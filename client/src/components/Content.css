@@ -211,11 +211,15 @@ main {
 
 .message-content {
     color: var(--shaded-color-6);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .message-content p {
     margin-top: 10px;
     margin-bottom: 0px;
+    text-align: left;
 }
 
 .image-name {

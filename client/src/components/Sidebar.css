@@ -165,6 +165,7 @@ aside {
 
 .content-category {
     font-size: 16px;
+    text-align: left;
 }
 
 .category-name {
@@ -184,6 +185,12 @@ aside {
 .category-name p {
     width: 200px;
     padding-left: 5px;
+    text-align: left;
+    color: var(--primary-color);
+}
+
+.category-name:hover p {
+    color: var(--shaded-color-6);
 }
 
 .add-channel-icon {
@@ -206,6 +213,9 @@ aside {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    font-weight: normal;
+    color: (var(--shaded-color-5));
 }
 
 #text-channels .category-channel {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 const useForm = validate => {
     const[values, setValues] = useState({
         email:'',
@@ -6,6 +6,8 @@ const useForm = validate => {
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    console.log(isSubmitting)
 
     const handleChange = e => {
         const { name, value} = e.target

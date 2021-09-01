@@ -1,7 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Content.css'
+import io from 'socket.io-client';
+
+let socket = null
 
 function Content() {
+    useEffect(() => {
+        socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
+    });
+
+    function formSubmit(e) {
+        if (e.key === 'Enter') {
+            // console.log(e)
+            socket.emit('chat message', e.target.value);
+            console.log(e.target.value)
+            e.target.value = '';
+
+            //spawn the message
+            document.getElementById('main-content').firstChild.appendChild(createMessage(e.target.value))
+        }
+    }
+
+    function createMessage(message) {
+        return (
+            <li className="message-container">
+                <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
+                <div>
+                    <div className="message-top">
+                        <p className="message-username">{/* TODO message author username */}username</p>
+                        <p className="message-times">
+                            <span className="message-timestamp">{/* TODO message timestamp */}11:12 AM</span>
+                            &nbsp;•&nbsp;
+                            <span className="message-timeago">{/* TODO how long ago message occured */}3 hours ago</span>
+                        </p>
+                    </div>
+                    <div className="message-content">
+                        {/* example of @message */}
+                        {/* <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p> */}
+                        <p>
+                            {message}
+                        </p>
+                    </div>
+                </div>
+            </li>)
+    }
+
     return (
         <main>
             <div id="content-banner">
@@ -55,7 +98,7 @@ function Content() {
                     </li>
                 </ul>
                 <div className="no-select" id="input-container" >
-                    <textarea placeholder="message in #random-yt-vids"></textarea>
+                    <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
                     <div id="selectables">
                         <div><b>B</b></div>
                         <div><i>I</i></div>
