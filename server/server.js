@@ -54,7 +54,7 @@ db.once('open', () => {
     console.log("[server]", `Use GraphQL at http://localhost:${PORT}${apolloServer.graphqlPath}`);
   });
 
-  socketServer.listen(number(PORT + 10), () => {
-    console.log("[server]", 'socketIO Server running on port', number(PORT + 10))
+  socketServer.listen(parseInt(PORT + 10), () => {
+    console.log("[server]", 'socketIO Server running on port', parseInt(PORT + 10))
   })
 });
