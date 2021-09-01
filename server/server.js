@@ -2,14 +2,19 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 
+/* made files */
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
-const { Server } = require("socket.io");
 
 const db = require('./config/connection');
-
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const app = express();
+
+/*
+GraphQL = 3001
+REACT = 3005
+  SocketIO = 3010
+*/
 
 const server = new ApolloServer({
   typeDefs,
@@ -17,18 +22,24 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-const io = new Server(server);
+/* SOCKET IO */
+const http = require('http');
+const socketServer = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(socketServer, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+});
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log("[server]", '⚠ a user connected');
   socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    console.log("[server]", '⚠ user disconnected');
   });
 });
 
+/* mongo */
 server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: false }));
@@ -44,7 +55,12 @@ app.use(express.json());
 
 db.once('open', () => {
   app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    console.log("[server]", `API server running on port ${PORT}!`);
+    console.log("[server]", `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
+
+  let socketIOPort = PORT + 10
+  socketServer.listen(socketIOPort, () => {
+    console.log("[server]", 'socketIO Server running on port', socketIOPort)
+  })
 });
