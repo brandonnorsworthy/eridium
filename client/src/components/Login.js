@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMutation } from 'react';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './Login.css'
@@ -42,10 +42,9 @@ function Login() {
                         name="email"
                         className="form-input"
                         placeholder="Email"
-                        value={values.email}
+                        value={formState.email}
                         onChange={handleChange}
                     />
-                    {errors.email && <p>{errors.email}</p>}
                 </div>
                 <div className="form-inputs">
                     <label htmlFor="password" className="form-label">Password
@@ -55,10 +54,9 @@ function Login() {
                         name="password"
                         className="form-input"
                         placeholder="Password"
-                        value={values.password}
+                        value={formState.password}
                         onChange={handleChange}
                     />
-                    {errors.password && <p>{errors.password}</p>}
                 </div>
                 <span className="form-input-login">
                     Need an account? <br />Click here to <a href="?">Sign Up</a>
