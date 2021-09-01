@@ -2,6 +2,7 @@
   "name": "eridium-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3005",
   "dependencies": {
     "@apollo/client": "^3.4.10",
     "@material-ui/core": "^4.12.3",
