@@ -5,15 +5,20 @@ import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null
-socket = io(`http://${window.location.hostname}:3011`, { transports: ["websocket"] });
 
 function Content() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        socket.on('chat message', function (msg) {
-            setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-        });
+        if (socket === null) {
+            let errorPTag = document.createElement('p')
+            errorPTag.textContent = 'not connected'
+            document.getElementById("message-list").appendChild(errorPTag)
+        } else {
+            socket.on('chat message', function (msg) {
+                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
+            });
+        }
     });
 
     function formSubmit(e) {
@@ -78,4 +83,25 @@ function Content() {
     )
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function askForPort() {
+    fetch('/api/port')
+        .then((data) => {
+            console.log(data)
+            setPortVariable(data.port)
+        })
+        .catch((err) => {
+            sleep(2000);
+            askForPort();
+        })
+}
+
+function setPortVariable(port) {
+    socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
+}
+
+askForPort()
 export default Content
