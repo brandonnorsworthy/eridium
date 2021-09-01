@@ -20,5 +20,7 @@
     "devDependencies": {
         "concurrently": "^5.1.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "react-apollo": "^3.1.5"
+    }
 }
