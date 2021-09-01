@@ -11,9 +11,6 @@ function Content() {
     const [messages, setMessages] = React.useState([]);
 
     useEffect(() => {
-        // console.log(messages)
-
-        // socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
         socket.on('chat message', function (msg) {
             setMessages([{ id: uuidv4(), message: msg }, ...messages]);
         });
