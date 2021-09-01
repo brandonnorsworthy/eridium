@@ -49,13 +49,13 @@ io.on('connection', (socket) => {
 // });
 
 db.once('open', () => {
-  console.log(PORT, typeof(PORT), PORT + 10, parseInt(PORT + 10))
+  console.log(PORT, typeof (PORT), PORT + 10, parseInt(PORT) + 10)
   app.listen(PORT, () => {
     console.log("[server]", `API server running on port ${PORT}!`);
     console.log("[server]", `Use GraphQL at http://localhost:${PORT}${apolloServer.graphqlPath}`);
   });
 
-  socketServer.listen(parseInt(PORT + 10), () => {
-    console.log("[server]", 'socketIO Server running on port', parseInt(PORT + 10))
+  socketServer.listen(parseInt(PORT) + 10, () => {
+    console.log("[server]", 'socketIO Server running on port', parseInt(PORT) + 10)
   })
 });
