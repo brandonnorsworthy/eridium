@@ -92,7 +92,8 @@ async function askForPort() {
     let location = '/api/port'
     fetch(location)
         .then((data) => {
-            console.log(data.port)
+            console.log('data', data)
+            console.log('data.port', data.port)
             setPortVariable(data.port)
         })
         .catch((err) => {
