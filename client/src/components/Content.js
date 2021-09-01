@@ -7,19 +7,25 @@ let socket = null
 function Content() {
     useEffect(() => {
         socket = io(`http://${window.location.hostname}:3010`, { transports: ["websocket"] });
+        socket.on('chat message', function (msg) {
+            console.log(msg)
+            // var item = document.getElementById('message-list').createElement('li');
+            // item.textContent = msg;
+        });
     });
 
     function formSubmit(e) {
-        if (e.key === 'Enter') {
-            // console.log(e)
-            socket.emit('chat message', e.target.value);
-            console.log(e.target.value)
+        if (e.key === 'Enter' && e.target.value) {
+            socket.emit('chat message', e.target.value.trim());
+            // console.log(e.target.value.trim())
             e.target.value = '';
 
             //spawn the message
-            document.getElementById('main-content').firstChild.appendChild(createMessage(e.target.value))
+            // document.getElementById('message-list').appendChild(createMessage(e.target.value))
         }
     }
+
+
 
     function createMessage(message) {
         return (
@@ -56,7 +62,7 @@ function Content() {
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} href="/demo">Demo</a>
             </div>
             <div id="main-content">
-                <ul>
+                <ul id="message-list">
                     {/* TODO loop over li tags to generate messages !!!!!ADD MOST RECENT TO BOTTOM */}
                     <li className="message-container">
                         <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>

@@ -11,9 +11,10 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 /*
+Express = 
 GraphQL = 3001
 REACT = 3005
-  SocketIO = 3010
+SocketIO = 3010
 */
 
 const server = new ApolloServer({
@@ -34,8 +35,14 @@ const io = new Server(socketServer, {
 });
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
+
   socket.on('disconnect', () => {
     console.log("[server]", '⚠ user disconnected');
+  });
+
+  socket.on('chat message', (msg) => {
+    console.log("[server]", '⚠ message: ', msg);
+    io.emit('chat message', msg);
   });
 });
 
