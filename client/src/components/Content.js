@@ -4,8 +4,9 @@ import './Content.css'
 import io from 'socket.io-client';
 import moment from 'moment'
 
-let socket = null
-let socketMounted = false
+let socket = null;
+let hasPort2 = false;
+let messageOnCooldown = false;
 
 async function askForPort() {
     let location = 'http://localhost:3001/api/port'
@@ -22,24 +23,48 @@ async function askForPort() {
 }
 
 function setPortVariable(port) {
+    hasPort2 = true
+    console.log('solved')
     socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
-
 }
 
-askForPort();
 function Content() {
     const [messages, setMessages] = useState([]);
     const [hasPort, setHasPort] = useState(!(socket === null))
+    const [mounted, setMounted] = useState(false)
+
+    async function beforeMount() {
+        console.log('before mount run')
+        if (!mounted) {
+            console.log('inside')
+
+            askForPort()
+
+            let iteration = 1
+            while (!hasPort) {
+                console.log('testing if port', hasPort2)
+                if (hasPort2) {
+                    setHasPort(true)
+                    console.log('we got port', hasPort)
+                    break;
+                }
+                console.log('sleepy time', Math.pow(2, iteration) * 1000)
+                await sleep(Math.pow(2, iteration) * 1000)
+            }
+        }
+    }
+    beforeMount();
 
     useEffect(() => {
-        if (!(socket === null)) {
-            socketMounted = true;
-            setHasPort(true)
-            socket.on('chat message', function (msg) {
-                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-            });
-        }
+
+        console.log('rerender', hasPort)
+        setMounted(true)
         if (hasPort) {
+            console.log('socket should be connected')
+            socket.on('chat message', function (msg) {
+                console.log('displaying emitted message')
+                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
+            })
             let errorPTag = document.getElementById('errorp')
             if (errorPTag) {
                 errorPTag.remove()
@@ -53,16 +78,14 @@ function Content() {
     }, [messages, hasPort]);
 
     function formSubmit(e) {
-        if (!(socket === null) && !socketMounted) {
-            socketMounted = true;
-            setHasPort(true)
-            socket.on('chat message', function (msg) {
-                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-            });
-        }
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
-            socket.emit('chat message', e.target.value.trim());
-            e.target.value = '';
+            if (socket && !messageOnCooldown) {
+                messageOnCooldown = true;
+                socket.emit('chat message', e.target.value.trim());
+                setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
+                e.target.value = '';
+                setTimeout(function(){ messageOnCooldown = false }, 1000);
+            }
         }
     }
 
