@@ -8,7 +8,7 @@ let socket = null
 let socketMounted = false
 
 async function askForPort() {
-    fetch('http://localhost:3001/api/port')
+    fetch('/api/port')
         .then(res => res.json())
         .then(data => setPortVariable(data.port))
         .catch(err => {
