@@ -10,15 +10,15 @@ function Signup() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const mutationResponse = await addUser({
-                variables: { email: formState.email, password: formState.password },
-            });
-            const token = mutationResponse.data.login.token;
-            Auth.login(token);
-        } catch (e) {
-            console.log(e);
-        }
+        const mutationResponse = await addUser({
+            variables: {
+                username: formState.username,
+                email: formState.email,
+                password: formState.password
+            }
+        });
+        const token = mutationResponse.data.addUser.token;
+        Auth.login(token);
     };
 
     const handleChange = (event) => {
@@ -29,12 +29,24 @@ function Signup() {
         });
     };
 
-    return  (
+    return (
         <div className="form-content">
             <form className="form" onSubmit={handleFormSubmit}>
                 <p>
                     Sign Up
                 </p>
+                <div className="form-inputs">
+                    <label htmlFor="username" className="form-label">Username
+                    </label><br />
+                    <input
+                        type="username"
+                        name="username"
+                        className="form-input"
+                        placeholder="Username"
+                        value={formState.username}
+                        onChange={handleChange}
+                    />
+                </div>
                 <div className="form-inputs">
                     <label htmlFor="email" className="form-label">Email
                     </label><br />
@@ -71,4 +83,4 @@ function Signup() {
     )
 }
 
-export default Signup
+export default Signup;
