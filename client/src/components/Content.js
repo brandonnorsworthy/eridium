@@ -50,7 +50,7 @@ function Content() {
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
         }
-    });
+    }, [messages, hasPort]);
 
     function formSubmit(e) {
         if (!(socket === null) && !socketMounted) {
