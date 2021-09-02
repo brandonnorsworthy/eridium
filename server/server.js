@@ -26,15 +26,20 @@ app.use(express.json());
 app.use(cors())
 
 /* SOCKET IO */
-const socketServer = require('http').createServer(app)
-const io = require('socket.io')(socketServer, {
-  cors: {
-    origin: "https://eridium.herokuapp.com",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
-  }
-});
+// const socketServer = require('http').createServer(app)
+// const io = require('socket.io')(socketServer, {
+//   cors: {
+//     origin: "https://eridium.herokuapp.com",
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["my-custom-header"],
+//     credentials: true
+//   }
+// });
+
+const server = express() //test
+  .listen(SOCKETPORT, () => console.log("[server]", 'socketIO Server running on port', SOCKETPORT)); //test
+
+const io = socketIO(server); //test
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
   console.log(socket.io.engine.transport.name);
@@ -53,6 +58,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('chat message', msg);
   });
 });
+setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -77,7 +83,7 @@ db.once('open', () => {
     console.log("[server]", `Use GraphQL at http://localhost:${APOLLOPORT}${apolloServer.graphqlPath}`);
   });
 
-  socketServer.listen(SOCKETPORT, () => {
-    console.log("[server]", 'socketIO Server running on port', SOCKETPORT)
-  })
+  // socketServer.listen(SOCKETPORT, () => {
+  //   console.log("[server]", 'socketIO Server running on port', SOCKETPORT)
+  // })
 });
