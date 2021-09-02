@@ -61,6 +61,16 @@ function Sidebar() {
         }
     }
 
+    function displaySettingsBanner(e) {
+        /* BRANDON server banner replace icon when clicked */
+        document.getElementById("settings-banner-dropdown").style.display = "flex"
+    }
+
+    function hideSettingsBanner(e) {
+        /* BRANDON server banner replace icon when leave banner */
+        document.getElementById("settings-banner-dropdown").style.display = "none"
+    }
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -82,9 +92,7 @@ function Sidebar() {
                         <button>Edit Server</button>
                         <button>Create Invite</button>
                         <hr></hr>
-                        <button className="warning">
-                            <a href="/login" onClick={() => Auth.logout()}>Leave Server</a>
-                        </button>
+                        <button className="warning">Leave Server</button>
                     </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
@@ -130,7 +138,16 @@ function Sidebar() {
                 <div id="current-user">
                     <img src={/* TODO current logged in users profile picture */"https://via.placeholder.com/30x30"} alt="user profile"></img>
                     <p>{/* TODO current logged in user */"currentusername"}</p>
-                    <span className="material-icons">settings</span>
+                    <div className="no-select" onMouseLeave={hideSettingsBanner}>
+                        <div id="server-banner-button" onClick={displaySettingsBanner}>
+                            <span className="material-icons">settings</span>
+                        </div>
+                        <div id="settings-banner-dropdown">
+                            <button>
+                                <a href="/login" onClick={() => Auth.logout()}>Log Out</a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </aside>
