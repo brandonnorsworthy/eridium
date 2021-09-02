@@ -27,7 +27,7 @@ async function askForPort() {
 
 function setPortVariable(port) {
     if (window.location.hostname === 'eridium.herokuapp.com') {
-        socket = io(`:${port}`, { transports: ["websocket"] });
+        socket = io(`:${port}`);
     } else {
         socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
     }
