@@ -40,7 +40,7 @@ function setPortVariable(port) {
     //         "my-custom-header": "abcd"
     //     }
     // });
-    let socket = io(`:${port}`);
+    let socket = io(`https://eridium.herokuapp.com:${port}`);
     console.log(socket)
     hasPort2 = true
     console.log('solved')
