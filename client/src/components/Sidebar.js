@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Auth from '../utils/auth';
 import './Sidebar.css'
 
 function Sidebar() {
@@ -81,7 +82,9 @@ function Sidebar() {
                         <button>Edit Server</button>
                         <button>Create Invite</button>
                         <hr></hr>
-                        <button className="warning">Leave Server</button>
+                        <button className="warning">
+                            <a href="/login" onClick={() => Auth.logout()}>Leave Server</a>
+                        </button>
                     </div>
                 </div>
                 {/* TODO loop over all server contents / channels */}
