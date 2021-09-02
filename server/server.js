@@ -42,7 +42,6 @@ const server = express() //test
 const io = socketIO(server); //test
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
-  console.log(socket.io.engine.transport.name);
   console.log(socket.conn.transport.name);
 
   socket.on("connect_error", (err) => {
@@ -58,7 +57,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('chat message', msg);
   });
 });
-setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
+// setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
