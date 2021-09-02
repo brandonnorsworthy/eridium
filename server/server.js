@@ -23,7 +23,7 @@ apolloServer.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors())
+// app.use(cors())
 
 /* SOCKET IO */
 const socketServer = require('http').createServer(app)
@@ -48,13 +48,14 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
-app.get('/api/port', (req, res) => {
+app.get('/api/port', cors(), (req, res) => {
   console.log('user retrieving port from server', SOCKETPORT)
-  res.json({port: SOCKETPORT})
+  res.json({ port: SOCKETPORT })
 })
 
 app.get('/', (req, res) => {
   console.log('user getting index route')
+
   res.sendFile(path.join('index.html'));
 });
 

@@ -5,23 +5,57 @@ import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null
+let socketMounted = false
 
+async function askForPort() {
+    fetch('http://localhost:3001/api/port')
+        .then(res => res.json())
+        .then(data => setPortVariable(data.port))
+        .catch(err => {
+            sleep(2000);
+            askForPort();
+        })
+}
+
+function setPortVariable(port) {
+    socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
+
+}
+
+askForPort();
 function Content() {
     const [messages, setMessages] = useState([]);
+    const [hasPort, setHasPort] = useState(!(socket === null))
 
     useEffect(() => {
-        if (socket === null) {
-            let errorPTag = document.createElement('p')
-            errorPTag.textContent = 'not connected'
-            document.getElementById("message-list").appendChild(errorPTag)
-        } else {
+        if (!(socket === null)) {
+            socketMounted = true;
+            setHasPort(true)
             socket.on('chat message', function (msg) {
                 setMessages([{ id: uuidv4(), message: msg }, ...messages]);
             });
         }
+        if (hasPort) {
+            let errorPTag = document.getElementById('errorp')
+            if (errorPTag) {
+                errorPTag.remove()
+            }
+        } else {
+            let errorPTag = document.createElement('p')
+            errorPTag.textContent = 'not connected'
+            errorPTag.setAttribute('id', 'errorp')
+            document.getElementById("message-list").appendChild(errorPTag)
+        }
     });
 
     function formSubmit(e) {
+        if (!(socket === null) && !socketMounted) {
+            socketMounted = true;
+            setHasPort(true)
+            socket.on('chat message', function (msg) {
+                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
+            });
+        }
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             socket.emit('chat message', e.target.value.trim());
             e.target.value = '';
@@ -87,26 +121,4 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function askForPort() {
-    // let location = window.location.hostname + ':3001/api/port'
-    let location = '/api/port'
-    fetch(location)
-        .then((data) => {
-            console.log('data', data)
-            console.log('data.port', data.port)
-            setPortVariable(data.port)
-        })
-        .catch((err) => {
-            console.log(err)
-            sleep(1000).then(() => {
-                askForPort();
-            });
-        })
-}
-
-function setPortVariable(port) {
-    socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
-}
-
-askForPort()
 export default Content
