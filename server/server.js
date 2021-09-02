@@ -31,6 +31,10 @@ const io = require('socket.io')(socketServer)
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
 
+  socket.on("connect_error", (err) => {
+    console.log(`connect_error due to ${err.message}`);
+  });
+
   socket.on('disconnect', () => {
     console.log("[server]", '⚠ user disconnected');
   });
