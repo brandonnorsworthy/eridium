@@ -60,7 +60,6 @@ app.get('/', (req, res) => {
 });
 
 db.once('open', () => {
-  console.log(APOLLOPORT, typeof (APOLLOPORT), APOLLOPORT + 10, SOCKETPORT)
   app.listen(APOLLOPORT, () => {
     console.log("[server]", `API server running on port ${APOLLOPORT}!`);
     console.log("[server]", `Use GraphQL at http://localhost:${APOLLOPORT}${apolloServer.graphqlPath}`);
