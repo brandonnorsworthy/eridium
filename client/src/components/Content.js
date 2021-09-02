@@ -29,6 +29,7 @@ function setPortVariable(port) {
     if (window.location.hostname === 'eridium.herokuapp.com') {
         socket = io(`https://eridium.herokuapp.com:${port}`, {
             withCredentials: true,
+            transports: [ "websocket" ],
             extraHeaders: {
                 "my-custom-header": "abcd"
             }
