@@ -44,7 +44,6 @@ io.on('connection', (socket) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 } else {
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', process.env.NODE_ENV)
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
