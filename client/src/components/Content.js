@@ -29,12 +29,13 @@ function setPortVariable(port) {
     if (window.location.hostname === 'eridium.herokuapp.com') {
         socket = io(`https://eridium.herokuapp.com:${port}`, {
             withCredentials: true,
+            extraHeaders: {
+                "my-custom-header": "abcd"
+            }
         });
-        // } else {
-        //     socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
+        hasPort2 = true
+        console.log('solved')
     }
-    hasPort2 = true
-    console.log('solved')
 }
 
 function Content() {
