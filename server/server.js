@@ -52,12 +52,12 @@ io.on('connection', (socket) => {
     console.log("[server]", '⚠ user disconnected');
   });
 
-  socket.on('chat message', (msg) => {
+  socket.on('message', (msg) => {
     console.log("[server]", '⚠ message: ', msg);
-    socket.broadcast.emit('chat message', msg);
+    socket.broadcast.emit('message', msg);
   });
 });
-// setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
+setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));

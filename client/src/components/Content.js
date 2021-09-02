@@ -37,7 +37,7 @@ async function askForPort() {
 function setPortVariable(port) {
     let wsLocation = `http://localhost:${port}`
     if (window.location.hostname === 'eridium.herokuapp.com') {
-        wsLocation = `https://eridium.herokuapp.com:${port}`
+        wsLocation = `http://eridium.herokuapp.com:${port}`
     }
     socket = io(wsLocation, {
         transports: ["websocket"],
@@ -78,7 +78,7 @@ function Content() {
         setMounted(true)
         if (hasPort) {
             console.log('useEffect(() => {hasPort === true)')
-            socket.on('chat message', function (msg) {
+            socket.on('message', function (msg) {
                 console.log('[INCOMING] chat message', messages.length)
                 setMessages([{ id: uuidv4(), message: msg }, ...messages]);
             })
@@ -98,7 +98,7 @@ function Content() {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
-                socket.emit('chat message', e.target.value.trim());
+                socket.emit('message', e.target.value.trim());
                 setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
                 e.target.value = '';
                 setTimeout(function () { messageOnCooldown = false }, 1000);
