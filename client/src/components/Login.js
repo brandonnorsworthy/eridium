@@ -33,7 +33,7 @@ function Login() {
         <div className="form-content">
             <form className="form" onSubmit={handleFormSubmit}>
                 <p>
-                    Sign In
+                    Log In
                 </p>
                 <div className="form-inputs">
                     <label htmlFor="email" className="form-label">Email
@@ -63,7 +63,7 @@ function Login() {
                     Need an account? <br />Click here to <a href="?">Sign Up</a>
                 </span><br />
                 <button className="form-input-btn" type="submit">
-                    SIGN UP
+                    Log In
                 </button>
 
             </form>
