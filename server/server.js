@@ -35,7 +35,7 @@ app.use(cors())
 //     credentials: true
 //   }
 // });
-
+const socketIO = require('socket.io');
 const server = express() //test
   .listen(SOCKETPORT, () => console.log("[server]", 'socketIO Server running on port', SOCKETPORT)); //test
 
