@@ -5,45 +5,44 @@ import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null;
-let hasPort2 = false;
+let socketMounted = false;
+let portRequests = 1
 let messageOnCooldown = false;
 let location = 'http://localhost:3001/api/port'
 
 async function askForPort() {
-    if (window.location.hostname === '10.0.0.149') {
-        location = 'http://10.0.0.149:3001/api/port'
-    }
-    if (window.location.hostname === 'eridium.herokuapp.com') {
-        location = '/api/port'
-    }
-    fetch(location)
-        .then(res => res.json())
-        .then(data => setPortVariable(data.port))
-        .catch(err => {
-            sleep(2000);
+    if (!socketMounted) {
+        console.log("askForPort() running")
+        if (window.location.hostname === '10.0.0.149') {
+            location = 'http://10.0.0.149:3001/api/port'
+        }
+        if (window.location.hostname === 'eridium.herokuapp.com') {
+            location = '/api/port'
+        }
+        fetch(location)
+            .then(res => res.json())
+            .then(data => {
+                setPortVariable(data.port)
+                return;
+            })
+        console.log('askForPort() failed retrying in', Math.pow(2, portRequests) * 1000)
+        await sleep(Math.pow(2, portRequests) * 1000)
+        portRequests++
+        if (portRequests < 6) {
             askForPort();
-        })
+        }
+    }
 }
 
 function setPortVariable(port) {
-    // var HOST = location.origin.replace(/^http/, 'ws')
-    // console.log(HOST)
-    // var ws = new WebSocket(HOST);
-    // let wsLocation = `http://localhost:${port}`
-    // if (window.location.hostname === 'eridium.herokuapp.com') {
-    //     wsLocation = `https://eridium.herokuapp.com:${port}`
-    // }
-    // socket = io(wsLocation, {
-    //     withCredentials: true,
-    //     transports: ["websocket"],
-    //     extraHeaders: {
-    //         "my-custom-header": "abcd"
-    //     }
-    // });
-    let socket = io(`https://eridium.herokuapp.com:${port}`);
-    console.log(socket)
-    hasPort2 = true
-    console.log('solved')
+    let wsLocation = `http://localhost:${port}`
+    if (window.location.hostname === 'eridium.herokuapp.com') {
+        wsLocation = `https://eridium.herokuapp.com:${port}`
+    }
+    socket = io(wsLocation, {
+        transports: ["websocket"],
+    });
+    socketMounted = true
 }
 
 function Content() {
@@ -54,32 +53,33 @@ function Content() {
     async function beforeMount() {
         if (!mounted) {
             setMounted(true)
-            console.log('inside')
+            console.log('beforeMount() starting')
 
             askForPort()
 
             let iteration = 1
             while (!hasPort) {
-                console.log('testing if port', hasPort2)
-                if (hasPort2) {
+                console.log('beforeMount() socket is mounted:', socketMounted)
+                if (socketMounted) {
                     setHasPort(true)
-                    console.log('we got port', hasPort)
+                    console.log('beforeMount() askForPort() mounted socket')
                     break;
                 }
-                console.log('sleepy time', Math.pow(2, iteration) * 1000)
+                console.log('beforeMount() Sleep and retry in:', Math.pow(2, iteration) * 1000)
                 await sleep(Math.pow(2, iteration) * 1000)
+                iteration++;
             }
         }
     }
     beforeMount();
 
     useEffect(() => {
-        console.log('rerender', hasPort)
+        console.log('useEffect(): Rerendering, port-status:', hasPort)
         setMounted(true)
         if (hasPort) {
-            console.log('socket should be connected')
+            console.log('useEffect(() => {hasPort === true)')
             socket.on('chat message', function (msg) {
-                console.log('displaying emitted message')
+                console.log('[INCOMING] chat message', messages.length)
                 setMessages([{ id: uuidv4(), message: msg }, ...messages]);
             })
             let errorPTag = document.getElementById('errorp')
