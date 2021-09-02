@@ -29,7 +29,46 @@ function Signup() {
         });
     };
 
-    return 
+    return  (
+        <div className="form-content">
+            <form className="form" onSubmit={handleFormSubmit}>
+                <p>
+                    Sign Up
+                </p>
+                <div className="form-inputs">
+                    <label htmlFor="email" className="form-label">Email
+                    </label><br />
+                    <input
+                        type="email"
+                        name="email"
+                        className="form-input"
+                        placeholder="Email"
+                        value={formState.email}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-inputs">
+                    <label htmlFor="password" className="form-label">Password
+                    </label><br />
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-input"
+                        placeholder="Password"
+                        value={formState.password}
+                        onChange={handleChange}
+                    />
+                </div>
+                <span className="form-input-login">
+                    Already have an account? <br />Click here to <a href="?">Login</a>
+                </span><br />
+                <button className="form-input-btn" type="submit">
+                    SIGN UP
+                </button>
+
+            </form>
+        </div>
+    )
 }
 
 export default Signup
