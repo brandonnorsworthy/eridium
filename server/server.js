@@ -30,6 +30,8 @@ const socketServer = require('http').createServer(app)
 const io = require('socket.io')(socketServer)
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
+  console.log(socket.io.engine.transport.name);
+  console.log(socket.conn.transport.name);
 
   socket.on("connect_error", (err) => {
     console.log(`connect_error due to ${err.message}`);
