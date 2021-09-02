@@ -30,7 +30,9 @@ const socketServer = require('http').createServer(app)
 const io = require('socket.io')(socketServer, {
   cors: {
     origin: "https://eridium.herokuapp.com",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
   }
 });
 io.on('connection', (socket) => {
