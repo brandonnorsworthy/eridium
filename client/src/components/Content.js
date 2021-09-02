@@ -7,9 +7,12 @@ import moment from 'moment'
 let socket = null;
 let hasPort2 = false;
 let messageOnCooldown = false;
+let location = 'http://localhost:3001/api/port'
 
 async function askForPort() {
-    let location = 'http://localhost:3001/api/port'
+    if (window.location.hostname === '10.0.0.149') {
+        location = 'http://10.0.0.149:3001/api/port'
+    }
     if (window.location.hostname === 'eridium.herokuapp.com') {
         location = '/api/port'
     }
@@ -23,9 +26,9 @@ async function askForPort() {
 }
 
 function setPortVariable(port) {
+    socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
     hasPort2 = true
     console.log('solved')
-    socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
 }
 
 function Content() {
@@ -34,8 +37,8 @@ function Content() {
     const [mounted, setMounted] = useState(false)
 
     async function beforeMount() {
-        console.log('before mount run')
         if (!mounted) {
+            setMounted(true)
             console.log('inside')
 
             askForPort()
@@ -56,7 +59,6 @@ function Content() {
     beforeMount();
 
     useEffect(() => {
-
         console.log('rerender', hasPort)
         setMounted(true)
         if (hasPort) {
@@ -71,7 +73,7 @@ function Content() {
             }
         } else {
             let errorPTag = document.createElement('p')
-            errorPTag.textContent = 'not connected'
+            errorPTag.textContent = `not connected ${location}`
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
         }
