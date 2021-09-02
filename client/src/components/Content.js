@@ -27,9 +27,11 @@ async function askForPort() {
 
 function setPortVariable(port) {
     if (window.location.hostname === 'eridium.herokuapp.com') {
-        socket = io(`https://eridium.herokuapp.com:${port}/socket.io/?EIO=4&transport=websocket`);
-    // } else {
-    //     socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
+        socket = io(`https://eridium.herokuapp.com:${port}`, {
+            withCredentials: true,
+        });
+        // } else {
+        //     socket = io(`http://${window.location.hostname}:${port}`, { transports: ["websocket"] });
     }
     hasPort2 = true
     console.log('solved')
@@ -90,7 +92,7 @@ function Content() {
                 socket.emit('chat message', e.target.value.trim());
                 setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
                 e.target.value = '';
-                setTimeout(function(){ messageOnCooldown = false }, 1000);
+                setTimeout(function () { messageOnCooldown = false }, 1000);
             }
         }
     }

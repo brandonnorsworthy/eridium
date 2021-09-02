@@ -27,7 +27,12 @@ app.use(cors())
 
 /* SOCKET IO */
 const socketServer = require('http').createServer(app)
-const io = require('socket.io')(socketServer)
+const io = require('socket.io')(socketServer, {
+  cors: {
+    origin: "https://eridium.herokuapp.com",
+    methods: ["GET", "POST"]
+  }
+});
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
   console.log(socket.io.engine.transport.name);
