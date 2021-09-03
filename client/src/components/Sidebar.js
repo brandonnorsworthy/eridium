@@ -142,8 +142,8 @@ function Sidebar() {
                         <span className="material-icons">settings</span>
                     </div>
                     <div id="current-user-settings-dropdown">
-                        <button>
-                            <a href="/login" onClick={() => Auth.logout()}>Log Out</a>
+                        <button onClick={() => Auth.logout()}>
+                            <a>Log Out</a>
                         </button>
                     </div>
                 </div>
