@@ -47,17 +47,17 @@ const resolvers = {
             return { token, user };
         },
         // Send message on server and to one user
-        addMessage: async (parent, { message_body, message_author }, context) => {
-            // if (context.user) {
+        addMessage: async (parent, { message_body }, context) => {
+            if (context.username) {
                 const message = await Message.create({
                     message_body: message_body,
-                    message_author: "mguppy",
+                    message_author: context.id
                 });
 
-                // await User.findOneAndUpdate(
-                //     { _id: context.user._id },
-                //     { $addToSet: { messages: message._id } }
-                // );
+                await User.findOneAndUpdate(
+                    { _id: context.id },
+                    { $addToSet: { messages: message._id } }
+                );
 
                 // await Server.findOneAndUpdate(
                 //     { _id: context.server._id },
@@ -65,7 +65,7 @@ const resolvers = {
                 // );
 
                 return message;
-            // }
+            }
             throw new AuthenticationError('You need to be logged in!');
         },
         // Edit a message sent on server or to a user
