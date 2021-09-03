@@ -8,6 +8,9 @@ const serverSchema = new Schema({
       maxlength: 100,
       trim: true,
     },
+    server_pic_url: {
+      type: String,
+    },
     users: [
       {
         type: Schema.Types.ObjectId,

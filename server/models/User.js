@@ -19,6 +19,9 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  profile_pic_url: {
+    type: String,
+  },
   messages: [
     {
       type: Schema.Types.ObjectId,
