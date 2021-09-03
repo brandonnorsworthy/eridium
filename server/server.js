@@ -1,45 +1,56 @@
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
+const express = require('express')
+const { ApolloServer, gql } = require('apollo-server-express')
 const path = require('path');
-const cors = require('cors');
+const socketio = require('socket.io')
+const PORT = process.env.PORT || 3001;
 
-/* made files */
+// Initalizes the app server
+const app = express()
+
+//establish connection to mongoose (get db working)
+const mongoose = require('mongoose');
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/eridium',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  }
+);
+
+//get apollo server running
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
-
-const db = require('./config/connection');
-const APOLLOPORT = process.env.PORT || 3001;
-const SOCKETPORT = (parseInt(APOLLOPORT) + 10);
-const app = express();
-
-const apolloServer = new ApolloServer({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
+server.applyMiddleware({ app });
 
-/* mongo */
-apolloServer.applyMiddleware({ app });
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+} else {
+  app.use(express.static(path.join(__dirname, '../client/public')));
+}
 
+app.get('/', (req, res) => {
+  console.log('user getting index route');
+  res.sendFile(path.join('index.html'));
+});
+
+//middleware settings
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors())
 
-/* SOCKET IO */
-// const socketServer = require('http').createServer(app)
-// const io = require('socket.io')(socketServer, {
-//   cors: {
-//     origin: "https://eridium.herokuapp.com",
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["my-custom-header"],
-//     credentials: true
-//   }
-// });
-const socketIO = require('socket.io');
-const server = express() //test
-  .listen(SOCKETPORT, () => console.log("[server]", 'socketIO Server running on port', SOCKETPORT)); //test
+// Listen to port PORT, save on const to attach io to it
+const http = app.listen(PORT, () =>
+  console.log(`🚀 Server ready at http://localhost:${PORT}` + server.graphqlPath)
+)
 
-const io = socketIO(server); //test
+// Attach socket.io to the server instance
+const io = socketio(http)
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
   console.log(socket.conn.transport.name);
@@ -56,33 +67,4 @@ io.on('connection', (socket) => {
     console.log("[server]", '⚠ message: ', msg);
     socket.broadcast.emit('message', msg);
   });
-});
-setInterval(() => io.emit('time', new Date().toTimeString()), 3000); //test
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-} else {
-  app.use(express.static(path.join(__dirname, '../client/public')));
-}
-
-app.get('/api/port', cors(), (req, res) => {
-  console.log('user retrieving port from server', SOCKETPORT)
-  res.json({ port: SOCKETPORT })
-})
-
-app.get('/', (req, res) => {
-  console.log('user getting index route')
-
-  res.sendFile(path.join('index.html'));
-});
-
-db.once('open', () => {
-  app.listen(APOLLOPORT, () => {
-    console.log("[server]", `API server running on port ${APOLLOPORT}!`);
-    console.log("[server]", `Use GraphQL at http://localhost:${APOLLOPORT}${apolloServer.graphqlPath}`);
-  });
-
-  // socketServer.listen(SOCKETPORT, () => {
-  //   console.log("[server]", 'socketIO Server running on port', SOCKETPORT)
-  // })
 });
