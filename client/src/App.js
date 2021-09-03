@@ -40,7 +40,7 @@ const client = new ApolloClient({
 function App() {
 
   function checkAuth() {
-    if (!Auth.loggedIn) {
+    if (Auth.loggedIn()) {
       return (
         <Route>
           <Sidebar />
