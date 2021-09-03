@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useMutation } from '@apollo/client';
+import { ADD_MESSAGE } from '../utils/mutations';
 import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
 import { io } from "socket.io-client";
@@ -13,6 +15,8 @@ async function sleep(ms) {
 
 function Content() {
     const [mounted, setMounted] = useState(false);
+
+    const [addMessage] = useMutation(ADD_MESSAGE);
 
     async function beforeMount() {
         if (!mounted) {
@@ -87,11 +91,20 @@ function Content() {
         return liEl
     }
 
-    function formSubmit(e) {
+    async function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
                 socket.emit('message', e.target.value.trim());
+
+                // Mutation added so that message saves to database
+                const mutationResponse = await addMessage({
+                    variables: {
+                        message_body: e.target.value.trim(),
+                        message_author: 'mguppy'
+                    }
+                });
+
                 e.target.value = '';
                 setTimeout(function () { messageOnCooldown = false }, 1000);
             }

@@ -47,11 +47,11 @@ const resolvers = {
             return { token, user };
         },
         // Send message on server and to one user
-        addMessage: async (parent, { message_body }, context) => {
+        addMessage: async (parent, { message_body, message_author }, context) => {
             // if (context.user) {
                 const message = await Message.create({
                     message_body: message_body,
-                    message_author: context.user.username,
+                    message_author: "mguppy",
                 });
 
                 // await User.findOneAndUpdate(
