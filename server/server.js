@@ -59,20 +59,18 @@ const io = socketio(http, {
   }
 })
 io.on('connection', (socket) => {
-  console.log("[server]", '⚠ a user connected');
+  console.log("[socket]", socket.conn.id, 'connected');
 
   socket.on("connect_error", (err) => {
-    console.log(`connect_error due to ${err.message}`);
+    console.log("[socket]", socket.conn.id, err);
   });
 
   socket.on('disconnect', () => {
-    console.log("[server]", '⚠ user disconnected');
+    console.log("[socket]", socket.conn.id, 'disconnected');
   });
 
   socket.on('message', (msg) => {
-    console.log("[server]", '⚠ message: ', msg);
-    io.emit('message', msg);
+    console.log("[socket]", socket.conn.id, 'sent:', msg);
+    io.emit('message', {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
   });
-
-  // setInterval(() => io.emit('message', new Date().toTimeString()), 3000); //test
 });

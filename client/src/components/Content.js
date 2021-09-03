@@ -15,7 +15,6 @@ async function sleep(ms) {
 
 function Content() {
     const [mounted, setMounted] = useState(false);
-
     const [addMessage] = useMutation(ADD_MESSAGE);
 
     async function beforeMount() {
@@ -23,7 +22,6 @@ function Content() {
             setMounted(true);
             let socketMounted = false;
             while (!(socketMounted)) {
-                console.log('trying to mount socket')
                 if (window.location.hostname === 'eridium.herokuapp.com') {
                     socket = io();
                 } else {
@@ -41,7 +39,6 @@ function Content() {
                     break;
                 }
             }
-            console.log('socket mounted???????????')
         }
     }
     beforeMount();
@@ -54,8 +51,8 @@ function Content() {
             }
             let messageContainer = document.getElementById('message-list')
             socket.on('message', function (msg) {
-                console.log('incoming!', msg)
-                let newEl = createListElement({ id: uuidv4(), message: msg });
+                console.log(msg)
+                let newEl = createListElement(msg);
                 messageContainer.insertBefore(newEl, messageContainer.firstChild);
             })
         } else {
@@ -67,6 +64,7 @@ function Content() {
     }, []);
 
     function createListElement(message) {
+        console.log('creating message', message)
         let liEl = document.createElement('li');
         liEl.classList.add('message-container');
         liEl.setAttribute('key', message.id);
@@ -74,7 +72,7 @@ function Content() {
         <img class="message-profile-pic" src=${/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
         <div>
             <div class="message-top">
-                <p class="message-username">${/* TODO message author username */"username"}</p>
+                <p class="message-username">${/* TODO message author username */message.id}</p>
                 <p class="message-times">
                     <span class="message-timestamp">${/* TODO message timestamp */moment().format("h:mm a")}</span>
                     &nbsp;•&nbsp;
@@ -98,10 +96,10 @@ function Content() {
                 socket.emit('message', e.target.value.trim());
 
                 // Mutation added so that message saves to database
-                const mutationResponse = await addMessage({
+                await addMessage({
                     variables: {
                         message_body: e.target.value.trim(),
-                        message_author: 'mguppy'
+                        message_author: socket.id //TODO replace with username
                     }
                 });
 
