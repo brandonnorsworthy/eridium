@@ -26,7 +26,7 @@ const typeDefs = gql`
 
   type Channel {
     _id: ID
-    channel_name: string
+    channel_name: String
     server: [Server]!
   }
 
@@ -44,6 +44,7 @@ const typeDefs = gql`
     server: [Server]
     server_messages(_id: ID!): Server
     user_messages(_id: ID!): User
+    channels: [Channel]
   }
 
   type Mutation {
