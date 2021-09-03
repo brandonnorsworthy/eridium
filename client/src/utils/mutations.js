@@ -29,3 +29,17 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_MESSAGE = gql`
+  mutation addMessage(
+    $message_body: String!
+    $message_author: String!
+  ) {
+    addMessage(
+      message_body: $message_body
+      message_author: $message_author
+    ) {
+      message_body
+    }
+  }
+`
