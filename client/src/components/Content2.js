@@ -5,41 +5,94 @@ import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null;
+let socketMounted = false;
+let portRequests = 1
 let messageOnCooldown = false;
+let location = 'http://localhost:3001/api/port'
+
+async function askForPort() {
+    if (!socketMounted) {
+        console.log("askForPort() running")
+        if (window.location.hostname === '10.0.0.149') {
+            location = 'http://10.0.0.149:3001/api/port'
+        }
+        if (window.location.hostname === 'eridium.herokuapp.com') {
+            location = '/api/port'
+        }
+        fetch(location)
+            .then(res => res.json())
+            .then(data => {
+                setPortVariable(data.port)
+                return;
+            })
+        console.log('askForPort() failed retrying in', Math.pow(2, portRequests) * 1000)
+        await sleep(Math.pow(2, portRequests) * 1000)
+        portRequests++
+        if (portRequests < 6) {
+            askForPort();
+        }
+    }
+}
+
+function setPortVariable(port) {
+    let wsLocation = `http://localhost:${port}`
+    if (window.location.hostname === 'eridium.herokuapp.com') {
+        wsLocation = `http://eridium.herokuapp.com:${port}`
+    }
+    socket = io(wsLocation, {
+        transports: ["websocket"],
+    });
+    socketMounted = true
+}
 
 function Content() {
     const [messages, setMessages] = useState([]);
-    const [socketEstablished, setSocketEstablished] = useState(!(socket === null))
+    const [hasPort, setHasPort] = useState(!(socket === null))
     const [mounted, setMounted] = useState(false)
 
-    function beforeMount() {
+    async function beforeMount() {
         if (!mounted) {
             setMounted(true)
-            socket = io();
-            setSocketEstablished(true)
-            socket.on('message', function (msg) {
-                console.log('[INCOMING] chat message', messages.length)
-                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-            })
+            console.log('beforeMount() starting')
+
+            askForPort()
+
+            let iteration = 1
+            while (!hasPort) {
+                console.log('beforeMount() socket is mounted:', socketMounted)
+                if (socketMounted) {
+                    setHasPort(true)
+                    console.log('beforeMount() askForPort() mounted socket')
+                    break;
+                }
+                console.log('beforeMount() Sleep and retry in:', Math.pow(2, iteration) * 1000)
+                await sleep(Math.pow(2, iteration) * 1000)
+                iteration++;
+            }
         }
     }
     beforeMount();
 
-    // useEffect(() => {
-    //     if (socketEstablished) {
-    //         console.log('Rerendered, and socket is established')
-
-    //         let errorPTag = document.getElementById('errorp')
-    //         if (errorPTag) {
-    //             errorPTag.remove()
-    //         }
-    //     } else {
-    //         console.log('Rerendered, and socket null')
-    //         let errorPTag = document.createElement('p')
-    //         errorPTag.setAttribute('id', 'errorp')
-    //         document.getElementById("message-list").appendChild(errorPTag)
-    //     }
-    // }, [messages, socketEstablished]);
+    useEffect(() => {
+        console.log('useEffect(): Rerendering, port-status:', hasPort)
+        setMounted(true)
+        if (hasPort) {
+            console.log('useEffect(() => {hasPort === true)')
+            socket.on('message', function (msg) {
+                console.log('[INCOMING] chat message', messages.length)
+                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
+            })
+            let errorPTag = document.getElementById('errorp')
+            if (errorPTag) {
+                errorPTag.remove()
+            }
+        } else {
+            let errorPTag = document.createElement('p')
+            errorPTag.textContent = `not connected ${location}`
+            errorPTag.setAttribute('id', 'errorp')
+            document.getElementById("message-list").appendChild(errorPTag)
+        }
+    }, [messages, hasPort]);
 
     function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
