@@ -50,6 +50,7 @@ function Content() {
             }
             let messageContainer = document.getElementById('message-list')
             socket.on('message', function (msg) {
+                console.log('incoming!', msg)
                 let newEl = createListElement({ id: uuidv4(), message: msg });
                 messageContainer.insertBefore(newEl, messageContainer.firstChild);
             })
