@@ -342,7 +342,6 @@ aside {
     z-index: 1;
     width: 87%;
     border-radius: 5px;
-    /* margin-top: var(--banner-height); */
     margin-left: auto;
     margin-right: 30px;
     margin-bottom: 77px;
@@ -352,7 +351,6 @@ aside {
 
 #current-user-settings-dropdown>button {
     width: 100%;
-    /* height: var(--banner-height); */
     margin-bottom: 77px;
     color: var(--shaded-color-6);
     background-color: var(--shaded-color-1a);
