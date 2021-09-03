@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import {
   ApolloClient,
   InMemoryCache,
@@ -45,12 +45,12 @@ function App() {
         <Route>
           <Sidebar />
           <Content />
-          {console.log(Auth.loggedIn)}
         </Route>
       )
     } else {
-      { window.location.assign('/login') }
-      { console.log('logogog') }
+      return (
+        <Redirect to="/login" />
+      )
     }
   }
 
