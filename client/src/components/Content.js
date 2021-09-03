@@ -13,15 +13,20 @@ async function sleep(ms) {
 
 function Content() {
     const [messages, setMessages] = useState([]);
-    const [mounted, setMounted] = useState(false)
+    const [mounted, setMounted] = useState(false);
 
     async function beforeMount() {
         if (!mounted) {
-            let socketMounted = false
+            setMounted(true);
+            let socketMounted = false;
             while (!(socketMounted)) {
                 console.log('trying to mount socket')
-                setMounted(true)
-                socket = io("localhost:3001");
+                if (window.location.hostname === 'eridium.herokuapp.com') {
+                    socket = io();
+                } else {
+                    socket = io("localhost:3001");
+                }
+
                 if (socket) {
                     socketMounted = socket.connected;
                     break;
