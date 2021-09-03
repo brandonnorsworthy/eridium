@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Message, Server } = require('../models');
+const { User, Message, Server, Channel } = require('../models');
 const { signToken} = require('../utils/auth');
 
 const resolvers = {
@@ -15,6 +15,10 @@ const resolvers = {
         // Messages by server
         server_messages: async (server_id) => {
             return Server.findOne({ _id: server_id }).populate('messages');
+        },
+        // Channels by server
+        channels: async (channel_id) => {
+            return Channel.findOne({_id: server_id}).populate('channels')
         },
         // Allows authentication to work properly
         me: async (parent, args, context) => {
@@ -119,6 +123,12 @@ const resolvers = {
             const server = await Server.create({ server_name });
             return { server };
         },
+
+        //Add channel
+        addChannel: async (parent, { channel_name }) => {
+            const channel = await Channel.create({ channel_name})
+            return {channel};
+        }
     }
 };
 
