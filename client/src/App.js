@@ -7,6 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Auth from './utils/auth'
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
 import DemoSidebar from './demo/Sidebar'
@@ -18,7 +19,7 @@ import Signup from './components/Signup'
 //   uri: 'http://localhost:3001/graphql',
 // });
 
-const httpLink = createHttpLink({ uri: window.location.hostname === 'eridium.herokuapp.com' ? '/graphql' : 'http://localhost:3001/graphql'});
+const httpLink = createHttpLink({ uri: window.location.hostname === 'eridium.herokuapp.com' ? '/graphql' : 'http://localhost:3001/graphql' });
 
 
 const authLink = setContext((_, { headers }) => {
@@ -37,6 +38,22 @@ const client = new ApolloClient({
 });
 
 function App() {
+
+  function checkAuth() {
+    if (!Auth.loggedIn) {
+      return (
+        <Route>
+          <Sidebar />
+          <Content />
+          {console.log(Auth.loggedIn)}
+        </Route>
+      )
+    } else {
+      { window.location.assign('/login') }
+      { console.log('logogog') }
+    }
+  }
+
   return (
     /* go to localhost:3000/demo for an example of what it will look like */
     /* components have the templates that will be used for javascript do not touch /demo folder */
@@ -55,8 +72,7 @@ function App() {
               <DemoContent />
             </Route>
             <Route path="/">
-              <Sidebar />
-              <Content />
+              {checkAuth()}
             </Route>
           </Switch>
         </Router>
