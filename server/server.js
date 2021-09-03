@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
 
   socket.on('message', (msg) => {
     console.log("[server]", '⚠ message: ', msg);
-    socket.emit('message', msg);
+    io.emit('message', msg);
   });
 
   // setInterval(() => io.emit('message', new Date().toTimeString()), 3000); //test
