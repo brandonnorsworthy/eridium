@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
-import io from 'socket.io-client';
+import { io } from "socket.io-client";
 import moment from 'moment'
 
 let socket = null;
 let messageOnCooldown = false;
 
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function Content() {
     const [messages, setMessages] = useState([]);
-    const [socketEstablished, setSocketEstablished] = useState(!(socket === null))
     const [mounted, setMounted] = useState(false)
 
-    function beforeMount() {
+    async function beforeMount() {
         if (!mounted) {
-            setMounted(true)
-            socket = io();
-            setSocketEstablished(true)
+            let socketMounted = false
+            while (!(socketMounted)) {
+                console.log('trying to mount socket')
+                setMounted(true)
+                socket = io("localhost:3001");
+                if (socket) {
+                    socketMounted = socket.connected;
+                    break;
+                }
+                await sleep(2000)
+                console.log('socket connection status', socket.connected)
+                if (socket) {
+                    socketMounted = socket.connected;
+                    break;
+                }
+            }
+            console.log('socket mounted???????????')
             socket.on('message', function (msg) {
                 console.log('[INCOMING] chat message', messages.length)
                 setMessages([{ id: uuidv4(), message: msg }, ...messages]);
@@ -25,21 +42,21 @@ function Content() {
     }
     beforeMount();
 
-    // useEffect(() => {
-    //     if (socketEstablished) {
-    //         console.log('Rerendered, and socket is established')
+    useEffect(() => {
+        if (socket) {
+            console.log('Rerendered, and socket is established')
 
-    //         let errorPTag = document.getElementById('errorp')
-    //         if (errorPTag) {
-    //             errorPTag.remove()
-    //         }
-    //     } else {
-    //         console.log('Rerendered, and socket null')
-    //         let errorPTag = document.createElement('p')
-    //         errorPTag.setAttribute('id', 'errorp')
-    //         document.getElementById("message-list").appendChild(errorPTag)
-    //     }
-    // }, [messages, socketEstablished]);
+            let errorPTag = document.getElementById('errorp')
+            if (errorPTag) {
+                errorPTag.remove()
+            }
+        } else {
+            console.log('Rerendered, and socket null')
+            let errorPTag = document.createElement('p')
+            errorPTag.setAttribute('id', 'errorp')
+            document.getElementById("message-list").appendChild(errorPTag)
+        }
+    }, [messages]);
 
     function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
@@ -106,10 +123,6 @@ function Content() {
             </div>
         </main>
     )
-}
-
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default Content

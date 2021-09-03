@@ -1,6 +1,7 @@
 const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const path = require('path');
+const cors = require('cors');
 const socketio = require('socket.io')
 const PORT = process.env.PORT || 3001;
 
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 //middleware settings
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors())
 
 // Listen to port PORT, save on const to attach io to it
 const http = app.listen(PORT, () =>
@@ -50,7 +52,12 @@ const http = app.listen(PORT, () =>
 )
 
 // Attach socket.io to the server instance
-const io = socketio(http)
+const io = socketio(http, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+})
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
   console.log(socket.conn.transport.name);
@@ -68,3 +75,4 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('message', msg);
   });
 });
+setInterval(() => io.emit('message', new Date().toTimeString()), 1000); //test
