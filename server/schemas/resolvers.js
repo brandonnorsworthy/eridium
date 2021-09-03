@@ -54,15 +54,15 @@ const resolvers = {
                     message_author: context.user.username,
                 });
 
-                await User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { messages: message._id } }
-                );
+                // await User.findOneAndUpdate(
+                //     { _id: context.user._id },
+                //     { $addToSet: { messages: message._id } }
+                // );
 
-                await Server.findOneAndUpdate(
-                    { _id: context.server._id },
-                    { $addToSet: { messages: message._id } }
-                );
+                // await Server.findOneAndUpdate(
+                //     { _id: context.server._id },
+                //     { $addToSet: { messages: message._id } }
+                // );
 
                 return message;
             // }

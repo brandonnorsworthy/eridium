@@ -100,6 +100,7 @@ function Content() {
                 messageOnCooldown = true;
                 socket.emit('message', e.target.value.trim());
                 setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
+                
                 e.target.value = '';
                 setTimeout(function () { messageOnCooldown = false }, 1000);
             }
