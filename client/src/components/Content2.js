@@ -1,67 +1,98 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
-import { io } from "socket.io-client";
+import io from 'socket.io-client';
 import moment from 'moment'
 
 let socket = null;
+let socketMounted = false;
+let portRequests = 1
 let messageOnCooldown = false;
+let location = 'http://localhost:3001/api/port'
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+async function askForPort() {
+    if (!socketMounted) {
+        console.log("askForPort() running")
+        if (window.location.hostname === '10.0.0.149') {
+            location = 'http://10.0.0.149:3001/api/port'
+        }
+        if (window.location.hostname === 'eridium.herokuapp.com') {
+            location = '/api/port'
+        }
+        fetch(location)
+            .then(res => res.json())
+            .then(data => {
+                setPortVariable(data.port)
+                return;
+            })
+        console.log('askForPort() failed retrying in', Math.pow(2, portRequests) * 1000)
+        await sleep(Math.pow(2, portRequests) * 1000)
+        portRequests++
+        if (portRequests < 6) {
+            askForPort();
+        }
+    }
+}
+
+function setPortVariable(port) {
+    let wsLocation = `http://localhost:${port}`
+    if (window.location.hostname === 'eridium.herokuapp.com') {
+        wsLocation = `http://eridium.herokuapp.com:${port}`
+    }
+    socket = io(wsLocation, {
+        transports: ["websocket"],
+    });
+    socketMounted = true
 }
 
 function Content() {
     const [messages, setMessages] = useState([]);
-    const [mounted, setMounted] = useState(false);
+    const [hasPort, setHasPort] = useState(!(socket === null))
+    const [mounted, setMounted] = useState(false)
 
     async function beforeMount() {
         if (!mounted) {
-            setMounted(true);
-            let socketMounted = false;
-            while (!(socketMounted)) {
-                console.log('trying to mount socket')
-                if (window.location.hostname === 'eridium.herokuapp.com') {
-                    socket = io();
-                } else {
-                    socket = io("localhost:3001");
-                }
+            setMounted(true)
+            console.log('beforeMount() starting')
 
-                if (socket) {
-                    socketMounted = socket.connected;
+            askForPort()
+
+            let iteration = 1
+            while (!hasPort) {
+                console.log('beforeMount() socket is mounted:', socketMounted)
+                if (socketMounted) {
+                    setHasPort(true)
+                    console.log('beforeMount() askForPort() mounted socket')
                     break;
                 }
-                await sleep(2000)
-                console.log('socket connection status', socket.connected)
-                if (socket) {
-                    socketMounted = socket.connected;
-                    break;
-                }
+                console.log('beforeMount() Sleep and retry in:', Math.pow(2, iteration) * 1000)
+                await sleep(Math.pow(2, iteration) * 1000)
+                iteration++;
             }
-            console.log('socket mounted???????????')
-            socket.on('message', function (msg) {
-                console.log('[INCOMING] chat message', messages.length)
-                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-            })
         }
     }
     beforeMount();
 
     useEffect(() => {
-        if (socket) {
-            console.log('Rerendered, and socket is established')
-
+        console.log('useEffect(): Rerendering, port-status:', hasPort)
+        setMounted(true)
+        if (hasPort) {
+            console.log('useEffect(() => {hasPort === true)')
+            socket.on('message', function (msg) {
+                console.log('[INCOMING] chat message', messages.length)
+                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
+            })
             let errorPTag = document.getElementById('errorp')
             if (errorPTag) {
                 errorPTag.remove()
             }
         } else {
-            console.log('Rerendered, and socket null')
             let errorPTag = document.createElement('p')
+            errorPTag.textContent = `not connected ${location}`
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
         }
-    }, [messages]);
+    }, [messages, hasPort]);
 
     function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
@@ -128,6 +159,10 @@ function Content() {
             </div>
         </main>
     )
+}
+
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export default Content
