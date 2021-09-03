@@ -60,7 +60,7 @@ function Login() {
                     />
                 </div>
                 <span className="form-input-login">
-                    Need an account? <br />Click here to <a href="?">Sign Up</a>
+                    Need an account? <br />Click here to <a href="/signup">Sign Up</a>
                 </span><br />
                 <button className="form-input-btn" type="submit">
                     Log In

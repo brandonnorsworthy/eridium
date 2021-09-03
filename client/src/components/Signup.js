@@ -72,7 +72,7 @@ function Signup() {
                     />
                 </div>
                 <span className="form-input-login">
-                    Already have an account? <br />Click here to <a href="?">Login</a>
+                    Already have an account? <br />Click here to <a href="/login">Login</a>
                 </span><br />
                 <button className="form-input-btn" type="submit">
                     SIGN UP
