@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import Auth from './utils/auth'
+// import Auth from './utils/auth'
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
 import DemoSidebar from './demo/Sidebar'
@@ -38,21 +38,21 @@ const client = new ApolloClient({
 });
 
 function App() {
-
-  function checkAuth() {
-    if (Auth.loggedIn()) {
-      return (
-        <Route>
-          <Sidebar />
-          <Content />
-        </Route>
-      )
-    } else {
-      return (
-        <Redirect to="/login" />
-      )
-    }
-  }
+  // ! DO NOT DELETE --- WORKING AUTH
+  // function checkAuth() {
+  //   if (Auth.loggedIn()) {
+  //     return (
+  //       <Route>
+  //         <Sidebar />
+  //         <Content />
+  //       </Route>
+  //     )
+  //   } else {
+  //     return (
+  //       <Redirect to="/login" />
+  //     )
+  //   }
+  // }
 
   return (
     /* go to localhost:3000/demo for an example of what it will look like */
@@ -72,7 +72,12 @@ function App() {
               <DemoContent />
             </Route>
             <Route path="/">
-              {checkAuth()}
+              {/* DO NOT DELETE */}
+              {/* {checkAuth()} */}
+              <Route>
+                <Sidebar />
+                <Content />
+              </Route>
             </Route>
           </Switch>
         </Router>
