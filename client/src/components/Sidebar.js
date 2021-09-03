@@ -63,12 +63,12 @@ function Sidebar() {
 
     function displaySettingsBanner(e) {
         /* BRANDON server banner replace icon when clicked */
-        document.getElementById("settings-banner-dropdown").style.display = "flex"
+        document.getElementById("current-user-settings-dropdown").style.display = "flex"
     }
 
     function hideSettingsBanner(e) {
         /* BRANDON server banner replace icon when leave banner */
-        document.getElementById("settings-banner-dropdown").style.display = "none"
+        document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
     return (
@@ -135,18 +135,16 @@ function Sidebar() {
                         </div>
                     </div>
                 </div>
-                <div id="current-user">
+                <div className="no-select" id="current-user" onMouseLeave={hideSettingsBanner}>
                     <img src={/* TODO current logged in users profile picture */"https://via.placeholder.com/30x30"} alt="user profile"></img>
                     <p>{/* TODO current logged in user */"currentusername"}</p>
-                    <div className="no-select" onMouseLeave={hideSettingsBanner}>
-                        <div id="server-banner-button" onClick={displaySettingsBanner}>
-                            <span className="material-icons">settings</span>
-                        </div>
-                        <div id="settings-banner-dropdown">
-                            <button>
-                                <a href="/login" onClick={() => Auth.logout()}>Log Out</a>
-                            </button>
-                        </div>
+                    <div id="current-user-settings-button" onClick={displaySettingsBanner}>
+                        <span className="material-icons">settings</span>
+                    </div>
+                    <div id="current-user-settings-dropdown">
+                        <button>
+                            <a href="/login" onClick={() => Auth.logout()}>Log Out</a>
+                        </button>
                     </div>
                 </div>
             </nav>
