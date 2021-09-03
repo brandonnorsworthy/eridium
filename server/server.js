@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/', (req, res) => {
-  console.log('user getting index route');
+  console.log("[server]", 'user getting index route');
   res.sendFile(path.join('index.html'));
 });
 
@@ -60,7 +60,6 @@ const io = socketio(http, {
 })
 io.on('connection', (socket) => {
   console.log("[server]", '⚠ a user connected');
-  console.log(socket.conn.transport.name);
 
   socket.on("connect_error", (err) => {
     console.log(`connect_error due to ${err.message}`);
@@ -72,7 +71,8 @@ io.on('connection', (socket) => {
 
   socket.on('message', (msg) => {
     console.log("[server]", '⚠ message: ', msg);
-    socket.broadcast.emit('message', msg);
+    socket.emit('message', msg);
   });
+
+  // setInterval(() => io.emit('message', new Date().toTimeString()), 3000); //test
 });
-setInterval(() => io.emit('message', new Date().toTimeString()), 1000); //test

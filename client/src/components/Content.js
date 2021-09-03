@@ -12,7 +12,6 @@ async function sleep(ms) {
 }
 
 function Content() {
-    const [messages, setMessages] = useState([]);
     const [mounted, setMounted] = useState(false);
 
     async function beforeMount() {
@@ -39,36 +38,59 @@ function Content() {
                 }
             }
             console.log('socket mounted???????????')
-            socket.on('message', function (msg) {
-                console.log('[INCOMING] chat message', messages.length)
-                setMessages([{ id: uuidv4(), message: msg }, ...messages]);
-            })
         }
     }
     beforeMount();
 
     useEffect(() => {
         if (socket) {
-            console.log('Rerendered, and socket is established')
-
             let errorPTag = document.getElementById('errorp')
             if (errorPTag) {
                 errorPTag.remove()
             }
+            let messageContainer = document.getElementById('message-list')
+            socket.on('message', function (msg) {
+                let newEl = createListElement({ id: uuidv4(), message: msg });
+                messageContainer.insertBefore(newEl, messageContainer.firstChild);
+            })
         } else {
             console.log('Rerendered, and socket null')
             let errorPTag = document.createElement('p')
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
         }
-    }, [messages]);
+    }, []);
+
+    function createListElement(message) {
+        let liEl = document.createElement('li');
+        liEl.classList.add('message-container');
+        liEl.setAttribute('key', message.id);
+        liEl.innerHTML = `
+        <img class="message-profile-pic" src=${/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
+        <div>
+            <div class="message-top">
+                <p class="message-username">${/* TODO message author username */"username"}</p>
+                <p class="message-times">
+                    <span class="message-timestamp">${/* TODO message timestamp */moment().format("h:mm a")}</span>
+                    &nbsp;•&nbsp;
+                    <span class="message-timeago">${/* TODO how long ago message occured */moment().fromNow()}</span>
+                </p>
+            </div>
+            <div class="message-content">
+                <p>
+                    ${message.message}
+                </p>
+            </div>
+        </div>`
+
+        return liEl
+    }
 
     function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
                 socket.emit('message', e.target.value.trim());
-                setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
                 e.target.value = '';
                 setTimeout(function () { messageOnCooldown = false }, 1000);
             }
@@ -87,31 +109,6 @@ function Content() {
             </div>
             <div id="main-content">
                 <ul id="message-list">
-                    {/* TODO loop over li tags to generate messages !!!!!ADD MOST RECENT TO BOTTOM */}
-                    {
-                        messages.map((message) => (
-                            <li key={message.id} className="message-container">
-                                <img className="message-profile-pic" src={/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
-                                <div>
-                                    <div className="message-top">
-                                        <p className="message-username">{/* TODO message author username */}username</p>
-                                        <p className="message-times">
-                                            <span className="message-timestamp">{/* TODO message timestamp */moment().format("h:mm a")}</span>
-                                            &nbsp;•&nbsp;
-                                            <span className="message-timeago">{/* TODO how long ago message occured */moment().fromNow()}</span>
-                                        </p>
-                                    </div>
-                                    <div className="message-content">
-                                        {/* example of @message */}
-                                        {/* <p>grjioeroijga <span className="usertag">@jeremeyblanks19</span></p> */}
-                                        <p>
-                                            {message.message}
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        ))
-                    }
                 </ul>
                 <div className="no-select" id="input-container" >
                     <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
