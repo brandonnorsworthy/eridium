@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useMutation } from '@apollo/client';
+import { ADD_MESSAGE } from '../utils/mutations';
 import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
 import io from 'socket.io-client';
@@ -50,6 +52,17 @@ function Content() {
     const [hasPort, setHasPort] = useState(!(socket === null))
     const [mounted, setMounted] = useState(false)
 
+    const [formState, setFormState] = useState({ message_body: ''});
+    const [addMessage] = useMutation(ADD_MESSAGE);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+
     async function beforeMount() {
         if (!mounted) {
             setMounted(true)
@@ -94,12 +107,22 @@ function Content() {
         }
     }, [messages, hasPort]);
 
-    function formSubmit(e) {
+    async function formSubmit(e) {
+
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
                 socket.emit('message', e.target.value.trim());
                 setMessages([{ id: uuidv4(), message: e.target.value }, ...messages]);
+                
+                // Mutation added so that message saves to database
+                const mutationResponse = await addMessage({
+                    variables: {
+                        message_body: formState.message_body,
+                        message_author: 'mguppy'
+                    }
+                });
+
                 e.target.value = '';
                 setTimeout(function () { messageOnCooldown = false }, 1000);
             }
@@ -145,7 +168,7 @@ function Content() {
                     }
                 </ul>
                 <div className="no-select" id="input-container" >
-                    <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
+                    <textarea onKeyDown={formSubmit} onChange={handleChange} value={formState.username} placeholder="message in #random-yt-vids"></textarea>
                     <div id="selectables">
                         <div><b>B</b></div>
                         <div><i>I</i></div>

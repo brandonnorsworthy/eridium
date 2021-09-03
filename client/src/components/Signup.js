@@ -8,6 +8,14 @@ function Signup() {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [addUser] = useMutation(ADD_USER);
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+    
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         const mutationResponse = await addUser({
@@ -19,14 +27,6 @@ function Signup() {
         });
         const token = mutationResponse.data.addUser.token;
         Auth.login(token);
-    };
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
     };
 
     return (

@@ -47,22 +47,22 @@ const resolvers = {
             return { token, user };
         },
         // Send message on server and to one user
-        addMessage: async (parent, { message_body }, context) => {
+        addMessage: async (parent, { message_body, message_author }, context) => {
             // if (context.user) {
                 const message = await Message.create({
                     message_body: message_body,
-                    message_author: context.user.username,
+                    message_author: "mguppy",
                 });
 
-                await User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { messages: message._id } }
-                );
+                // await User.findOneAndUpdate(
+                //     { _id: context.user._id },
+                //     { $addToSet: { messages: message._id } }
+                // );
 
-                await Server.findOneAndUpdate(
-                    { _id: context.server._id },
-                    { $addToSet: { messages: message._id } }
-                );
+                // await Server.findOneAndUpdate(
+                //     { _id: context.server._id },
+                //     { $addToSet: { messages: message._id } }
+                // );
 
                 return message;
             // }
