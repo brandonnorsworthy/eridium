@@ -24,6 +24,12 @@ const typeDefs = gql`
     messages: [Message]!
   }
 
+  type Channel {
+    _id: ID
+    channel_name: string
+    server: [Server]!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -46,6 +52,7 @@ const typeDefs = gql`
     addMessage(message_body: String!): Message
     deleteMessage(messageId: ID!): Message
     addServer(server_name: String!): Server
+    addChannel(channel_name: String!): Channel
   }
 `;
 
