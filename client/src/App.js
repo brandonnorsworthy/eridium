@@ -49,7 +49,7 @@ function App() {
       )
     } else {
       return (
-        <Redirect to="/demo" />
+        <Redirect to="/login" />
       )
     }
   }

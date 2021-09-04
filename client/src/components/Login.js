@@ -65,7 +65,6 @@ function Login() {
                 <button className="form-input-btn" type="submit">
                     Log In
                 </button>
-
             </form>
         </div>
     )
