@@ -49,7 +49,7 @@ function App() {
       )
     } else {
       return (
-        <Redirect to="/login" />
+        <Redirect to="/demo" />
       )
     }
   }
@@ -61,11 +61,11 @@ function App() {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
             <Route path="/signup">
               <Signup />
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
             <Route path="/demo">
               <DemoSidebar />
