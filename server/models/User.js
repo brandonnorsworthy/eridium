@@ -20,6 +20,7 @@ const userSchema = new Schema({
   },
   profile_picture: {
     type: String,
+    default: 'Not Incorporated Yet'
   },
   servers: [
     {
