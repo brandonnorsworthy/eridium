@@ -63,9 +63,9 @@ function App() {
           <Switch>
             <Route path="/signup">
               <Signup />
-            </Route>
             <Route path="/login">
               <Login />
+            </Route>
             </Route>
             <Route path="/demo">
               <DemoSidebar />
@@ -73,11 +73,11 @@ function App() {
             </Route>
             <Route path="/">
               {/* DO NOT DELETE */}
-              {checkAuth()}
-              {/* <Route>
+              {/* {checkAuth()} */}
+              <Route>
                 <Sidebar />
                 <Content />
-              </Route> */}
+              </Route>
             </Route>
           </Switch>
         </Router>
