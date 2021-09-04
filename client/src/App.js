@@ -57,15 +57,15 @@ function App() {
   return (
     /* go to localhost:3000/demo for an example of what it will look like */
     /* components have the templates that will be used for javascript do not touch /demo folder */
-    // <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       <div className="App">
         <Router>
           <Switch>
             <Route path="/signup">
               <Signup />
-            </Route>
             <Route path="/login">
               <Login />
+            </Route>
             </Route>
             <Route path="/demo">
               <DemoSidebar />
@@ -74,15 +74,15 @@ function App() {
             <Route path="/">
               {/* DO NOT DELETE */}
               {/* {checkAuth()} */}
-              {/* <Route>
+              <Route>
                 <Sidebar />
                 <Content />
-              </Route> */}
+              </Route>
             </Route>
           </Switch>
         </Router>
       </div>
-    {/* </ApolloProvider> */}
+    </ApolloProvider>
   );
 }
 
