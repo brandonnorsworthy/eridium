@@ -38,7 +38,11 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('*', (req, res) => {
   console.log("[server]", 'user getting index route');
-  res.sendFile(path.join('index.html'));
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
+  } else {
+    res.sendFile('index.html', {root: path.join(__dirname, '../client/public/')});
+  }
 });
 
 //middleware settings
