@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_MESSAGE } from '../utils/mutations';
-import { v4 as uuidv4 } from 'uuid';
 import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
