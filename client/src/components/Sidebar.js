@@ -13,6 +13,10 @@ function Sidebar() {
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
+    function toggleModal() {
+        document.querySelector('.modal').style.display = "flex"
+    }
+
     function hideChannels(e) {
         /* if they clicked the add a new channel button immediately stop */
         let target = e.target
@@ -101,7 +105,7 @@ function Sidebar() {
                         <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>TEXT CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
+                            <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
                         {/* TODO loop the div below to create the text channels */}
                         <div className="category-channel" id="active-channel" onClick={newActiveChannel}>
