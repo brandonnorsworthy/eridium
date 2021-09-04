@@ -143,7 +143,7 @@ function Sidebar() {
                     </div>
                     <div id="current-user-settings-dropdown">
                         <button onClick={() => Auth.logout()}>
-                            <a>Log Out</a>
+                            <p>Log Out</p>
                         </button>
                     </div>
                 </div>

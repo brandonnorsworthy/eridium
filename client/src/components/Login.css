@@ -1,60 +1,75 @@
-p {
-    color: white;
-    text-align: center;
-}
- a {
-     text-decoration: none;
-     color: rgb(189, 113, 189);
-     font-weight: bold;
- }
-
-.form-inputs p {
-    color: red;
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--shaded-color-0);
 }
 
 .form {
+    padding: 25px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
+    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--shaded-color-6);
     background-color: var(--shaded-color-3);
-    border-radius: 9px;
-  }
+    border-radius: 10px;
+}
 
-  .form-label {
-      color: white;
-  }
+.form h3 {
+    font-weight: 400;
+    font-size: 20px;
+}
 
-  .form-input-btn {
-    background: rgb(189, 113, 189);
-    font-size: 13px;
-    color: darkgray;
+.form-inputs {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.form-inputs > * {
+    width: 100%;
+    font-size: 18px;
+}
+
+.form-inputs input {
+    display: inline-block;
+    margin: 8px 0;
+    border: 0px;
+    border-radius: 10px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    color: var(--shaded-color-5a);
+    background: var(--shaded-color-4);
+}
+
+.form-redirect {
+    width: 100%;
+    text-align: left;
+    color: var(--shaded-color-5);
+    line-height: 2;
+    font-size: 18px;
+}
+
+.form-redirect a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.form-input-btn {
+    color: var(--shaded-color-3);
+    background: var(--primary-color);
+    font-size: 18px;
     padding: 8px 50px;
     font-weight: bold;
+    border: 0px;
     border-radius: 10px;
     margin: 10px 0px;
     cursor: pointer;
     border: none;
-  }
-  input {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background: var(--shaded-color-4);
-  }
-  
-  .form-input-login {
-      color:  var(--shaded-color-5a);
-  }
-
+}
