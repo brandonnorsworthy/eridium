@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   console.log("[server]", 'user getting index route');
   res.sendFile(path.join('index.html'));
 });
