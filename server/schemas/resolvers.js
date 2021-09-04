@@ -54,17 +54,13 @@ const resolvers = {
         addMessage: async (parent, { message_body }, context) => {
             if (context.username) {
                 const message = await Message.create({
-                    message_body: message_body,
-                    message_author: context.id
+                    body: message_body,
+                    user_id: context.id
                 });
 
-                await User.findOneAndUpdate(
-                    { _id: context.id },
-                    { $addToSet: { messages: message._id } }
-                );
-
-                // await Server.findOneAndUpdate(
-                //     { _id: context.server._id },
+                // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
+                // await Channel.findOneAndUpdate(
+                //     { _id: room },
                 //     { $addToSet: { messages: message._id } }
                 // );
 
@@ -97,7 +93,7 @@ const resolvers = {
         
         // Delete a message sent on server or to a user
         deleteMessage: async (parent, { messageId }, context) => {
-            // if (context.user) {
+            if (context.user) {
                 const message = await Message.findOneAndDelete({
                     _id: messageId,
                     message_author: context.user.username,
@@ -114,7 +110,7 @@ const resolvers = {
                 );
 
                 return message;
-            // }
+            }
             throw new AuthenticationError('You need to be logged in!');
         },
 
