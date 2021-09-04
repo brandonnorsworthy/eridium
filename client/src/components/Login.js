@@ -30,11 +30,9 @@ function Login() {
     };
 
     return (
-        <div className="form-content">
+        <div className="form-container">
             <form className="form" onSubmit={handleFormSubmit}>
-                <p>
-                    Log In
-                </p>
+                <h3>Login</h3>
                 <div className="form-inputs">
                     <label htmlFor="email" className="form-label">Email
                     </label><br />
@@ -59,12 +57,11 @@ function Login() {
                         onChange={handleChange}
                     />
                 </div>
-                <span className="form-input-login">
-                    Need an account? <br />Click here to <a href="/signup">Sign Up</a>
-                </span><br />
-                <button className="form-input-btn" type="submit">
-                    Log In
-                </button>
+                <p className="form-redirect">
+                    Need a new account?<br />
+                    Click here to <a href="/signup">Sign Up</a>
+                </p>
+                <button className="form-input-btn" type="submit">Login</button>
             </form>
         </div>
     )
