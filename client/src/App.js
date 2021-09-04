@@ -50,9 +50,9 @@ function App() {
           <Switch>
             <Route path="/signup">
               <Signup />
-              <Route path="/login">
-                <Login />
-              </Route>
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
             <Route path="/demo">
               <DemoSidebar />
