@@ -2,16 +2,11 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const messageSchema = new Schema({
-    message_body: {
+    body: {
       type: String,
-      required: 'You need to leave a thought!',
+      required: 'You need to leave a message!',
       minlength: 1,
-      maxlength: 2000,
-      trim: true,
-    },
-    message_author: {
-      type: String,
-      required: true,
+      maxlength: 750,
       trim: true,
     },
     createdAt: {
@@ -19,12 +14,12 @@ const messageSchema = new Schema({
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
-    server: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Server',
-        },
-      ],
+    user_id: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
+    ],
   });
   
   const Message = model('Message', messageSchema);

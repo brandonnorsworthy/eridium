@@ -1,15 +1,19 @@
 const { Schema, model } = require('mongoose');
 
 const serverSchema = new Schema({
-    server_name: {
+    name: {
       type: String,
       required: 'Please enter a server name!',
       minlength: 1,
       maxlength: 100,
       trim: true,
     },
-    server_pic_url: {
+    icon: {
       type: String,
+    },
+    owner_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
     },
     users: [
       {
@@ -17,10 +21,10 @@ const serverSchema = new Schema({
         ref: "User"
       }
     ],
-    messages: [
+    rooms: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Message',
+        ref: 'Channel',
       },
     ],
   });
