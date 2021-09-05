@@ -143,11 +143,11 @@ function Sidebar(props) {
                         {/* TODO loop the div below to create the text channels */}
                         <div className="category-channel" data-channel="2492134" id="active-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
-                            <p>{/* TODO text channel name */"2492134"}</p>
+                            <p>general</p>
                         </div>
                         <div className="category-channel" data-channel="2343424" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
-                            <p>{/* TODO text channel name */"2343424"}</p>
+                            <p>epic-people-only</p>
                         </div>
                     </div>
                     {/* commented out voice channels until implemented */}
