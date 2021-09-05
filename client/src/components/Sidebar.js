@@ -2,7 +2,7 @@ import React from 'react';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 
-function Sidebar() {
+function Sidebar(props) {
     function displayServerBanner(e) {
         /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -56,6 +56,10 @@ function Sidebar() {
                 target = target.parentElement
             }
 
+            // console.log(target.dataset.channel)
+            props.setActiveChannel(target.dataset.channel)
+            // console.log(props.setActiveChannel(this.nav))
+
             let prevTarget = document.getElementById('active-channel')
             if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
                 prevTarget.style.display = 'none'
@@ -108,11 +112,11 @@ function Sidebar() {
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
                         {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel" id="active-channel" key="2492134" onClick={newActiveChannel}>
+                        <div className="category-channel" data-channel="2492134" id="active-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>{/* TODO text channel name */"2492134"}</p>
                         </div>
-                        <div className="category-channel" key="2343424" onClick={newActiveChannel}>
+                        <div className="category-channel" data-channel="2343424" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>{/* TODO text channel name */"2343424"}</p>
                         </div>

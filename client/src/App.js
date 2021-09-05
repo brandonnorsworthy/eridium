@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Auth from './utils/auth'
@@ -28,12 +29,14 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [activeChannel, setActiveChannel] = useState('2492134');
+
   function checkAuth() {
     if (Auth.loggedIn()) {
       return (
         <Route>
-          <Sidebar />
-          <Content />
+          <Sidebar setActiveChannel={setActiveChannel} />
+          <Content activeChannel={activeChannel} />
         </Route>
       )
     } else {
