@@ -39,7 +39,7 @@ function Content(props) {
             setMounted(true);
             let socketMounted = false;
             while (!(socketMounted)) {
-                if (window.location.hostname === 'eridium.herokuapp.com') {
+                if (window.location.hostname === 'www.eridium.chat' || window.location.hostname === 'eridium.herokuapp.com') {
                     socket = io();
                 } else {
                     socket = io("localhost:3001");

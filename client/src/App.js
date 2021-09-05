@@ -12,7 +12,7 @@ import CreateChannel from './components/modals/CreateChannel'
 import DemoSidebar from './demo/Sidebar'
 import DemoContent from './demo/Content'
 
-const httpLink = createHttpLink({ uri: window.location.hostname === 'eridium.herokuapp.com' ? '/graphql' : 'http://localhost:3001/graphql' });
+const httpLink = createHttpLink({ uri: (window.location.hostname === 'www.eridium.chat' || window.location.hostname === 'eridium.herokuapp.com') ? '/graphql' : 'http://localhost:3001/graphql' });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
