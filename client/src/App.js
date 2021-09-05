@@ -8,6 +8,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Sidebar from './components/Sidebar'
 import Content from './components/Content'
+import CreateChannel from './components/modals/CreateChannel'
 import DemoSidebar from './demo/Sidebar'
 import DemoContent from './demo/Content'
 
@@ -37,6 +38,7 @@ function App() {
         <Route>
           <Sidebar setActiveChannel={setActiveChannel} />
           <Content activeChannel={activeChannel} />
+          <CreateChannel />
         </Route>
       )
     } else {

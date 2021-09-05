@@ -5,7 +5,6 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   email: {
@@ -19,13 +18,14 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  profile_pic_url: {
+  profile_picture: {
     type: String,
+    default: 'Not Incorporated Yet'
   },
-  messages: [
+  servers: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Message',
+      ref: 'Server',
     },
   ],
 });
