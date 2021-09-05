@@ -10,6 +10,10 @@ function DemoSidebar() {
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
+    function toggleModal() {
+        document.querySelector('.modal').style.display = "flex"
+    }
+
     function hideChannels(e) {
         /* if they clicked the add a new channel button immediately stop */
         let target = e.target
@@ -53,7 +57,11 @@ function DemoSidebar() {
                 target = target.parentElement
             }
 
-            document.getElementById('active-channel').removeAttribute('id');
+            let prevTarget = document.getElementById('active-channel')
+            if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
+                prevTarget.style.display = 'none'
+            }
+            prevTarget.removeAttribute('id')
             target.setAttribute('id', 'active-channel');
         }
     }

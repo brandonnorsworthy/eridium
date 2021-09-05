@@ -1,9 +1,25 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
+// import { QUERY_USER } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
+import DefaultImage from '../private/default.png'
 
-import { QUERY_USER } from '../utils/queries';
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+}
+
+function intToRGB(i) {
+    var c = (i & 0x00FFFFFF)
+        .toString(16)
+        .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+}
 
 function Sidebar(props) {
     // const { username: userParam } = useParams();
@@ -161,7 +177,7 @@ function Sidebar(props) {
                     </div>
                 </div>
                 <div className="no-select" id="current-user" onMouseLeave={hideSettingsBanner}>
-                    <img src={/* TODO current logged in users profile picture */"https://via.placeholder.com/30x30"} alt="user profile"></img>
+                    <img src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode(Auth.getProfile().data._id))}` }} alt="user profile"></img>
                     <p>{/* TODO current logged in user */Auth.getUsername()}</p>
                     <div id="current-user-settings-button" onClick={displaySettingsBanner}>
                         <span className="material-icons">settings</span>

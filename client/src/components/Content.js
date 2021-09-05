@@ -5,12 +5,29 @@ import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
 import Auth from '../utils/auth.js'
+import DefaultImage from '../private/default.png'
 
 let socket = null;
 let messageOnCooldown = false;
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+}
+
+function intToRGB(i) {
+    var c = (i & 0x00FFFFFF)
+        .toString(16)
+        .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
 }
 
 function Content(props) {
@@ -79,7 +96,7 @@ function Content(props) {
         liEl.classList.add('message-container');
         liEl.setAttribute('key', message.id);
         liEl.innerHTML = `
-        <img class="message-profile-pic" src=${/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
+        <img class="message-profile-pic" src=${DefaultImage} style="background-color:#${intToRGB(hashCode(message.id))};" alt="profile"></img>
         <div>
             <div class="message-top">
                 <p class="message-username">${message.username}</p>
