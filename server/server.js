@@ -63,7 +63,6 @@ const io = socketio(http, {
   }
 })
 
-
 io.sockets.on('connection', function (socket) {
   socket.on('room', function (room) {
     console.log(socket.id, 'joined', room)
@@ -73,7 +72,7 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('message', (msg) => {
     console.log(socket.id, 'sent', msg, 'in', socket.rooms.values().next().value)
-    io.sockets.in(socket.rooms.values().next().value).emit('message', msg);
+    io.in(socket.rooms.values().next().value).emit('message',  {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
   });
 });
 
