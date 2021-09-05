@@ -39,9 +39,9 @@ if (process.env.NODE_ENV === 'production') {
 app.get('*', (req, res) => {
   console.log("[server]", 'user getting index route');
   if (process.env.NODE_ENV === 'production') {
-    res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
+    res.sendFile('index.html', { root: path.join(__dirname, '../client/build/') });
   } else {
-    res.sendFile('index.html', {root: path.join(__dirname, '../client/public/')});
+    res.sendFile('index.html', { root: path.join(__dirname, '../client/public/') });
   }
 });
 
@@ -62,19 +62,35 @@ const io = socketio(http, {
     methods: ['GET', 'POST']
   }
 })
-io.on('connection', (socket) => {
-  console.log("[socket]", socket.conn.id, 'connected');
 
-  socket.on("connect_error", (err) => {
-    console.log("[socket]", socket.conn.id, err);
-  });
-
-  socket.on('disconnect', () => {
-    console.log("[socket]", socket.conn.id, 'disconnected');
+io.sockets.on('connection', function (socket) {
+  socket.on('room', function (room) {
+    console.log(socket.id, 'joined', room)
+    socket.rooms.forEach(element => socket.leave(element));
+    socket.join(room);
   });
 
   socket.on('message', (msg) => {
-    console.log("[socket]", socket.conn.id, 'sent:', msg);
-    io.emit('message', {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
+    console.log(socket.id, 'sent', msg, 'in', socket.rooms.values().next().value)
+    io.in(socket.rooms.values().next().value).emit('message',  {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
   });
 });
+
+// io.sockets.in(room).emit('message', 'what is going on, party people?');
+
+// io.on('connection', (socket) => {
+//   console.log("[socket]", socket.conn.id, 'connected');
+
+//   socket.on("connect_error", (err) => {
+//     console.log("[socket]", socket.conn.id, err);
+//   });
+
+//   socket.on('disconnect', () => {
+//     console.log("[socket]", socket.conn.id, 'disconnected');
+//   });
+
+//   socket.on('message', (msg) => {
+//     console.log("[socket]", socket.conn.id, 'sent:', msg);
+//     io.emit('message', {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
+//   });
+// });

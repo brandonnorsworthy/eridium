@@ -2,7 +2,7 @@ import React from 'react';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 
-function Sidebar() {
+function Sidebar(props) {
     function displayServerBanner(e) {
         /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -60,7 +60,15 @@ function Sidebar() {
                 target = target.parentElement
             }
 
-            document.getElementById('active-channel').removeAttribute('id');
+            // console.log(target.dataset.channel)
+            props.setActiveChannel(target.dataset.channel)
+            // console.log(props.setActiveChannel(this.nav))
+
+            let prevTarget = document.getElementById('active-channel')
+            if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
+                prevTarget.style.display = 'none'
+            }
+            prevTarget.removeAttribute('id')
             target.setAttribute('id', 'active-channel');
         }
     }
@@ -108,9 +116,13 @@ function Sidebar() {
                             <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
                         {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel" id="active-channel" onClick={newActiveChannel}>
+                        <div className="category-channel" data-channel="2492134" id="active-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
-                            <p>{/* TODO text channel name */"channel name here"}</p>
+                            <p>{/* TODO text channel name */"2492134"}</p>
+                        </div>
+                        <div className="category-channel" data-channel="2343424" onClick={newActiveChannel}>
+                            <span className="text-channel-prefix">#</span>
+                            <p>{/* TODO text channel name */"2343424"}</p>
                         </div>
                     </div>
                     {/* commented out voice channels until implemented */}
