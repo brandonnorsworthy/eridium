@@ -1,6 +1,6 @@
 # Eridium
 Design: https://www.figma.com/proto/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=3%3A13
-Deployed App: https://eridium.herokuapp.com/
+Deployed App: https://www.eridium.chat/
 
 ## Purpose
 Eridium is a chat application where, once signed up and logged in, users can chat with all users within a server or directly with a user.  
