@@ -12,7 +12,7 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function Content() {
+function Content(props) {
     const [mounted, setMounted] = useState(false);
     const [addMessage] = useMutation(ADD_MESSAGE);
 
@@ -38,9 +38,19 @@ function Content() {
                     break;
                 }
             }
+            assignRoom();
         }
     }
     beforeMount();
+
+    function assignRoom() {
+        console.log('joining room', props.activeChannel)
+        socket.emit('room', props.activeChannel);
+    }
+
+    useEffect(() => {
+        assignRoom();
+    }, [props.activeChannel])
 
     useEffect(() => {
         if (socket) {
@@ -50,7 +60,7 @@ function Content() {
             }
             let messageContainer = document.getElementById('message-list')
             socket.on('message', function (msg) {
-                console.log(msg)
+                console.log('incoming', msg)
                 let newEl = createListElement(msg);
                 messageContainer.insertBefore(newEl, messageContainer.firstChild);
             })
