@@ -81,6 +81,9 @@ function Sidebar(props) {
         /* if clicked channel is already active do nothing */
         let target = e.target
         if (!(target.id === 'active')) {
+            //clear out content because we are going into a new channel
+            document.getElementById('message-list').innerHTML = ''
+
             if (!(target.tagName === 'DIV')) {
                 target = target.parentElement
             }
