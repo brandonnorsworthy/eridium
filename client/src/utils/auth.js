@@ -4,6 +4,10 @@ class AuthService {
   getProfile() {
     return decode(this.getToken());
   }
+  
+  getUsername() {
+    return decode(this.getToken()).data.username;
+  }
 
   loggedIn() {
     const token = this.getToken();
