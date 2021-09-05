@@ -70,9 +70,9 @@ io.sockets.on('connection', function (socket) {
     socket.join(room);
   });
 
-  socket.on('message', (msg) => {
-    console.log(socket.id, 'sent', msg, 'in', socket.rooms.values().next().value)
-    io.in(socket.rooms.values().next().value).emit('message',  {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
+  socket.on('message', (payload) => {
+    console.log(socket.id, 'sent', payload, 'in', socket.rooms.values().next().value)
+    io.in(socket.rooms.values().next().value).emit('message',  {...payload});
   });
 });
 

@@ -4,6 +4,7 @@ import { ADD_MESSAGE } from '../utils/mutations';
 import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
+import Auth from '../utils/auth.js'
 
 let socket = null;
 let messageOnCooldown = false;
@@ -81,7 +82,7 @@ function Content(props) {
         <img class="message-profile-pic" src=${/* TODO message authors profile */"https://via.placeholder.com/50"} alt="profile"></img>
         <div>
             <div class="message-top">
-                <p class="message-username">${/* TODO message author username */message.id}</p>
+                <p class="message-username">${message.username}</p>
                 <p class="message-times">
                     <span class="message-timestamp">${/* TODO message timestamp */moment().format("h:mm a")}</span>
                     &nbsp;•&nbsp;
@@ -102,7 +103,7 @@ function Content(props) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
-                socket.emit('message', e.target.value.trim());
+                socket.emit('message', { id: Auth.getProfile().data._id, username: Auth.getUsername(), message: e.target.value.trim() });
 
                 // Mutation added so that message saves to database
                 await addMessage({
