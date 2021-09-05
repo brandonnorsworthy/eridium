@@ -86,9 +86,22 @@
     padding-left: 10px;
     margin: 0px;
     padding: 0px;
+    width: calc(100% - 60px);
     color: var(--shaded-color-5a);
+}
+
+.sub-input {
+    padding: 0px 15px 0px 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 .input {
     color: var(--shaded-color-5a);
+    width: 100%;
+    height: 100%;
+    padding: 0px 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
