@@ -82,10 +82,6 @@ main {
     background-color: var(--shaded-color-4a);
 }
 
-#main-content li:first-child:hover {
-    background-color: var(--shaded-color-3) !important;
-}
-
 /* content input */
 
 #input-container {
