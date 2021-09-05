@@ -71,26 +71,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('message', (payload) => {
-    console.log(socket.id, 'sent', payload, 'in', socket.rooms.values().next().value)
+    console.log(socket.id, 'sent', payload.message, 'in', socket.rooms.values().next().value)
     io.in(socket.rooms.values().next().value).emit('message',  {...payload});
   });
 });
-
-// io.sockets.in(room).emit('message', 'what is going on, party people?');
-
-// io.on('connection', (socket) => {
-//   console.log("[socket]", socket.conn.id, 'connected');
-
-//   socket.on("connect_error", (err) => {
-//     console.log("[socket]", socket.conn.id, err);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.log("[socket]", socket.conn.id, 'disconnected');
-//   });
-
-//   socket.on('message', (msg) => {
-//     console.log("[socket]", socket.conn.id, 'sent:', msg);
-//     io.emit('message', {message: msg, id: socket.conn.id, username: 'REPLACE THIS'});
-//   });
-// });
