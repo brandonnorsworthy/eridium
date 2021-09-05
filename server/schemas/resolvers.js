@@ -8,6 +8,11 @@ const resolvers = {
         users: async () => {
             return User.find()
         },
+        //Messages by user
+        user: async (parent, { username }) => {
+            console.log(username);
+            return User.findOne({ username }).populate('messages');
+        },
         // All servers
         server: async () => {
             return Server.find()

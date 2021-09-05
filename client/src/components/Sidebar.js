@@ -1,8 +1,17 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 
+import { QUERY_USER } from '../utils/queries';
+
 function Sidebar() {
+    // const { username: userParam } = useParams();
+
+    // const { loading, data } = useQuery(QUERY_USER);
+    // const username = data.username;
+    // const messages = data?.messages || [];
+
     function displayServerBanner(e) {
         /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -141,7 +150,7 @@ function Sidebar() {
                 </div>
                 <div className="no-select" id="current-user" onMouseLeave={hideSettingsBanner}>
                     <img src={/* TODO current logged in users profile picture */"https://via.placeholder.com/30x30"} alt="user profile"></img>
-                    <p>{/* TODO current logged in user */"currentusername"}</p>
+                    <p>{/* TODO current logged in user */Auth.getUsername()}</p>
                     <div id="current-user-settings-button" onClick={displaySettingsBanner}>
                         <span className="material-icons">settings</span>
                     </div>
