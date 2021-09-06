@@ -1,5 +1,5 @@
 # Eridium
-Design: https://www.figma.com/proto/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=3%3A13
+Design: https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium
 Deployed App: https://www.eridium.chat/
 
 ## Purpose
