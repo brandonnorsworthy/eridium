@@ -1,19 +1,17 @@
 # Eridium
-Design: https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium  
-Deployed App: https://www.eridium.chat/
+* Design: https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium  
+* Deployed App: https://www.eridium.chat/
 
 ## Purpose
-Eridium is a chat application where, once signed up and logged in, users can chat with all users within a server or directly with a user.  
+Eridium is a user-friendly chat application where, once signed up and logged in, users can chat with all users within a channel on a server or directly with a user.  Users can also create new channels.  The application combines some of the best functionality of Slack and Discord.  
 
 ## Functionality
-
+* Users can create an account.
+* Users can login and logout of their account.
+* Users can send messages within a channel allowing all users with access to that channel to see the message.
 
 ## Technologies Used
 This project was created and deployed using JavaScript, node.js (and associated packages), HTML, CSS, React, MongoDB, socket.io, Figma, Dbdiagram.io, and Heroku. 
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-<br>
 
 ## Contact the contributors
 Brandon Norsworthy <br>
