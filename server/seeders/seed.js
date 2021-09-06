@@ -10,7 +10,7 @@ const serverSeeds = require('./serverSeeds.json');
 // 2. create the channels to put into a server
 // 3. create server and put the owner._id in and put the channel._ids in and set the only member as the owner
 // 4. create rest of users and put them in that server
-// 5. pick random channels and 
+// 5. create a message with a random owner and put that message in a randomly chosen channel
 
 db.once('open', async () => {
 	try {
@@ -21,18 +21,18 @@ db.once('open', async () => {
 		let userIds = [];
 
 		const { _id: serverOwnderId } = await User.create(userSeeds[0]);
-		console.log('first user:\n', serverOwnderId);
+		console.log('created server owner:\n', serverOwnderId);
 
 		//create the channels
 		for (let i = 0; i < channelSeeds.length; i++) {
 			const { _id } = await Channel.create(channelSeeds[i]);
 			channelIds.push(_id)
 		}
-		console.log('new channels:\n', channelIds);
+		console.log('created new channels:\n', channelIds);
 
 		//first user creates server and is set as the owner and join the server
 		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
-		console.log('first server:\n', ServerId);
+		console.log('created server:\n', ServerId);
 
 		//create all users and add them the default server
 		for (let i = 1; i < userSeeds.length; i++) {
@@ -43,7 +43,7 @@ db.once('open', async () => {
 			);
 			userIds.push(_id)
 		}
-		console.log('new users:\n', userIds);
+		console.log('created new users:\n', userIds);
 
 		console.log('users added to server:\n', await Server.findOne({ _id: ServerId }))
 

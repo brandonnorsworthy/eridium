@@ -43,5 +43,25 @@
 		"username": "Donald Knuth",
 		"email": "dknuth@techfriends.dev",
 		"password": "password09"
+	},
+	{
+		"username": "BORAT",
+		"email": "borat123@email.dev",
+		"password": "password10"
+	},
+	{
+		"username": "horse.",
+		"email": "ilovehorses@gmail.com",
+		"password": "password11"
+	},
+	{
+		"username": "shbsbxuwnsb7",
+		"email": "epicgaming@gg.com",
+		"password": "password12"
+	},
+	{
+		"username": "iamCryoc",
+		"email": "cryoc@gmail.com",
+		"password": "password13"
 	}
 ]
