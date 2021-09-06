@@ -37,7 +37,7 @@ const typeDefs = gql`
 
 	type Auth {
 		token: ID!
-		user: User
+		user: User!
 	}
 
 	type Query {
@@ -50,7 +50,7 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
-		addUser(username: String!, email: String!, password: String!):Auth
+		addUser(username: String!, email: String!, password: String!): Auth
 		login(email: String!, password: String!): Auth
 		addMessage(body: String!, user_id: ID!, channel_id: ID!): Message
 		deleteMessage(messageId: ID!): Message

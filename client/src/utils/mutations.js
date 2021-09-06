@@ -6,6 +6,9 @@ export const LOGIN = gql`
       token
       user {
         _id
+        servers {
+          name
+        }
       }
     }
   }
@@ -25,6 +28,9 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        servers {
+          name
+        }
       }
     }
   }

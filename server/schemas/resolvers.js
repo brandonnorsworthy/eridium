@@ -53,7 +53,7 @@ const resolvers = {
             return { token, user };
         },
         login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ email }).populate('servers');
             if (!user) {
                 throw new AuthenticationError('No user found with this email address');
             }
@@ -64,7 +64,7 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect credentials');
             }
 
-            const token = signToken(user);
+            const token = signToken({ email: user.email, username: user.username, _id: user._id });
             return { token, user };
         },
         // Send message on server and to one user

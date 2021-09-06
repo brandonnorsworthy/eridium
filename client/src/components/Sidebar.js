@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { QUERY_USER } from '../utils/queries';
+// import { useQuery } from '@apollo/client';
+// import { QUERY_USER } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 import DefaultImage from '../private/default.png'

@@ -17,15 +17,24 @@ function Signup() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        const mutationResponse = await addUser({
-            variables: {
-                username: formState.username,
-                email: formState.email,
-                password: formState.password
-            }
-        });
-        const token = mutationResponse.data.addUser.token;
-        Auth.login(token);
+        try {
+            window.localStorage.clear()
+            const mutationResponse = await addUser({
+                variables: {
+                    username: formState.username,
+                    email: formState.email,
+                    password: formState.password
+                }
+            });
+    
+            // console.log('mutation response', mutationResponse.data.addUser.user.servers)
+            window.localStorage.setItem('servers', mutationResponse.data.addUser.user.servers)
+    
+            const token = mutationResponse.data.addUser.token;
+            Auth.login(token);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (

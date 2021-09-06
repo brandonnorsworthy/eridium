@@ -11,9 +11,14 @@ function Login() {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
+            window.localStorage.clear()
             const mutationResponse = await login({
                 variables: { email: formState.email, password: formState.password },
             });
+
+            // console.log(mutationResponse.data.login.user.servers)
+            window.localStorage.setItem('servers', mutationResponse.data.login.user.servers)
+
             const token = mutationResponse.data.login.token;
             Auth.login(token);
         } catch (e) {
