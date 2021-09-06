@@ -4,28 +4,32 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        // All users
-        users: async () => {
-            return User.find()
+        //get user from message
+        message_user: async (message_id) => {
+            return Message.findOne({ _id: message_id }).populate('user');
         },
-        //Messages by user
-        user: async (parent, { username }) => {
-            console.log(username);
-            return User.findOne({ username }).populate('messages');
+
+        // get servers from user
+        user_servers: async (user_id) => {
+            return User.findOne({ _id: user_id }).populate('servers')
         },
-        // All servers
-        server: async () => {
-            return Server.find()
+
+        // get users from server
+        server_users: async (server_id) => {
+            return Server.findOne({ _id: server_id }).populate('users')
         },
-        // Messages by server
-        server_messages: async (server_id) => {
-            return Server.findOne({ _id: server_id }).populate('messages');
+
+        // get channels from server
+        server_channels: async (server_id) => {
+            return Server.findOne({ _id: server_id }).populate('channels');
         },
-        // Channels by server
-        channels: async (channel_id) => {
-            return Channel.findOne({ _id: server_id }).populate('channels')
+
+        // get messages from channel
+        channel_messages: async (channel_id) => {
+            return Channel.findOne({ _id: channel_id }).populate('messages')
         },
-        // Allows authentication to work properly
+
+        // allows authentication to work properly
         me: async (parent, args, context) => {
             if (context.user) {
                 return User.findOne({ _id: context.user._id });
@@ -38,7 +42,6 @@ const resolvers = {
         addUser: async (parent, { username, email, password }) => {
             const server = await Server.findOne({}); //get default server so we can put it in the new user
             const user = await User.create({ username, email, password, servers: server._id });
-            console.log(user._id)
 
             //add new user to the default server
             await Server.findOneAndUpdate(

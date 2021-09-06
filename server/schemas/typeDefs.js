@@ -6,28 +6,33 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    profile_picture: String
+    messages: [Servers]!
+  }
+  
+  type Server {
+    _id: ID
+    name: String
+    icon: String
+    owner_id: [User]!
+    users: [User]!
+    rooms: [Channel]!
+  }
+    
+  type Channel {
+    _id: ID
+    name: String
+    topic: String
+    category: String
     messages: [Message]!
+    users: [User]!
   }
 
   type Message {
     _id: ID
-    message_body: String
-    message_author: String
-    createdAt: String
-    server: [Server]!
-  }
-
-  type Server {
-    _id: ID
-    server_name: String
-    users: [User]!
-    messages: [Message]!
-  }
-
-  type Channel {
-    _id: ID
-    channel_name: String
-    server: [Server]!
+    body: String
+    createdAt: Date
+    user_id: [User]!
   }
 
   type Auth {
@@ -36,15 +41,12 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
-    user(username: String!): User
-    messages(username: String): [Message]
-    message(_id: ID!): Message
+    message_user(_id: message_id): [User]
+    user_servers(_id: user_id): [Server]
+    server_users(_id: server_id): [User]
+    server_channels(_id: server_id): [Channel]
+    channel_messages(_id: channel_id): [Message]
     me: User
-    server: [Server]
-    server_messages(_id: ID!): Server
-    user_messages(_id: ID!): User
-    channels: [Channel]
   }
 
   type Mutation {
