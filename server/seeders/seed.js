@@ -15,6 +15,7 @@ const serverSeeds = require('./serverSeeds.json');
 db.once('open', async () => {
 	try {
 		await Server.deleteMany({});
+		await Channel.deleteMany({});
 		await Message.deleteMany({});
 		await User.deleteMany({});
 		let channelIds = [];
