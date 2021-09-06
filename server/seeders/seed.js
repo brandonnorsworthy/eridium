@@ -33,6 +33,7 @@ db.once('open', async () => {
 
 		//first user creates server and is set as the owner and join the server
 		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
+		await Server.create({ ...serverSeeds[1], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
 		console.log('created server');
 
 		//create all users and add them the default server

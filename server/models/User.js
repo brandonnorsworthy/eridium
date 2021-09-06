@@ -28,7 +28,6 @@ const userSchema = new Schema({
   servers: [
     {
       type: Schema.Types.ObjectId,
-      required: 'User should belong to atleast default server',
       ref: 'Server',
     },
   ],
