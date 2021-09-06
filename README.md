@@ -1,5 +1,5 @@
 # Eridium
-Design: https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium
+Design: https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium  
 Deployed App: https://www.eridium.chat/
 
 ## Purpose
