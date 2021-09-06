@@ -51,17 +51,20 @@ main {
 
 #main-content {
     width: 100%;
-    padding: 0px 0px 25px 0px;
     height: calc(100vh - var(--banner-height) - 25px);
+    padding: 0px 0px 25px 0px;
+    display: flex;
+    flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
 }
 
-#main-content ul {
+#message-list {
     height: calc(100% - 80px - 25px);
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
-    margin: 0;
+    margin: 0 0 25px 0;
     list-style: none;
     display: flex;
     -webkit-flex-direction: column-reverse;
@@ -85,8 +88,6 @@ main {
 /* content input */
 
 #input-container {
-    position: absolute;
-    bottom: 25px;
     padding: 0px 25px;
     width: calc(100vw - 310px - 50px);
 }
