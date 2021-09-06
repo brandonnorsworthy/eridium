@@ -29,16 +29,27 @@ db.once('open', async () => {
 			const { _id } = await Channel.create(channelSeeds[i]);
 			channelIds.push(_id)
 		}
-		console.log('created new channels');
+		console.log('created new channels for first server');
 
 		//first user creates server and is set as the owner and join the server
 		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
-		await Server.create({ ...serverSeeds[1], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
 		console.log('created server');
+
+		//create the channels
+		let secondChannelIds = [];
+		for (let i = 0; i < channelSeeds.length; i++) {
+			const { _id } = await Channel.create(channelSeeds[i]);
+			secondChannelIds.push(_id)
+		}
+		console.log('created new channels for second server');
+
+		//first user creates server and is set as the owner and join the server
+		await Server.create({ ...serverSeeds[1], owner_id: serverOwnderId, users: serverOwnderId, rooms: secondChannelIds });
+		console.log('created second server');
 
 		//create all users and add them the default server
 		for (let i = 1; i < userSeeds.length; i++) {
-			const { _id } = await User.create(userSeeds[i]);
+			const { _id } = await User.create({ ...userSeeds[i], servers: [ServerId] });
 			await Server.findOneAndUpdate(
 				{ _id: ServerId }, //pick a random channel to put messages in there
 				{ $addToSet: { users: _id } }
