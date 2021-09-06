@@ -91,7 +91,6 @@ function Content(props) {
     }, []);
 
     function createListElement(message) {
-        console.log('creating message', message)
         let liEl = document.createElement('li');
         liEl.classList.add('message-container');
         liEl.setAttribute('key', message.id);
@@ -123,10 +122,12 @@ function Content(props) {
                 socket.emit('message', { id: Auth.getProfile().data._id, username: Auth.getUsername(), message: e.target.value.trim() });
 
                 // Mutation added so that message saves to database
+                console.log('inside content', props.activeChannel)
                 await addMessage({
                     variables: {
-                        message_body: e.target.value.trim(),
-                        message_author: socket.id //TODO replace with username
+                        body: e.target.value.trim(),
+                        user_id: Auth.getProfile().data._id,
+                        channel_id: props.activeChannel
                     }
                 });
 

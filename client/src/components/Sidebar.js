@@ -1,6 +1,6 @@
-import React from 'react';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_USER } from '../utils/queries';
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_USER } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 import DefaultImage from '../private/default.png'
@@ -29,12 +29,10 @@ function Sidebar(props) {
     // const messages = data?.messages || [];
 
     function displayServerBanner(e) {
-        /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
     }
 
     function hideServerBanner(e) {
-        /* BRANDON server banner replace icon when leave banner */
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
@@ -144,13 +142,13 @@ function Sidebar(props) {
                             <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
                         {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel" data-channel="2492134" id="active-channel" onClick={newActiveChannel}>
+                        <div className="category-channel" data-channel="61367e7949a4bf6080aea8c7" id="active-channel" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
                             <p>general</p>
                         </div>
-                        <div className="category-channel" data-channel="2343424" onClick={newActiveChannel}>
+                        <div className="category-channel" data-channel="61367e7949a4bf6080aea8c9" onClick={newActiveChannel}>
                             <span className="text-channel-prefix">#</span>
-                            <p>epic-people-only</p>
+                            <p>coding-chat</p>
                         </div>
                     </div>
                     {/* commented out voice channels until implemented */}

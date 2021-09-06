@@ -68,22 +68,20 @@ const resolvers = {
             return { token, user };
         },
         // Send message on server and to one user
-        addMessage: async (parent, { message_body }, context) => {
-            if (context.username) {
-                const message = await Message.create({
-                    body: message_body,
-                    user_id: context.id
-                });
+        addMessage: async (parent, { body, user_id, channel_id }) => {
+            const { _id } = await Message.create({
+                body: body,
+                user_id: user_id
+            });
+            console.log('message id', _id, 'channel id', channel_id)
 
-                // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
-                // await Channel.findOneAndUpdate(
-                //     { _id: room },
-                //     { $addToSet: { messages: message._id } }
-                // );
+            // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
+            await Channel.findOneAndUpdate(
+                { _id: channel_id },
+                { $addToSet: { messages: _id } }
+            );
 
-                return message;
-            }
-            throw new AuthenticationError('You need to be logged in!');
+            return _id;
         },
         // Edit a message sent on server or to a user
         // editMessage: async (parent, { message_body }, context) => {
