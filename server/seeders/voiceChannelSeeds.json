@@ -1,0 +1,30 @@
+[
+    {
+        "name": "api-stuff",
+        "category": "text"
+    },
+    {
+        "name": "lobby",
+        "category": "voice"
+    },
+    {
+        "name": "study room 2 with a really lon",
+        "category": "voice"
+    },
+    {
+        "name": "late nights secondary",
+        "category": "voice"
+    },
+    {
+        "name": "interview practice",
+        "category": "voice"
+    },
+    {
+        "name": "music enjoyers",
+        "category": "voice"
+    },
+    {
+        "name": "afk",
+        "category": "voice"
+    }
+]

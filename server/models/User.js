@@ -11,7 +11,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/.+@.+\..+/, 'Must match an email address!'],
+    match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Must match an email address!'],
   },
   password: {
     type: String,
@@ -20,7 +20,7 @@ const userSchema = new Schema({
   },
   profile_picture: {
     type: String,
-    default: 'Not Incorporated Yet'
+    default: null
   },
   servers: [
     {

@@ -1,0 +1,28 @@
+[
+    {
+        "name": "general",
+        "topic": "main chat for all conversations",
+        "category": "text"
+    },
+    {
+        "name": "coding-chat",
+        "category": "text"
+    },
+    {
+        "name": "late-night-chitchat-for-the",
+        "category": "text"
+    },
+    {
+        "name": "spoonkid-gaming",
+        "category": "text"
+    },
+    {
+        "name": "counting",
+        "category": "text"
+    },
+    {
+        "name": "random-yt-vids",
+        "topic": "post entertaining youtube videos here that arnt actually trash",
+        "category": "text"
+    }
+]
