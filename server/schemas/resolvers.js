@@ -69,6 +69,10 @@ const resolvers = {
         },
         // Send message on server and to one user
         addMessage: async (parent, { body, user_id, channel_id }) => {
+            if (!channel_id) {
+                return;
+            }
+
             const { _id } = await Message.create({
                 body: body,
                 user_id: user_id
