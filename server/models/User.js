@@ -4,19 +4,22 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    required: 'Username is required',
     trim: true,
+    maxlength: 30,
+    minlength: 3
   },
   email: {
     type: String,
-    required: true,
+    required: 'Email is required',
     unique: true,
     match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Must match an email address!'],
   },
   password: {
     type: String,
-    required: true,
-    minlength: 5,
+    required: 'Password is required',
+    maxlength: 30,
+    minlength: 5
   },
   profile_picture: {
     type: String,
@@ -25,6 +28,7 @@ const userSchema = new Schema({
   servers: [
     {
       type: Schema.Types.ObjectId,
+      required: 'User should belong to atleast default server',
       ref: 'Server',
     },
   ],

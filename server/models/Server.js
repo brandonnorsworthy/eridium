@@ -14,17 +14,19 @@ const serverSchema = new Schema({
 	owner_id: {
 		type: Schema.Types.ObjectId,
 		required: 'Server owner required',
-		ref: "User"
+		ref: 'User'
 	},
 	users: [
 		{
 			type: Schema.Types.ObjectId,
-			ref: "User"
+			required: 'Server must atleast have owner as a member',
+			ref: 'User'
 		}
 	],
 	rooms: [
 		{
 			type: Schema.Types.ObjectId,
+			required: 'Server must have atleast one channel',
 			ref: 'Channel'
 		}
 	],

@@ -16,6 +16,7 @@ const messageSchema = new Schema({
 	},
 	user_id: {
 		type: Schema.Types.ObjectId,
+		required: 'Message has to have a owner',
 		ref: "User"
 	},
 });
