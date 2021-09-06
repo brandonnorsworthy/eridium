@@ -147,8 +147,6 @@ function Content(props) {
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} href="/demo">Demo</a>
             </div>
             <div id="main-content">
-                <ul id="message-list">
-                </ul>
                 <div className="no-select" id="input-container" >
                     <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
                     <div id="selectables">
@@ -161,6 +159,8 @@ function Content(props) {
                         <div><span className="material-icons">attach_file</span></div>
                     </div>
                 </div>
+                <ul id="message-list">
+                </ul>
             </div>
         </main>
     )

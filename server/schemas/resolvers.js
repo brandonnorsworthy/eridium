@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Message, Server, Channel } = require('../models');
-const { signToken} = require('../utils/auth');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -23,7 +23,7 @@ const resolvers = {
         },
         // Channels by server
         channels: async (channel_id) => {
-            return Channel.findOne({_id: server_id}).populate('channels')
+            return Channel.findOne({ _id: server_id }).populate('channels')
         },
         // Allows authentication to work properly
         me: async (parent, args, context) => {
@@ -36,7 +36,16 @@ const resolvers = {
 
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+            const server = await Server.findOne({}); //get default server so we can put it in the new user
+            const user = await User.create({ username, email, password, servers: server._id });
+            console.log(user._id)
+
+            //add new user to the default server
+            await Server.findOneAndUpdate(
+                { _id: server._id },
+                { $addToSet: { users: user._id } }
+            )
+
             const token = signToken(user);
             return { token, user };
         },
@@ -95,7 +104,7 @@ const resolvers = {
         //     // }
         //     throw new AuthenticationError('You need to be logged in!');
         // },
-        
+
         // Delete a message sent on server or to a user
         deleteMessage: async (parent, { messageId }, context) => {
             if (context.user) {
@@ -127,8 +136,8 @@ const resolvers = {
 
         //Add channel
         addChannel: async (parent, { channel_name }) => {
-            const channel = await Channel.create({ channel_name})
-            return {channel};
+            const channel = await Channel.create({ channel_name })
+            return { channel };
         }
     }
 };
