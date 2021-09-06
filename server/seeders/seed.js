@@ -21,18 +21,18 @@ db.once('open', async () => {
 		let userIds = [];
 
 		const { _id: serverOwnderId } = await User.create(userSeeds[0]);
-		console.log('created server owner:\n', serverOwnderId);
+		console.log('created server owner');
 
 		//create the channels
 		for (let i = 0; i < channelSeeds.length; i++) {
 			const { _id } = await Channel.create(channelSeeds[i]);
 			channelIds.push(_id)
 		}
-		console.log('created new channels:\n', channelIds);
+		console.log('created new channels');
 
 		//first user creates server and is set as the owner and join the server
 		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
-		console.log('created server:\n', ServerId);
+		console.log('created server');
 
 		//create all users and add them the default server
 		for (let i = 1; i < userSeeds.length; i++) {
@@ -43,9 +43,9 @@ db.once('open', async () => {
 			);
 			userIds.push(_id)
 		}
-		console.log('created new users:\n', userIds);
+		console.log('created new users');
 
-		console.log('users added to server:\n', await Server.findOne({ _id: ServerId }))
+		console.log('users added to server')
 
 		//put server owner in userIds array so they can be included in the messages
 		userIds.push(serverOwnderId)
