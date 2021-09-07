@@ -20,13 +20,13 @@ const resolvers = {
         },
 
         // get channels from server
-        server_channels: async (server_id) => {
-            return Server.findOne({ _id: server_id }).populate('channels');
+        server_channels: async (parent, { server_id }) => {
+            return await Server.findById(server_id).populate('channels');
         },
 
         // get messages from channel
-        channel_messages: async (channel_id) => {
-            return Channel.findOne({ _id: channel_id }).populate('messages')
+        channel_messages: async (parent, { channel_id }) => {
+            return await Channel.findById(channel_id).populate('messages');
         },
 
         // allows authentication to work properly

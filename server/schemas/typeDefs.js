@@ -11,12 +11,12 @@ const typeDefs = gql`
 	}
 	
 	type Server {
-		_id: ID
+		_id: ID!
 		name: String
 		icon: String
 		owner_id: [User]!
 		users: [User]!
-		rooms: [Channel]!
+		channels: [Channel]!
 	}
 		
 	type Channel {
@@ -44,8 +44,8 @@ const typeDefs = gql`
 		message_user(_id: String!): [User]
 		user_servers(_id: String!): [Server]
 		server_users(_id: String!): [User]
-		server_channels(_id: String!): [Channel]
-		channel_messages(_id: String!): [Message]
+		server_channels(server_id: ID!): Server
+		channel_messages(channel_id: ID!): Channel
 		me: User
 	}
 

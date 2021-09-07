@@ -64,10 +64,10 @@ const io = socketio(http, {
 })
 
 io.sockets.on('connection', function (socket) {
-  socket.on('room', function (room) {
-    console.log(socket.id, 'joined', room)
+  socket.on('channel', function (channel) {
+    console.log(socket.id, 'joined', channel)
     socket.rooms.forEach(element => socket.leave(element));
-    socket.join(room);
+    socket.join(channel);
   });
 
   socket.on('message', (payload) => {

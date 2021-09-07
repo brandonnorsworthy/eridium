@@ -56,18 +56,15 @@ function Content(props) {
                     break;
                 }
             }
-            assignRoom();
+            console.log('joining channel', props.activeChannel)
+            socket.emit('channel', props.activeChannel);
         }
     }
     beforeMount();
 
-    function assignRoom() {
-        console.log('joining room', props.activeChannel)
-        socket.emit('room', props.activeChannel);
-    }
-
     useEffect(() => {
-        assignRoom();
+        console.log('joining channel', props.activeChannel)
+        socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])
 
     useEffect(() => {

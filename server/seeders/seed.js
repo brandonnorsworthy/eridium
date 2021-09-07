@@ -32,7 +32,7 @@ db.once('open', async () => {
 		console.log('created new channels for first server');
 
 		//first user creates server and is set as the owner and join the server
-		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, rooms: channelIds });
+		const { _id: ServerId } = await Server.create({ ...serverSeeds[0], owner_id: serverOwnderId, users: serverOwnderId, channels: channelIds });
 		console.log('created server');
 
 		await User.findOneAndUpdate(
@@ -49,7 +49,7 @@ db.once('open', async () => {
 		console.log('created new channels for second server');
 
 		//first user creates server and is set as the owner and join the server
-		const { _id: SecondServerID } = await Server.create({ ...serverSeeds[1], owner_id: serverOwnderId, users: serverOwnderId, rooms: secondChannelIds });
+		const { _id: SecondServerID } = await Server.create({ ...serverSeeds[1], owner_id: serverOwnderId, users: serverOwnderId, channels: secondChannelIds });
 		console.log('created second server');
 
 		await User.findOneAndUpdate(

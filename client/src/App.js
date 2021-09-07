@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Auth from './utils/auth'
@@ -12,7 +12,7 @@ import CreateChannel from './components/modals/CreateChannel'
 import DemoSidebar from './demo/Sidebar'
 import DemoContent from './demo/Content'
 
-const userServersInitial = (window.localStorage.getItem('servers')) ? JSON.parse(window.localStorage.getItem('servers')) : [];
+const userServersInitial = JSON.parse(localStorage.getItem("servers") || "[]");
 const httpLink = createHttpLink({ uri: (window.location.hostname === 'www.eridium.chat' || window.location.hostname === 'eridium.herokuapp.com') ? '/graphql' : 'http://localhost:3001/graphql' });
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem('id_token');
@@ -32,10 +32,6 @@ const client = new ApolloClient({
 function App() {
 	const [activeChannel, setActiveChannel] = useState('61367e7949a4bf6080aea8c7');
 	const [usersServers, setUsersServers] = useState(userServersInitial);
-
-	useEffect(() => {
-		console.log('app.js usersServers changed', usersServers)
-	}, [usersServers])
 
 	function checkAuth() {
 		if (Auth.loggedIn()) {

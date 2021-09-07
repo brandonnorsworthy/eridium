@@ -23,7 +23,7 @@ const serverSchema = new Schema({
 			ref: 'User'
 		}
 	],
-	rooms: [
+	channels: [
 		{
 			type: Schema.Types.ObjectId,
 			required: 'Server must have atleast one channel',

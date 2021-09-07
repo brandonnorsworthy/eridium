@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_USER } from '../utils/queries';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_SERVER_CHANNELS } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 import DefaultImage from '../private/default.png'
@@ -22,11 +22,9 @@ function intToRGB(i) {
 }
 
 function Sidebar(props) {
-    // const { username: userParam } = useParams();
-
-    // const { loading, data } = useQuery(QUERY_USER);
-    // const username = data.username;
-    // const messages = data?.messages || [];
+    // console.log(props.usersServers)
+    const { loading, data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { _id: "6136d27011351b75f06bfb9f" } })
+    const channels = data?.thoughts || [];
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -108,7 +106,7 @@ function Sidebar(props) {
         /* BRANDON server banner replace icon when leave banner */
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
-    let eoirgaeor
+
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -118,7 +116,6 @@ function Sidebar(props) {
                 {
                     props.usersServers.map((server) => (
                         <button key={server._id} id={server._id} className="server-icon">
-                            {console.log(server)}
                             <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
                         </button>
                     ))
@@ -145,15 +142,15 @@ function Sidebar(props) {
                             <p>TEXT CHANNELS</p>
                             <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
-                        {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel" data-channel="61367e7949a4bf6080aea8c7" id="active-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>general</p>
-                        </div>
-                        <div className="category-channel" data-channel="61367e7949a4bf6080aea8c9" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>coding-chat</p>
-                        </div>
+                        {
+                            console.log('goij;eojigjoierjgio', channels)
+                            // (channels !== null) ? channels.map((channel) => (
+                            //     <div className="cat egory-channel" data-channel={channel._id} id="active-channel" onClick={newActiveChannel}>
+                            //         <span className="text-channel-prefix">#</span>
+                            //         <p>{channel.name}</p>
+                            //     </div>
+                            // )) : <></>
+                        }
                     </div>
                     {/* commented out voice channels until implemented */}
                     <div style={{ display: "none" }} className="content-category" id="voice-channels">
