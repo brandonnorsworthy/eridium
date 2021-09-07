@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_USER } from '../utils/queries';
+import { useQuery } from '@apollo/client';
+import { QUERY_SERVER_CHANNELS } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
 import DefaultImage from '../private/default.png'
@@ -22,19 +22,16 @@ function intToRGB(i) {
 }
 
 function Sidebar(props) {
-    // const { username: userParam } = useParams();
+    let channels = null
 
-    // const { loading, data } = useQuery(QUERY_USER);
-    // const username = data.username;
-    // const messages = data?.messages || [];
+    const { data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
+    channels = data?.server_channels.channels || [];
 
     function displayServerBanner(e) {
-        /* BRANDON server banner replace icon when clicked */
         document.getElementById("server-banner-dropdown").style.display = "flex"
     }
 
     function hideServerBanner(e) {
-        /* BRANDON server banner replace icon when leave banner */
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
@@ -82,15 +79,13 @@ function Sidebar(props) {
         let target = e.target
         if (!(target.id === 'active')) {
             //clear out content because we are going into a new channel
-            document.getElementById('message-list').innerHTML = ''
+            // document.getElementById('message-list').innerHTML = ''
 
             if (!(target.tagName === 'DIV')) {
                 target = target.parentElement
             }
 
-            // console.log(target.dataset.channel)
             props.setActiveChannel(target.dataset.channel)
-            // console.log(props.setActiveChannel(this.nav))
 
             let prevTarget = document.getElementById('active-channel')
             if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
@@ -111,21 +106,25 @@ function Sidebar(props) {
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
+    console.log(props.usersServers)
     return (
         <aside className="no-select">
             <nav id="server-list">
                 <div id="eridium-logo">
                     <img src={/* TODO eridium logo */"https://via.placeholder.com/50"} alt="eridium logo"></img>
                 </div>
-                {/*! TODO loop over all users current servers and display here example below */}
-                <a href={/* TODO server link */"?"} className="server-icon">
-                    <img src={/* TODO server icon */"https://via.placeholder.com/50"} alt="server icon"></img>
-                </a>
+                {
+                    props.usersServers ? props.usersServers.map((server) => (
+                        <button key={server._id} id={server._id} className="server-icon">
+                            <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
+                        </button>
+                    )) : <></>
+                }
             </nav>
             <nav id="content-list">
                 <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
                     <div id="server-banner-button" onClick={displayServerBanner}>
-                        <p><b>{/* TODO current server name */"current server name"}</b></p>
+                        <p><b>{props.usersServers[0].name}</b></p>
                         <span className="material-icons">expand_more</span>
                     </div>
                     <div id="server-banner-dropdown">
@@ -143,15 +142,15 @@ function Sidebar(props) {
                             <p>TEXT CHANNELS</p>
                             <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
-                        {/* TODO loop the div below to create the text channels */}
-                        <div className="category-channel" data-channel="2492134" id="active-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>general</p>
-                        </div>
-                        <div className="category-channel" data-channel="2343424" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>epic-people-only</p>
-                        </div>
+                        {
+                            (channels !== null) ? channels.map((channel, i) => (
+                                <div key={i} className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
+                                    {i === 0 ? props.setActiveChannel(channel._id) : <></>}
+                                    <span className="text-channel-prefix">#</span>
+                                    <p>{channel.name}</p>
+                                </div>
+                            )) : <></>
+                        }
                     </div>
                     {/* commented out voice channels until implemented */}
                     <div style={{ display: "none" }} className="content-category" id="voice-channels">

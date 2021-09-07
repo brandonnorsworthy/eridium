@@ -1,60 +1,62 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type User {
-    _id: ID
-    username: String
-    email: String
-    password: String
-    messages: [Message]!
-  }
+	type User {
+		_id: ID
+		username: String
+		email: String
+		password: String
+		profile_picture: String
+		servers: [Server]!
+	}
+	
+	type Server {
+		_id: ID!
+		name: String
+		icon: String
+		owner_id: User!
+		users: [User]!
+		channels: [Channel]!
+	}
+		
+	type Channel {
+		_id: ID
+		name: String
+		topic: String
+		category: String
+		messages: [Message]!
+		users: [User]!
+	}
 
-  type Message {
-    _id: ID
-    message_body: String
-    message_author: String
-    createdAt: String
-    server: [Server]!
-  }
+	type Message {
+		_id: ID
+		body: String
+		createdAt: String
+		user_id: User!
+	}
 
-  type Server {
-    _id: ID
-    server_name: String
-    users: [User]!
-    messages: [Message]!
-  }
+	type Auth {
+		token: ID!
+		user: User!
+	}
 
-  type Channel {
-    _id: ID
-    channel_name: String
-    server: [Server]!
-  }
+	type Query {
+		message_user(_id: String!): [User]
+		user_servers(_id: String!): [Server]
+		server_users(_id: String!): [User]
+		server_channels(server_id: ID!): Server
+		channel_messages(channel_id: ID!): Channel
+		me: User
+	}
 
-  type Auth {
-    token: ID!
-    user: User
-  }
-
-  type Query {
-    users: [User]
-    user(username: String!): User
-    messages(username: String): [Message]
-    message(_id: ID!): Message
-    me: User
-    server: [Server]
-    server_messages(_id: ID!): Server
-    user_messages(_id: ID!): User
-    channels: [Channel]
-  }
-
-  type Mutation {
-    addUser(username: String!, email: String!, password: String!):Auth
-    login(email: String!, password: String!): Auth
-    addMessage(message_body: String!): Message
-    deleteMessage(messageId: ID!): Message
-    addServer(server_name: String!): Server
-    addChannel(channel_name: String!): Channel
-  }
+	type Mutation {
+		addUser(username: String!, email: String!, password: String!): Auth
+		login(email: String!, password: String!): Auth
+		addMessage(body: String!, user_id: ID!, channel_id: ID!): Message
+		deleteMessage(messageId: ID!): Message
+		addServer(server_name: String!): Server
+		addChannel(channel_name: String!): Channel
+	}
 `;
 
 module.exports = typeDefs;

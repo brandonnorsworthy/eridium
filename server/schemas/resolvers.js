@@ -4,28 +4,32 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        // All users
-        users: async () => {
-            return User.find()
+        //get user from message
+        message_user: async (message_id) => {
+            return Message.findOne({ _id: message_id }).populate('user');
         },
-        //Messages by user
-        user: async (parent, { username }) => {
-            console.log(username);
-            return User.findOne({ username }).populate('messages');
+
+        // get servers from user
+        user_servers: async (user_id) => {
+            return User.findOne({ _id: user_id }).populate('servers')
         },
-        // All servers
-        server: async () => {
-            return Server.find()
+
+        // get users from server
+        server_users: async (server_id) => {
+            return Server.findOne({ _id: server_id }).populate('users')
         },
-        // Messages by server
-        server_messages: async (server_id) => {
-            return Server.findOne({ _id: server_id }).populate('messages');
+
+        // get channels from server
+        server_channels: async (parent, { server_id }) => {
+            return await Server.findById(server_id).populate('channels');
         },
-        // Channels by server
-        channels: async (channel_id) => {
-            return Channel.findOne({ _id: server_id }).populate('channels')
+
+        // get messages from channel
+        channel_messages: async (parent, { channel_id }) => {
+            return await Channel.findById(channel_id).populate('messages').populate({ path: 'messages', populate: 'user_id' });
         },
-        // Allows authentication to work properly
+
+        // allows authentication to work properly
         me: async (parent, args, context) => {
             if (context.user) {
                 return User.findOne({ _id: context.user._id });
@@ -37,8 +41,9 @@ const resolvers = {
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
             const server = await Server.findOne({}); //get default server so we can put it in the new user
-            const user = await User.create({ username, email, password, servers: server._id });
-            console.log(user._id)
+            
+            const newUser = await User.create({ username, email, password, servers: server._id });
+            const user = await User.findOne({ email: newUser.email }).populate('servers');
 
             //add new user to the default server
             await Server.findOneAndUpdate(
@@ -46,11 +51,11 @@ const resolvers = {
                 { $addToSet: { users: user._id } }
             )
 
-            const token = signToken(user);
+            const token = signToken({ email: user.email, username: user.username, _id: user._id });
             return { token, user };
         },
         login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ email }).populate('servers');
             if (!user) {
                 throw new AuthenticationError('No user found with this email address');
             }
@@ -61,26 +66,27 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect credentials');
             }
 
-            const token = signToken(user);
+            const token = signToken({ email: user.email, username: user.username, _id: user._id });
             return { token, user };
         },
         // Send message on server and to one user
-        addMessage: async (parent, { message_body }, context) => {
-            if (context.username) {
-                const message = await Message.create({
-                    body: message_body,
-                    user_id: context.id
-                });
-
-                // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
-                // await Channel.findOneAndUpdate(
-                //     { _id: room },
-                //     { $addToSet: { messages: message._id } }
-                // );
-
-                return message;
+        addMessage: async (parent, { body, user_id, channel_id }) => {
+            if (!channel_id) {
+                return;
             }
-            throw new AuthenticationError('You need to be logged in!');
+
+            const { _id } = await Message.create({
+                body: body,
+                user_id: user_id
+            });
+
+            // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
+            await Channel.findOneAndUpdate(
+                { _id: channel_id },
+                { $addToSet: { messages: _id } }
+            );
+
+            return _id;
         },
         // Edit a message sent on server or to a user
         // editMessage: async (parent, { message_body }, context) => {

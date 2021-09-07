@@ -6,6 +6,11 @@ export const LOGIN = gql`
       token
       user {
         _id
+        servers {
+          name
+          icon
+          _id
+        }
       }
     }
   }
@@ -25,32 +30,28 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        servers {
+          name
+          icon
+          _id
+        }
       }
     }
   }
 `;
 
-// export const ADD_MESSAGE = gql`
-//   mutation addMessage(
-//     $message_body: String!
-//     $message_author: String!
-//   ) {
-//     addMessage(
-//       message_body: $message_body
-//       message_author: $message_author
-//     ) {
-//       message_body
-//     }
-//   }
-// `
 export const ADD_MESSAGE = gql`
-mutation addMessage(
-  $message_body: String!
-) {
-  addMessage(
-    message_body: $message_body
+  mutation addMessage(
+    $body: String!
+    $user_id: ID!
+    $channel_id: ID!
   ) {
-    message_body
+    addMessage(
+      body: $body
+      user_id: $user_id
+      channel_id: $channel_id
+    ) {
+      body
+    }
   }
-}
 `

@@ -17,16 +17,17 @@ aside {
     align-items: center;
 }
 
-#server-list a {
-    width: 45px;
-    height: 45px;
+#server-list .server-icon {
+    width: 51px;
+    height: 51px;
     margin-top: 8px;
     border: 2px solid var(--shaded-color-0);
     border-radius: 12px;
+    overflow: hidden;
     padding: 1px;
 }
 
-#server-list a:hover {
+#server-list .server-icon:hover {
     border-color: var(--shaded-color-5);
 }
 

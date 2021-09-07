@@ -10,10 +10,6 @@ function DemoSidebar() {
         document.getElementById("server-banner-dropdown").style.display = "none"
     }
 
-    function toggleModal() {
-        document.querySelector('.modal').style.display = "flex"
-    }
-
     function hideChannels(e) {
         /* if they clicked the add a new channel button immediately stop */
         let target = e.target
@@ -105,34 +101,12 @@ function DemoSidebar() {
                             <p>TEXT CHANNELS</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>general</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>coding-chat</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>late-night-chitchat-for-the-elite-personell</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>spoonkid-gaming</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>counting</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel} id="active-channel">
-                            <span className="text-channel-prefix">#</span>
-                            <p>random-yt-vids</p>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="text-channel-prefix">#</span>
-                            <p>api-stuff</p>
-                        </div>
+                        {
+                            <div className="category-channel" onClick={newActiveChannel}>
+                                <span className="text-channel-prefix">#</span>
+                                <p>general</p>
+                            </div>
+                        }
                     </div>
                     <div className="content-category" id="voice-channels">
                         <div className="category-name" onClick={hideChannels}>
@@ -146,7 +120,7 @@ function DemoSidebar() {
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>study room 2 with a really long name for qa</p>
+                            <p>study channel 2 with a really long name for qa</p>
                         </div>
                         <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>

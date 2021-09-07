@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_MESSAGE } from '../utils/mutations';
+import { useQuery } from '@apollo/client';
+import { QUERY_CHANNEL_MESSAGE } from '../utils/queries';
 import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
@@ -30,9 +32,14 @@ function intToRGB(i) {
     return "00000".substring(0, 6 - c.length) + c;
 }
 
+
 function Content(props) {
     const [mounted, setMounted] = useState(false);
     const [addMessage] = useMutation(ADD_MESSAGE);
+    let messages = null
+    
+    const { data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
+    messages = data?.channel_messages?.messages || [];
 
     async function beforeMount() {
         if (!mounted) {
@@ -50,24 +57,18 @@ function Content(props) {
                     break;
                 }
                 await sleep(2000)
-                console.log('socket connection status', socket.connected)
                 if (socket) {
                     socketMounted = socket.connected;
                     break;
                 }
             }
-            assignRoom();
+            socket.emit('channel', props.activeChannel);
         }
     }
     beforeMount();
 
-    function assignRoom() {
-        console.log('joining room', props.activeChannel)
-        socket.emit('room', props.activeChannel);
-    }
-
     useEffect(() => {
-        assignRoom();
+        socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])
 
     useEffect(() => {
@@ -78,12 +79,10 @@ function Content(props) {
             }
             let messageContainer = document.getElementById('message-list')
             socket.on('message', function (msg) {
-                console.log('incoming', msg)
                 let newEl = createListElement(msg);
                 messageContainer.insertBefore(newEl, messageContainer.firstChild);
             })
         } else {
-            console.log('Rerendered, and socket null')
             let errorPTag = document.createElement('p')
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
@@ -91,7 +90,6 @@ function Content(props) {
     }, []);
 
     function createListElement(message) {
-        console.log('creating message', message)
         let liEl = document.createElement('li');
         liEl.classList.add('message-container');
         liEl.setAttribute('key', message.id);
@@ -125,8 +123,9 @@ function Content(props) {
                 // Mutation added so that message saves to database
                 await addMessage({
                     variables: {
-                        message_body: e.target.value.trim(),
-                        message_author: socket.id //TODO replace with username
+                        body: e.target.value.trim(),
+                        user_id: Auth.getProfile().data._id,
+                        channel_id: props.activeChannel
                     }
                 });
 
@@ -135,6 +134,8 @@ function Content(props) {
             }
         }
     }
+
+        const tempMessages = messages.slice().reverse()
 
     return (
         <main>
@@ -160,6 +161,28 @@ function Content(props) {
                     </div>
                 </div>
                 <ul id="message-list">
+                    {
+                        (tempMessages !== null) ? tempMessages.map((message, i) => (
+                            <li key={i} className="message-container" id={message._id}>
+                                <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}`}} alt="profile"></img>
+                                <div>
+                                    <div className="message-top">
+                                        <p className="message-username">{message.user_id.username}</p>
+                                        <p className="message-times">
+                                            <span className="message-timestamp">{'1:11 am'}</span>
+                                            &nbsp;•&nbsp;
+                                            <span className="message-timeago">{'7 hours ago'}</span>
+                                        </p>
+                                    </div>
+                                    <div className="message-content">
+                                        <p>
+                                            {message.body}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        )) : <></>
+                    }
                 </ul>
             </div>
         </main>

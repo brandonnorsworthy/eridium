@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-function Signup() {
+function Signup(props) {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [addUser] = useMutation(ADD_USER);
 
@@ -17,15 +17,24 @@ function Signup() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        const mutationResponse = await addUser({
-            variables: {
-                username: formState.username,
-                email: formState.email,
-                password: formState.password
-            }
-        });
-        const token = mutationResponse.data.addUser.token;
-        Auth.login(token);
+        try {
+            window.localStorage.clear()
+            const mutationResponse = await addUser({
+                variables: {
+                    username: formState.username,
+                    email: formState.email,
+                    password: formState.password
+                }
+            });
+    
+            props.setUsersServers(mutationResponse.data.addUser.user.servers)
+            window.localStorage.setItem('servers', JSON.stringify(mutationResponse.data.addUser.user.servers))
+    
+            const token = mutationResponse.data.addUser.token;
+            Auth.login(token);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (

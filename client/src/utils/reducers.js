@@ -20,7 +20,6 @@ export const reducer = (state, action) => {
             }
 
         case UPDATE_ACCOUNT_STATUS:
-            console.log('UPDATE_ACCOUNT_STATUS dispatched');
             return {
                 ...state,
                 isLoggedIn: !action.isLoggedIn,
