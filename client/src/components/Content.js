@@ -37,7 +37,7 @@ function Content(props) {
     const [addMessage] = useMutation(ADD_MESSAGE);
     let messages = null
 
-    const { loading, data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
+    const { data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
     messages = data?.channel_messages?.messages || [];
 
     async function beforeMount() {
@@ -135,6 +135,8 @@ function Content(props) {
         }
     }
 
+        const tempMessages = messages.slice().reverse()
+
     return (
         <main>
             <div id="content-banner">
@@ -160,16 +162,16 @@ function Content(props) {
                 </div>
                 <ul id="message-list">
                     {
-                        (messages !== null) ? messages.map((message, i) => (
+                        (tempMessages !== null) ? tempMessages.map((message, i) => (
                             <li key={i} className="message-container" id={message._id}>
                                 <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}`}} alt="profile"></img>
                                 <div>
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{moment(message.createdAt).format("h:mm a")}</span>
+                                            <span className="message-timestamp">{'aergaerger'}</span>
                                             &nbsp;•&nbsp;
-                                            <span className="message-timeago">{moment(message.createdAt).fromNow()}</span>
+                                            <span className="message-timeago">{'eargaerg'}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">

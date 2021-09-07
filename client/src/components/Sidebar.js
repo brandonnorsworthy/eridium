@@ -24,7 +24,7 @@ function intToRGB(i) {
 function Sidebar(props) {
     let channels = null
 
-    const { loading, data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
+    const { data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
     channels = data?.server_channels.channels || [];
 
     function displayServerBanner(e) {
@@ -143,7 +143,7 @@ function Sidebar(props) {
                         </div>
                         {
                             (channels !== null) ? channels.map((channel, i) => (
-                                <div className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
+                                <div key={i} className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
                                     {i === 0 ? props.setActiveChannel(channel._id) : <></>}
                                     <span className="text-channel-prefix">#</span>
                                     <p>{channel.name}</p>
