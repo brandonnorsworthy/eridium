@@ -79,7 +79,7 @@ function Sidebar(props) {
         let target = e.target
         if (!(target.id === 'active')) {
             //clear out content because we are going into a new channel
-            document.getElementById('message-list').innerHTML = ''
+            // document.getElementById('message-list').innerHTML = ''
 
             if (!(target.tagName === 'DIV')) {
                 target = target.parentElement
@@ -106,6 +106,7 @@ function Sidebar(props) {
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
+    console.log(props.usersServers)
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -113,11 +114,11 @@ function Sidebar(props) {
                     <img src={/* TODO eridium logo */"https://via.placeholder.com/50"} alt="eridium logo"></img>
                 </div>
                 {
-                    props.usersServers.map((server) => (
+                    props.usersServers ? props.usersServers.map((server) => (
                         <button key={server._id} id={server._id} className="server-icon">
                             <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
                         </button>
-                    ))
+                    )) : <></>
                 }
             </nav>
             <nav id="content-list">

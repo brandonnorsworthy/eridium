@@ -11,18 +11,21 @@ function Login(props) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
+            window.localStorage.clear()
             const mutationResponse = await login({
-                variables: { email: formState.email, password: formState.password },
+                variables: {
+                    email: formState.email,
+                    password: formState.password
+                },
             });
 
             props.setUsersServers(mutationResponse.data.login.user.servers)
             window.localStorage.setItem('servers', JSON.stringify(mutationResponse.data.login.user.servers))
-            console.log('mutation', mutationResponse.data.login.user.servers)
 
             const token = mutationResponse.data.login.token;
             Auth.login(token);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 

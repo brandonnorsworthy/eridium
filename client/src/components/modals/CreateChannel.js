@@ -3,7 +3,6 @@ import './modal.css'
 
 function CreateChannel() {
     function hideModal(e) {
-        console.log(e)
         if (e.target.id === 'create-channel-modal') {
             e.target.style.display = 'none';
         }

@@ -41,7 +41,9 @@ const resolvers = {
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
             const server = await Server.findOne({}); //get default server so we can put it in the new user
-            const user = await User.create({ username, email, password, servers: server._id });
+            
+            const newUser = await User.create({ username, email, password, servers: server._id });
+            const user = await User.findOne({ email: newUser.email }).populate('servers');
 
             //add new user to the default server
             await Server.findOneAndUpdate(
@@ -49,7 +51,7 @@ const resolvers = {
                 { $addToSet: { users: user._id } }
             )
 
-            const token = signToken(user);
+            const token = signToken({ email: user.email, username: user.username, _id: user._id });
             return { token, user };
         },
         login: async (parent, { email, password }) => {
@@ -77,7 +79,6 @@ const resolvers = {
                 body: body,
                 user_id: user_id
             });
-            console.log('message id', _id, 'channel id', channel_id)
 
             // ! DO NOT DELETE, AWAITING SERVERS TO BE COMPLETED
             await Channel.findOneAndUpdate(

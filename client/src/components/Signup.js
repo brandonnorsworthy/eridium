@@ -27,14 +27,13 @@ function Signup(props) {
                 }
             });
     
-            console.log('mutation response', mutationResponse.data.addUser.user.servers)
             props.setUsersServers(mutationResponse.data.addUser.user.servers)
-            window.localStorage.setItem('servers', mutationResponse.data.addUser.user.servers)
+            window.localStorage.setItem('servers', JSON.stringify(mutationResponse.data.addUser.user.servers))
     
             const token = mutationResponse.data.addUser.token;
             Auth.login(token);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 

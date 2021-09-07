@@ -32,11 +32,12 @@ function intToRGB(i) {
     return "00000".substring(0, 6 - c.length) + c;
 }
 
+
 function Content(props) {
     const [mounted, setMounted] = useState(false);
     const [addMessage] = useMutation(ADD_MESSAGE);
     let messages = null
-
+    
     const { data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
     messages = data?.channel_messages?.messages || [];
 
@@ -56,7 +57,6 @@ function Content(props) {
                     break;
                 }
                 await sleep(2000)
-                console.log('socket connection status', socket.connected)
                 if (socket) {
                     socketMounted = socket.connected;
                     break;
@@ -169,9 +169,9 @@ function Content(props) {
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{'aergaerger'}</span>
+                                            <span className="message-timestamp">{'1:11 am'}</span>
                                             &nbsp;•&nbsp;
-                                            <span className="message-timeago">{'eargaerg'}</span>
+                                            <span className="message-timeago">{'7 hours ago'}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">
