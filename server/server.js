@@ -65,13 +65,11 @@ const io = socketio(http, {
 
 io.sockets.on('connection', function (socket) {
   socket.on('channel', function (channel) {
-    console.log(socket.id, 'joined', channel)
     socket.rooms.forEach(element => socket.leave(element));
     socket.join(channel);
   });
 
   socket.on('message', (payload) => {
-    console.log(socket.id, 'sent', payload.message, 'in', socket.rooms.values().next().value)
     io.in(socket.rooms.values().next().value).emit('message',  {...payload});
   });
 });

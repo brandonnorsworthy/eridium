@@ -46,6 +46,7 @@ const typeDefs = gql`
 		server_users(_id: String!): [User]
 		server_channels(server_id: ID!): Server
 		channel_messages(channel_id: ID!): Channel
+		channel(channel_id: ID!): Channel
 		me: User
 	}
 

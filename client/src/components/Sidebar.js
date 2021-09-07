@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_SERVER_CHANNELS } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
+import Logo from '../private/logo@512.png'
 import DefaultImage from '../private/default.png'
 
 function hashCode(str) {
@@ -26,6 +27,12 @@ function Sidebar(props) {
 
     const { data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
     channels = data?.server_channels.channels || [];
+
+    useEffect(() => {
+        if (channels[0] !== undefined) {
+            props.setActiveChannel(channels[0]._id)
+        }
+    }, [channels, props])
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -97,21 +104,18 @@ function Sidebar(props) {
     }
 
     function displaySettingsBanner(e) {
-        /* BRANDON server banner replace icon when clicked */
         document.getElementById("current-user-settings-dropdown").style.display = "flex"
     }
 
     function hideSettingsBanner(e) {
-        /* BRANDON server banner replace icon when leave banner */
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
-    console.log(props.usersServers)
     return (
         <aside className="no-select">
             <nav id="server-list">
                 <div id="eridium-logo">
-                    <img src={/* TODO eridium logo */"https://via.placeholder.com/50"} alt="eridium logo"></img>
+                    <img src={Logo} alt="eridium logo"></img>
                 </div>
                 {
                     props.usersServers ? props.usersServers.map((server) => (
@@ -134,7 +138,6 @@ function Sidebar(props) {
                         <button className="warning">Leave Server</button>
                     </div>
                 </div>
-                {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
                     <div className="content-category" id="text-channels">
                         <div className="category-name" onClick={hideChannels}>
@@ -145,24 +148,41 @@ function Sidebar(props) {
                         {
                             (channels !== null) ? channels.map((channel, i) => (
                                 <div key={i} className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
-                                    {i === 0 ? props.setActiveChannel(channel._id) : <></>}
                                     <span className="text-channel-prefix">#</span>
                                     <p>{channel.name}</p>
                                 </div>
                             )) : <></>
                         }
                     </div>
-                    {/* commented out voice channels until implemented */}
-                    <div style={{ display: "none" }} className="content-category" id="voice-channels">
-                        <div style={{ display: "none" }} className="category-name" onClick={hideChannels}>
+                    <div className="content-category" id="voice-channels">
+                        <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>VOICE CHANNELS</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        {/* TODO loop the div below to generate the voice channels */}
-                        <div className="category-channel" onClick={newActiveChannel}>
+                        <div className="category-channel">
                             <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>{/* TODO voice channel name */"voice channel name"}</p>
+                            <p>lobby</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>study channel 2 with a really long name for qa</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>late nights secondary really long name</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>interview practice</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>music enjoyers</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>afk</p>
                         </div>
                     </div>
                     <div className="content-category" id="direct-message-channels">
@@ -171,10 +191,25 @@ function Sidebar(props) {
                             <p>DIRECT MESSAGES</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        {/* TODO loop over the div below to generate the direct message channels */}
                         <div className="category-channel" onClick={newActiveChannel}>
-                            <img className="direct-message-channel-prefix" src={/* TODO other users profile pic */"https://via.placeholder.com/20x20"} alt="user profile"></img>
-                            <p>{/* TODO other users username */"users username here"}</p>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a872fd'))}` }} alt="user profile"></img>
+                            <p>brandon111</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a87321'))}` }} alt="user profile"></img>
+                            <p>guiro33</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61372a4f74d25a92d084382f'))}` }} alt="user profile"></img>
+                            <p>andrewsupersaur</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a8734b'))}` }} alt="user profile"></img>
+                            <p>mguppy</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('6137304ea77bdd8f74e87f4a'))}` }} alt="user profile"></img>
+                            <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
                     </div>
                 </div>

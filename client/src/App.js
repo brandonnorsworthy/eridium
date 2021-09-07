@@ -30,7 +30,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-	const [activeChannel, setActiveChannel] = useState('61367e7949a4bf6080aea8c7');
+	const [activeChannel, setActiveChannel] = useState('');
 	const [usersServers, setUsersServers] = useState(userServersInitial);
 
 	function checkAuth() {
