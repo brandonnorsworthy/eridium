@@ -96,7 +96,7 @@ main {
     border-radius: 10px;
 }
 
-#input-container>div, #input-container textarea {
+#input-container>div, #input-container input {
     font-size: 16px;
     color: var(--shaded-color-6);
     border: none;
@@ -106,12 +106,11 @@ main {
     background-color: var(--shaded-color-4);
 }
 
-#input-container textarea {
+#input-container input {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     width: calc(100% - 40px);
-    line-height: 50%;
-    padding: 20px 20px 0px 20px;
+    padding: 15px 20px 5px 20px;
     margin-bottom: -1px;
     resize: none;
     scrollbar-width: thin;
