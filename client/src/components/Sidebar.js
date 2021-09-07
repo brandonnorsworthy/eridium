@@ -29,10 +29,14 @@ function Sidebar(props) {
     channels = data?.server_channels.channels || [];
 
     useEffect(() => {
+        // document.getElementById()
+    })
+
+    useEffect(() => {
         if (channels[0] !== undefined) {
             props.setActiveChannel(channels[0]._id)
         }
-    }, [channels, props])
+    }, [channels])
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -170,16 +174,62 @@ function Sidebar(props) {
                             <p>{/* TODO voice channel name */"voice channel name"}</p>
                         </div>
                     </div>
+                    <div className="content-category" id="voice-channels">
+                        <div className="category-name" onClick={hideChannels}>
+                            <span className="material-icons hide-category-icon">expand_more</span>
+                            <p>VOICE CHANNELS</p>
+                            <span className="material-icons add-channel-icon">add</span>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>lobby</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>study channel 2 with a really long name for qa</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>late nights secondary really long name</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>interview practice</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>music enjoyers</p>
+                        </div>
+                        <div className="category-channel">
+                            <span className="material-icons voice-channel-prefix">volume_down</span>
+                            <p>afk</p>
+                        </div>
+                    </div>
                     <div className="content-category" id="direct-message-channels">
                         <div className="category-name" onClick={hideChannels}>
                             <span className="material-icons hide-category-icon">expand_more</span>
                             <p>DIRECT MESSAGES</p>
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
-                        {/* TODO loop over the div below to generate the direct message channels */}
                         <div className="category-channel" onClick={newActiveChannel}>
-                            <img className="direct-message-channel-prefix" src={/* TODO other users profile pic */"https://via.placeholder.com/20x20"} alt="user profile"></img>
-                            <p>{/* TODO other users username */"users username here"}</p>
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <p>brandon111</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/44x150" alt="user profile"></img>
+                            <p>guiro33</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/10x150" alt="user profile"></img>
+                            <p>andrewsupersaur</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/1450x150" alt="user profile"></img>
+                            <p>mguppy</p>
+                        </div>
+                        <div className="category-channel">
+                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/50x55" alt="user profile"></img>
+                            <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
                     </div>
                 </div>
