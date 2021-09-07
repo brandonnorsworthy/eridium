@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_SERVER_CHANNELS } from '../utils/queries';
 import Auth from '../utils/auth';
@@ -26,6 +26,12 @@ function Sidebar(props) {
 
     const { data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
     channels = data?.server_channels.channels || [];
+
+    useEffect(() => {
+        if (channels[0] !== undefined) {
+            props.setActiveChannel(channels[0]._id)
+        }
+    }, [channels, props])
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -106,7 +112,6 @@ function Sidebar(props) {
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
-    console.log(props.usersServers)
     return (
         <aside className="no-select">
             <nav id="server-list">
@@ -145,7 +150,6 @@ function Sidebar(props) {
                         {
                             (channels !== null) ? channels.map((channel, i) => (
                                 <div key={i} className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
-                                    {i === 0 ? props.setActiveChannel(channel._id) : <></>}
                                     <span className="text-channel-prefix">#</span>
                                     <p>{channel.name}</p>
                                 </div>
