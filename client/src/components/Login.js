@@ -4,20 +4,20 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import './Login.css'
 
-function Login() {
+function Login(props) {
     const [formState, setFormState] = useState({ email: '', password: '' });
     const [login] = useMutation(LOGIN);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
-            window.localStorage.clear()
             const mutationResponse = await login({
                 variables: { email: formState.email, password: formState.password },
             });
 
-            // console.log(mutationResponse.data.login.user.servers)
-            window.localStorage.setItem('servers', mutationResponse.data.login.user.servers)
+            props.setUsersServers(mutationResponse.data.login.user.servers)
+            window.localStorage.setItem('servers', JSON.stringify(mutationResponse.data.login.user.servers))
+            console.log('mutation', mutationResponse.data.login.user.servers)
 
             const token = mutationResponse.data.login.token;
             Auth.login(token);

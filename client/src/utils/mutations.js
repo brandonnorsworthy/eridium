@@ -8,6 +8,8 @@ export const LOGIN = gql`
         _id
         servers {
           name
+          icon
+          _id
         }
       }
     }
@@ -30,6 +32,8 @@ export const ADD_USER = gql`
         _id
         servers {
           name
+          icon
+          _id
         }
       }
     }

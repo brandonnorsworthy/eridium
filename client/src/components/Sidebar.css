@@ -17,7 +17,7 @@ aside {
     align-items: center;
 }
 
-#server-list a {
+#server-list .server-icon {
     width: 45px;
     height: 45px;
     margin-top: 8px;
@@ -26,7 +26,7 @@ aside {
     padding: 1px;
 }
 
-#server-list a:hover {
+#server-list .server-icon:hover {
     border-color: var(--shaded-color-5);
 }
 

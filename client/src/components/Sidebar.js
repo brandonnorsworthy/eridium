@@ -108,22 +108,26 @@ function Sidebar(props) {
         /* BRANDON server banner replace icon when leave banner */
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
-
+    let eoirgaeor
     return (
         <aside className="no-select">
             <nav id="server-list">
                 <div id="eridium-logo">
                     <img src={/* TODO eridium logo */"https://via.placeholder.com/50"} alt="eridium logo"></img>
                 </div>
-                {/*! TODO loop over all users current servers and display here example below */}
-                <a href={/* TODO server link */"?"} className="server-icon">
-                    <img src={/* TODO server icon */"https://via.placeholder.com/50"} alt="server icon"></img>
-                </a>
+                {
+                    props.usersServers.map((server) => (
+                        <button key={server._id} id={server._id} className="server-icon">
+                            {console.log(server)}
+                            <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
+                        </button>
+                    ))
+                }
             </nav>
             <nav id="content-list">
                 <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
                     <div id="server-banner-button" onClick={displayServerBanner}>
-                        <p><b>{/* TODO current server name */"current server name"}</b></p>
+                        <p><b>{props.usersServers[0].name}</b></p>
                         <span className="material-icons">expand_more</span>
                     </div>
                     <div id="server-banner-dropdown">
