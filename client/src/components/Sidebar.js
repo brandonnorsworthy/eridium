@@ -26,7 +26,7 @@ function Sidebar(props) {
     let channels = null
 
     const { data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
-    channels = data?.server_channels.channels || [];
+    channels = data?.server_channels?.channels || [];
 
     useEffect(() => {
         if (channels[0] !== undefined) {
