@@ -32,7 +32,7 @@ function Sidebar(props) {
         if (channels[0] !== undefined) {
             props.setActiveChannel(channels[0]._id)
         }
-    }, [channels])
+    }, [channels, props])
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -104,12 +104,10 @@ function Sidebar(props) {
     }
 
     function displaySettingsBanner(e) {
-        /* BRANDON server banner replace icon when clicked */
         document.getElementById("current-user-settings-dropdown").style.display = "flex"
     }
 
     function hideSettingsBanner(e) {
-        /* BRANDON server banner replace icon when leave banner */
         document.getElementById("current-user-settings-dropdown").style.display = "none"
     }
 
@@ -140,7 +138,6 @@ function Sidebar(props) {
                         <button className="warning">Leave Server</button>
                     </div>
                 </div>
-                {/* TODO loop over all server contents / channels */}
                 <div id="content-categories">
                     <div className="content-category" id="text-channels">
                         <div className="category-name" onClick={hideChannels}>
@@ -156,19 +153,6 @@ function Sidebar(props) {
                                 </div>
                             )) : <></>
                         }
-                    </div>
-                    {/* commented out voice channels until implemented */}
-                    <div style={{ display: "none" }} className="content-category" id="voice-channels">
-                        <div style={{ display: "none" }} className="category-name" onClick={hideChannels}>
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>VOICE CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
-                        {/* TODO loop the div below to generate the voice channels */}
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>{/* TODO voice channel name */"voice channel name"}</p>
-                        </div>
                     </div>
                     <div className="content-category" id="voice-channels">
                         <div className="category-name" onClick={hideChannels}>
@@ -208,23 +192,23 @@ function Sidebar(props) {
                             <span className="material-icons add-channel-icon">add</span>
                         </div>
                         <div className="category-channel" onClick={newActiveChannel}>
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/150x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a872fd'))}` }} alt="user profile"></img>
                             <p>brandon111</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/44x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a87321'))}` }} alt="user profile"></img>
                             <p>guiro33</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/10x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61372a4f74d25a92d084382f'))}` }} alt="user profile"></img>
                             <p>andrewsupersaur</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/1450x150" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a8734b'))}` }} alt="user profile"></img>
                             <p>mguppy</p>
                         </div>
                         <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src="https://via.placeholder.com/50x55" alt="user profile"></img>
+                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('6137304ea77bdd8f74e87f4a'))}` }} alt="user profile"></img>
                             <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
                         </div>
                     </div>
