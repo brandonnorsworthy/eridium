@@ -22,9 +22,10 @@ function intToRGB(i) {
 }
 
 function Sidebar(props) {
-    // console.log(props.usersServers)
-    const { loading, data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { _id: "6136d27011351b75f06bfb9f" } })
-    const channels = data?.thoughts || [];
+    let channels = null
+
+    const { loading, data } = useQuery(QUERY_SERVER_CHANNELS, { variables: { server_id: props.usersServers[0]._id } })
+    channels = data?.server_channels.channels || [];
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -84,9 +85,7 @@ function Sidebar(props) {
                 target = target.parentElement
             }
 
-            // console.log(target.dataset.channel)
             props.setActiveChannel(target.dataset.channel)
-            // console.log(props.setActiveChannel(this.nav))
 
             let prevTarget = document.getElementById('active-channel')
             if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
@@ -143,13 +142,13 @@ function Sidebar(props) {
                             <span className="material-icons add-channel-icon" onClick={toggleModal}>add</span>
                         </div>
                         {
-                            console.log('goij;eojigjoierjgio', channels)
-                            // (channels !== null) ? channels.map((channel) => (
-                            //     <div className="cat egory-channel" data-channel={channel._id} id="active-channel" onClick={newActiveChannel}>
-                            //         <span className="text-channel-prefix">#</span>
-                            //         <p>{channel.name}</p>
-                            //     </div>
-                            // )) : <></>
+                            (channels !== null) ? channels.map((channel, i) => (
+                                <div className="category-channel" data-channel={channel._id} id={i === 0 ? "active-channel" : ""} onClick={newActiveChannel}>
+                                    {i === 0 ? props.setActiveChannel(channel._id) : <></>}
+                                    <span className="text-channel-prefix">#</span>
+                                    <p>{channel.name}</p>
+                                </div>
+                            )) : <></>
                         }
                     </div>
                     {/* commented out voice channels until implemented */}

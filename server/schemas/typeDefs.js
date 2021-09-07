@@ -14,7 +14,7 @@ const typeDefs = gql`
 		_id: ID!
 		name: String
 		icon: String
-		owner_id: [User]!
+		owner_id: User!
 		users: [User]!
 		channels: [Channel]!
 	}
@@ -32,7 +32,7 @@ const typeDefs = gql`
 		_id: ID
 		body: String
 		createdAt: String
-		user_id: [User]!
+		user_id: User!
 	}
 
 	type Auth {

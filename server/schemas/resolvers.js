@@ -26,7 +26,7 @@ const resolvers = {
 
         // get messages from channel
         channel_messages: async (parent, { channel_id }) => {
-            return await Channel.findById(channel_id).populate('messages');
+            return await Channel.findById(channel_id).populate('messages').populate({ path: 'messages', populate: 'user_id' });
         },
 
         // allows authentication to work properly

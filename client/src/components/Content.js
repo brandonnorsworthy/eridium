@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_MESSAGE } from '../utils/mutations';
+import { useQuery } from '@apollo/client';
+import { QUERY_CHANNEL_MESSAGE } from '../utils/queries';
 import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
@@ -33,6 +35,10 @@ function intToRGB(i) {
 function Content(props) {
     const [mounted, setMounted] = useState(false);
     const [addMessage] = useMutation(ADD_MESSAGE);
+    let messages = null
+
+    const { loading, data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
+    messages = data?.channel_messages?.messages || [];
 
     async function beforeMount() {
         if (!mounted) {
@@ -56,14 +62,12 @@ function Content(props) {
                     break;
                 }
             }
-            console.log('joining channel', props.activeChannel)
             socket.emit('channel', props.activeChannel);
         }
     }
     beforeMount();
 
     useEffect(() => {
-        console.log('joining channel', props.activeChannel)
         socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])
 
@@ -75,12 +79,10 @@ function Content(props) {
             }
             let messageContainer = document.getElementById('message-list')
             socket.on('message', function (msg) {
-                console.log('incoming', msg)
                 let newEl = createListElement(msg);
                 messageContainer.insertBefore(newEl, messageContainer.firstChild);
             })
         } else {
-            console.log('Rerendered, and socket null')
             let errorPTag = document.createElement('p')
             errorPTag.setAttribute('id', 'errorp')
             document.getElementById("message-list").appendChild(errorPTag)
@@ -119,7 +121,6 @@ function Content(props) {
                 socket.emit('message', { id: Auth.getProfile().data._id, username: Auth.getUsername(), message: e.target.value.trim() });
 
                 // Mutation added so that message saves to database
-                console.log('inside content', props.activeChannel)
                 await addMessage({
                     variables: {
                         body: e.target.value.trim(),
@@ -158,6 +159,28 @@ function Content(props) {
                     </div>
                 </div>
                 <ul id="message-list">
+                    {
+                        (messages !== null) ? messages.map((message, i) => (
+                            <li key={i} className="message-container" id={message._id}>
+                                <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}`}} alt="profile"></img>
+                                <div>
+                                    <div className="message-top">
+                                        <p className="message-username">{message.user_id.username}</p>
+                                        <p className="message-times">
+                                            <span className="message-timestamp">{moment(message.createdAt).format("h:mm a")}</span>
+                                            &nbsp;•&nbsp;
+                                            <span className="message-timeago">{moment(message.createdAt).fromNow()}</span>
+                                        </p>
+                                    </div>
+                                    <div className="message-content">
+                                        <p>
+                                            {message.body}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        )) : <></>
+                    }
                 </ul>
             </div>
         </main>
