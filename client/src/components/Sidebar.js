@@ -32,7 +32,7 @@ function Sidebar(props) {
         if (channels[0] !== undefined) {
             props.setActiveChannel(channels[0]._id)
         }
-    }, [channels, props])
+    }, [channels])
 
     function displayServerBanner(e) {
         document.getElementById("server-banner-dropdown").style.display = "flex"
@@ -92,6 +92,7 @@ function Sidebar(props) {
                 target = target.parentElement
             }
 
+            document.title = `Eridium ${target.textContent}`
             props.setActiveChannel(target.dataset.channel)
 
             let prevTarget = document.getElementById('active-channel')
@@ -101,6 +102,10 @@ function Sidebar(props) {
             prevTarget.removeAttribute('id')
             target.setAttribute('id', 'active-channel');
         }
+    }
+
+    function newActiveServer(e) {
+        console.log(e)
     }
 
     function displaySettingsBanner(e) {
@@ -119,7 +124,7 @@ function Sidebar(props) {
                 </div>
                 {
                     props.usersServers ? props.usersServers.map((server) => (
-                        <button key={server._id} id={server._id} className="server-icon">
+                        <button key={server._id} id={server._id} className="server-icon" onClick={newActiveServer}>
                             <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
                         </button>
                     )) : <></>
