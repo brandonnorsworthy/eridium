@@ -18,11 +18,12 @@ aside {
 }
 
 #server-list .server-icon {
-    width: 45px;
-    height: 45px;
+    width: 51px;
+    height: 51px;
     margin-top: 8px;
     border: 2px solid var(--shaded-color-0);
     border-radius: 12px;
+    overflow: hidden;
     padding: 1px;
 }
 
