@@ -35,9 +35,10 @@ function intToRGB(i) {
 
 function Content(props) {
     const [mounted, setMounted] = useState(false);
+    const [newMessages, setNewMessages] = useState([]);
     const [addMessage] = useMutation(ADD_MESSAGE);
     let messages = null
-    
+
     const { data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
     messages = data?.channel_messages?.messages || [];
 
@@ -68,6 +69,7 @@ function Content(props) {
     beforeMount();
 
     useEffect(() => {
+        setNewMessages([])
         socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])
 
@@ -77,10 +79,8 @@ function Content(props) {
             if (errorPTag) {
                 errorPTag.remove()
             }
-            let messageContainer = document.getElementById('message-list')
-            socket.on('message', function (msg) {
-                let newEl = createListElement(msg);
-                messageContainer.insertBefore(newEl, messageContainer.firstChild);
+            socket.on('message', function (payload) {
+                newMessageElements(payload);
             })
         } else {
             let errorPTag = document.createElement('p')
@@ -89,44 +89,38 @@ function Content(props) {
         }
     }, []);
 
-    function createListElement(message) {
-        let liEl = document.createElement('li');
-        liEl.classList.add('message-container');
-        liEl.setAttribute('key', message.id);
-        liEl.innerHTML = `
-        <img class="message-profile-pic" src=${DefaultImage} style="background-color:#${intToRGB(hashCode(message.id))};" alt="profile"></img>
-        <div>
-            <div class="message-top">
-                <p class="message-username">${message.username}</p>
-                <p class="message-times">
-                    <span class="message-timestamp">${/* TODO message timestamp */moment().format("h:mm a")}</span>
-                    &nbsp;•&nbsp;
-                    <span class="message-timeago">${/* TODO how long ago message occured */moment().fromNow()}</span>
-                </p>
-            </div>
-            <div class="message-content">
-                <p>
-                    ${message.message}
-                </p>
-            </div>
-        </div>`
-
-        return liEl
+    function newMessageElements(message) {
+        setNewMessages(newMessages => [...newMessages,
+        {
+            _id: message.id,
+            body: message.body,
+            createdAt: moment(),
+            user_id: {
+                _id: message.user_id,
+                profile_picture: null,
+                username: message.username
+            },
+        }])
     }
 
     async function formSubmit(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== '') {
             if (socket && !messageOnCooldown) {
                 messageOnCooldown = true;
-                socket.emit('message', { id: Auth.getProfile().data._id, username: Auth.getUsername(), message: e.target.value.trim() });
 
                 // Mutation added so that message saves to database
-                await addMessage({
+                const message = await addMessage({
                     variables: {
-                        body: e.target.value.trim(),
                         user_id: Auth.getProfile().data._id,
-                        channel_id: props.activeChannel
+                        channel_id: props.activeChannel,
+                        body: e.target.value.trim(),
                     }
+                });
+                socket.emit('message', {
+                    id: message._id,
+                    user_id: Auth.getProfile().data._id,
+                    username: Auth.getUsername(),
+                    body: e.target.value.trim()
                 });
 
                 e.target.value = '';
@@ -134,8 +128,6 @@ function Content(props) {
             }
         }
     }
-
-        const tempMessages = messages.slice().reverse()
 
     return (
         <main>
@@ -145,11 +137,10 @@ function Content(props) {
                 <span id="channel-description">{/* TODO current active channel description */"active channels description"}</span>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://github.com/brandonnorsworthy/eridium">GitHub</a>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13">Figma</a>
-                <a style={{ textDecoration: "none", color: "var(--primary-color" }} href="/demo">Demo</a>
             </div>
             <div id="main-content">
                 <div className="no-select" id="input-container" >
-                    <textarea onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></textarea>
+                    <input onKeyDown={formSubmit} placeholder="message in #random-yt-vids"></input>
                     <div id="selectables">
                         <div><b>B</b></div>
                         <div><i>I</i></div>
@@ -162,9 +153,31 @@ function Content(props) {
                 </div>
                 <ul id="message-list">
                     {
-                        (tempMessages !== null) ? tempMessages.map((message, i) => (
+                        (newMessages !== null) ? newMessages.slice().reverse().map((message, i) => (
                             <li key={i} className="message-container" id={message._id}>
-                                <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}`}} alt="profile"></img>
+                                <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}` }} alt="profile"></img>
+                                <div>
+                                    <div className="message-top">
+                                        <p className="message-username">{message.user_id.username}</p>
+                                        <p className="message-times">
+                                            <span className="message-timestamp">{'1:11 am'}</span>
+                                            &nbsp;•&nbsp;
+                                            <span className="message-timeago">{'7 hours ago'}</span>
+                                        </p>
+                                    </div>
+                                    <div className="message-content">
+                                        <p>
+                                            {message.body}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        )) : <></>
+                    }
+                    {
+                        (messages !== null) ? messages.slice().reverse().map((message, i) => (
+                            <li key={i} className="message-container" id={message._id}>
+                                <img className="message-profile-pic" src={message.user_id.profile_picture ? message.user_id.profile_picture : DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode(message.user_id._id))}` }} alt="profile"></img>
                                 <div>
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>

@@ -29,6 +29,7 @@ aside {
 
 #server-list .server-icon:hover {
     border-color: var(--shaded-color-5);
+    cursor: pointer;
 }
 
 #server-list #active-server {

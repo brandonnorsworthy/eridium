@@ -29,10 +29,6 @@ function Sidebar(props) {
     channels = data?.server_channels.channels || [];
 
     useEffect(() => {
-        // document.getElementById()
-    })
-
-    useEffect(() => {
         if (channels[0] !== undefined) {
             props.setActiveChannel(channels[0]._id)
         }
