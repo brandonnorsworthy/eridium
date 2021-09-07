@@ -29,6 +29,10 @@ const resolvers = {
             return await Channel.findById(channel_id).populate('messages').populate({ path: 'messages', populate: 'user_id' });
         },
 
+        channel: async (parent, { channel_id }) => {
+            return await Channel.findById(channel_id);
+        },
+
         // allows authentication to work properly
         me: async (parent, args, context) => {
             if (context.user) {
@@ -41,7 +45,7 @@ const resolvers = {
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
             const server = await Server.findOne({}); //get default server so we can put it in the new user
-            
+
             const newUser = await User.create({ username, email, password, servers: server._id });
             const user = await User.findOne({ email: newUser.email }).populate('servers');
 

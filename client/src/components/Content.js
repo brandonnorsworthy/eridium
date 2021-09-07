@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_MESSAGE } from '../utils/mutations';
 import { useQuery } from '@apollo/client';
-import { QUERY_CHANNEL_MESSAGE } from '../utils/queries';
+import { QUERY_CHANNEL_MESSAGE, QUERY_CHANNEL } from '../utils/queries';
 import './Content.css'
 import { io } from "socket.io-client";
 import moment from 'moment'
@@ -37,10 +37,14 @@ function Content(props) {
     const [mounted, setMounted] = useState(false);
     const [newMessages, setNewMessages] = useState([]);
     const [addMessage] = useMutation(ADD_MESSAGE);
+    let channel = null
     let messages = null
 
-    const { data } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
-    messages = data?.channel_messages?.messages || [];
+    const { data: channelData } = useQuery(QUERY_CHANNEL, { variables: { channel_id: props.activeChannel } })
+    channel = channelData?.channel || [];
+
+    const { data: channelMessageData } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
+    messages = channelMessageData?.channel_messages?.messages || [];
 
     async function beforeMount() {
         if (!mounted) {
@@ -133,8 +137,8 @@ function Content(props) {
         <main>
             <div id="content-banner">
                 <span className="no-select" id="channel-type-icon">#</span>
-                <p id="channel-name">{/* TODO current active channel */"active channel"}</p>
-                <span id="channel-description">{/* TODO current active channel description */"active channels description"}</span>
+                <p id="channel-name">{channel?.name ? channel.name : 'channel name'}</p>
+                <span id="channel-description">{channel?.topic ? channel.topic : <></>}</span>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://github.com/brandonnorsworthy/eridium">GitHub</a>
                 <a style={{ textDecoration: "none", color: "var(--primary-color" }} target="_blank" rel="noreferrer" href="https://www.figma.com/file/QZpdcLvg3Xf1BPy5zwutWF/Eridium?node-id=3%3A13">Figma</a>
             </div>

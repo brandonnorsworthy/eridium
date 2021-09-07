@@ -28,6 +28,16 @@ export const QUERY_CHANNEL_MESSAGE = gql`
 	}
 `
 
+export const QUERY_CHANNEL = gql`
+	query channel($channel_id: ID!) {
+		channel(channel_id: $channel_id) {
+			_id
+			name
+			topic
+		}
+	}
+`;
+
 export const QUERY_USER = gql`
 	query user($username: String!) {
 		user(username: $username) {
