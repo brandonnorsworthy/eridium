@@ -1,8 +1,10 @@
 [
 	{
-		"name": "eridium default server"
+		"name": "eridium default server",
+		"icon": "https://res.cloudinary.com/meet-up/image/upload/v1628484273/lgttqy2dmxxgo4oe8cs6.png"
 	},
 	{
-		"name": "second server"
+		"name": "second server",
+		"icon": "https://res.cloudinary.com/meet-up/image/upload/v1628483774/bapu2i6ovravmisg9xu6.jpg"
 	}
 ]

@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_SERVER_CHANNELS } from '../utils/queries';
 import Auth from '../utils/auth';
 import './Sidebar.css'
+import Logo from '../private/logo@512.png'
 import DefaultImage from '../private/default.png'
 
 function hashCode(str) {
@@ -116,7 +117,7 @@ function Sidebar(props) {
         <aside className="no-select">
             <nav id="server-list">
                 <div id="eridium-logo">
-                    <img src={/* TODO eridium logo */"https://via.placeholder.com/50"} alt="eridium logo"></img>
+                    <img src={Logo} alt="eridium logo"></img>
                 </div>
                 {
                     props.usersServers ? props.usersServers.map((server) => (
