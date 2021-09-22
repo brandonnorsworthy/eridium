@@ -25,6 +25,7 @@ aside {
     border-radius: 12px;
     overflow: hidden;
     padding: 1px;
+    background-color: var(--shaded-color-0);
 }
 
 #server-list .server-icon:hover {

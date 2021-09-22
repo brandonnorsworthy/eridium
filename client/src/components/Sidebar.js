@@ -105,7 +105,22 @@ function Sidebar(props) {
     }
 
     function newActiveServer(e) {
-        console.log(e)
+        /* if clicked channel is already active do nothing */
+        let target = e.target
+        if (!(target.id === 'active')) {
+            //clear out content because we are going into a new channel
+
+            if (!(target.tagName === 'BUTTON')) {
+                target = target.parentElement
+            }
+
+            let prevTarget = document.getElementById('active-server')
+            if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
+                prevTarget.style.display = 'none'
+            }
+            prevTarget.removeAttribute('id')
+            target.setAttribute('id', 'active-server');
+        }
     }
 
     function displaySettingsBanner(e) {
@@ -123,8 +138,8 @@ function Sidebar(props) {
                     <img src={Logo} alt="eridium logo"></img>
                 </div>
                 {
-                    props.usersServers ? props.usersServers.map((server) => (
-                        <button key={server._id} id={server._id} className="server-icon" onClick={newActiveServer}>
+                    (props.usersServers !== null) ? props.usersServers.map((server, i) => (
+                        <button key={server._id} id={server._id} className="server-icon" data-server={server._id} id={i === 0 ? "active-server" : ""} onClick={newActiveServer}>
                             <img src={server.icon ? server.icon : "https://via.placeholder.com/50"} alt="server icon"></img>
                         </button>
                     )) : <></>
