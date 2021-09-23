@@ -36,6 +36,11 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/public')));
 }
 
+//force use of the domain we paid for :(
+app.get(/eridium.herokuapp.com/, function (req, res) {
+  res.redirect('https://www.eridium.chat/');
+});
+
 app.get('*', (req, res) => {
   console.log("[server]", 'user getting index route');
   if (process.env.NODE_ENV === 'production') {
