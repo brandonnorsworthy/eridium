@@ -164,7 +164,7 @@ function Content(props) {
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).fromNow()}</span>
+                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('MM/DD/YYYY @ hh:mm a')}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">
@@ -184,7 +184,7 @@ function Content(props) {
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).fromNow()}</span>
+                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('MM/DD/YYYY @ hh:mm a')}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">
