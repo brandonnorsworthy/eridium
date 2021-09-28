@@ -114,6 +114,8 @@ function Sidebar(props) {
                 target = target.parentElement
             }
 
+            props.setActiveServer(target.dataset.server)
+
             let prevTarget = document.getElementById('active-server')
             if (prevTarget.parentElement.firstChild.dataset.hidden === 'true') {
                 prevTarget.style.display = 'none'
@@ -148,7 +150,7 @@ function Sidebar(props) {
             <nav id="content-list">
                 <div className="no-select" id="server-banner" onMouseLeave={hideServerBanner}>
                     <div id="server-banner-button" onClick={displayServerBanner}>
-                        <p><b>{props.usersServers[0].name}</b></p>
+                        <p>{props.usersServers[0].name}</p>
                         <span className="material-icons">expand_more</span>
                     </div>
                     <div id="server-banner-dropdown">
@@ -174,68 +176,10 @@ function Sidebar(props) {
                             )) : <></>
                         }
                     </div>
-                    <div className="content-category" id="voice-channels">
-                        <div className="category-name" onClick={hideChannels}>
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>VOICE CHANNELS</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>lobby</p>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>study channel 2 with a really long name for qa</p>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>late nights secondary really long name</p>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>interview practice</p>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>music enjoyers</p>
-                        </div>
-                        <div className="category-channel">
-                            <span className="material-icons voice-channel-prefix">volume_down</span>
-                            <p>afk</p>
-                        </div>
-                    </div>
-                    <div className="content-category" id="direct-message-channels">
-                        <div className="category-name" onClick={hideChannels}>
-                            <span className="material-icons hide-category-icon">expand_more</span>
-                            <p>DIRECT MESSAGES</p>
-                            <span className="material-icons add-channel-icon">add</span>
-                        </div>
-                        <div className="category-channel" onClick={newActiveChannel}>
-                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a872fd'))}` }} alt="user profile"></img>
-                            <p>brandon111</p>
-                        </div>
-                        <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a87321'))}` }} alt="user profile"></img>
-                            <p>guiro33</p>
-                        </div>
-                        <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61372a4f74d25a92d084382f'))}` }} alt="user profile"></img>
-                            <p>andrewsupersaur</p>
-                        </div>
-                        <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('61370f03c854b9a580a8734b'))}` }} alt="user profile"></img>
-                            <p>mguppy</p>
-                        </div>
-                        <div className="category-channel">
-                            <img className="direct-message-channel-prefix" src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode('6137304ea77bdd8f74e87f4a'))}` }} alt="user profile"></img>
-                            <p>erinlim2001, erinlim2002, erinlim2003, erinlim2004</p>
-                        </div>
-                    </div>
                 </div>
                 <div className="no-select" id="current-user" onMouseLeave={hideSettingsBanner}>
                     <img src={DefaultImage} style={{ backgroundColor: `#${intToRGB(hashCode(Auth.getProfile().data._id))}` }} alt="user profile"></img>
-                    <p>{/* TODO current logged in user */Auth.getUsername()}</p>
+                    <p>{Auth.getUsername()}</p>
                     <div id="current-user-settings-button" onClick={displaySettingsBanner}>
                         <span className="material-icons">settings</span>
                     </div>

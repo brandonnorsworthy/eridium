@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_MESSAGE } from '../utils/mutations';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import { QUERY_CHANNEL_MESSAGE, QUERY_CHANNEL } from '../utils/queries';
 import './Content.css'
 import { io } from "socket.io-client";
@@ -43,8 +43,10 @@ function Content(props) {
     const { data: channelData } = useQuery(QUERY_CHANNEL, { variables: { channel_id: props.activeChannel } })
     channel = channelData?.channel || [];
 
-    const { data: channelMessageData } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
-    messages = channelMessageData?.channel_messages?.messages || [];
+    const { data: channelPreviousMessageData } = useQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
+    messages = channelPreviousMessageData?.channel_messages?.messages || [];
+
+    const [newChannel, { data: channelMessageData }] = useLazyQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
 
     async function beforeMount() {
         if (!mounted) {
@@ -73,7 +75,17 @@ function Content(props) {
     beforeMount();
 
     useEffect(() => {
-        setNewMessages([])
+        setNewMessages([]);
+        console.log('newChannel', props.activeChannel)
+        newChannel()
+        if (channelMessageData) {
+            console.log('channelMessageData?.channel_messages?.messages', channelMessageData?.channel_messages?.messages)
+            setNewMessages(channelMessageData.channel_messages.messages);
+            console.log('newMessages', newMessages)
+            messages = channelMessageData?.channel_messages?.messages
+            console.log('messages', messages)
+
+        }
         socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])
 
@@ -164,7 +176,7 @@ function Content(props) {
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('MM/DD/YYYY @ hh:mm a')}</span>
+                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('M/DD/YYYY') + ` at ` + moment.unix(message.createdAt / 1000).format('h:mm a')}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">
@@ -184,7 +196,7 @@ function Content(props) {
                                     <div className="message-top">
                                         <p className="message-username">{message.user_id.username}</p>
                                         <p className="message-times">
-                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('MM/DD/YYYY @ hh:mm a')}</span>
+                                            <span className="message-timestamp">{moment.unix(message.createdAt / 1000).format('MM/DD/YYYY') + ` at ` + moment.unix(message.createdAt / 1000).format('hh:mm a')}</span>
                                         </p>
                                     </div>
                                     <div className="message-content">

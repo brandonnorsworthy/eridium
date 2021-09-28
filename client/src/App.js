@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Auth from './utils/auth'
@@ -30,15 +30,30 @@ const client = new ApolloClient({
 });
 
 function App() {
-	const [activeChannel, setActiveChannel] = useState('');
 	const [usersServers, setUsersServers] = useState(userServersInitial);
+	const [activeServer, setActiveServer] = useState('');
+	const [activeChannel, setActiveChannel] = useState('');
+
+	useEffect(() => {
+		// const { data: channelData } = useQuery(QUERY_CHANNEL, { variables: { channel_id: props.activeChannel } })
+		console.log('usersServers', usersServers)
+		console.log('activeServer', activeServer)
+		console.log('activeChannel', activeChannel)
+    }, [activeServer]);
+
+	useEffect(() => {
+		setActiveServer(usersServers[0])
+		console.log('usersServers', usersServers)
+		console.log('activeServer', activeServer)
+		console.log('activeChannel', activeChannel)
+	}, [usersServers])
 
 	function checkAuth() {
 		if (Auth.loggedIn()) {
 			return (
 				<Route>
-					<Sidebar setActiveChannel={setActiveChannel} usersServers={usersServers} />
-					<Content activeChannel={activeChannel} />
+					<Sidebar setActiveServer={setActiveServer} activeServer={activeServer} setActiveChannel={setActiveChannel} usersServers={usersServers} />
+					<Content activeServer={activeServer} activeChannel={activeChannel} />
 					<CreateChannel />
 				</Route>
 			)
