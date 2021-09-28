@@ -48,43 +48,48 @@ function Content(props) {
 
     const [newChannel, { data: channelMessageData }] = useLazyQuery(QUERY_CHANNEL_MESSAGE, { variables: { channel_id: props.activeChannel } })
 
-    async function beforeMount() {
+    function beforeMount() {
         if (!mounted) {
-            setMounted(true);
-            let socketMounted = false;
-            while (!(socketMounted)) {
-                if (window.location.hostname === 'www.eridium.chat' || window.location.hostname === 'eridium.herokuapp.com') {
-                    socket = io();
-                } else {
-                    socket = io("localhost:3001");
-                }
-
-                if (socket) {
-                    socketMounted = socket.connected;
-                    break;
-                }
-                await sleep(2000)
-                if (socket) {
-                    socketMounted = socket.connected;
-                    break;
-                }
-            }
-            socket.emit('channel', props.activeChannel);
+            mountSocket()
         }
     }
+
+    async function mountSocket() {
+        setMounted(true);
+        let socketMounted = false;
+        while (!(socketMounted)) {
+            if (window.location.hostname === 'www.eridium.chat' || window.location.hostname === 'eridium.herokuapp.com') {
+                socket = io(`/dynamic-${props.activeServer}`);
+            } else {
+                socket = io("localhost:3001" + `/dynamic-${props.activeServer}`);
+            }
+
+            if (socket) {
+                socketMounted = socket.connected;
+                break;
+            }
+            await sleep(2000)
+            if (socket) {
+                socketMounted = socket.connected;
+                break;
+            }
+        }
+        socket.emit('channel', props.activeChannel);
+    }
+
     beforeMount();
+
+    useEffect(() => {
+        mountSocket()
+    }, [props.activeServer])
 
     useEffect(() => {
         setNewMessages([]);
         console.log('newChannel', props.activeChannel)
         newChannel()
         if (channelMessageData) {
-            console.log('channelMessageData?.channel_messages?.messages', channelMessageData?.channel_messages?.messages)
             setNewMessages(channelMessageData.channel_messages.messages);
-            console.log('newMessages', newMessages)
             messages = channelMessageData?.channel_messages?.messages
-            console.log('messages', messages)
-
         }
         socket.emit('channel', props.activeChannel);
     }, [props.activeChannel])

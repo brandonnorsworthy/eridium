@@ -31,19 +31,15 @@ const client = new ApolloClient({
 
 function App() {
 	const [usersServers, setUsersServers] = useState(userServersInitial);
-	const [activeServer, setActiveServer] = useState('');
+	const [activeServer, setActiveServer] = useState(usersServers[0]._id);
 	const [activeChannel, setActiveChannel] = useState('');
 
 	useEffect(() => {
-		// const { data: channelData } = useQuery(QUERY_CHANNEL, { variables: { channel_id: props.activeChannel } })
-		console.log('usersServers', usersServers)
 		console.log('activeServer', activeServer)
 		console.log('activeChannel', activeChannel)
     }, [activeServer]);
 
 	useEffect(() => {
-		setActiveServer(usersServers[0])
-		console.log('usersServers', usersServers)
 		console.log('activeServer', activeServer)
 		console.log('activeChannel', activeChannel)
 	}, [usersServers])
