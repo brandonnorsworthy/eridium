@@ -59,9 +59,13 @@ db.once('open', async () => {
 
 		//create all users and add them the default server
 		for (let i = 1; i < userSeeds.length; i++) {
-			const { _id } = await User.create({ ...userSeeds[i], servers: [ServerId] });
+			const { _id } = await User.create({ ...userSeeds[i], servers: [ServerId, SecondServerID] });
 			await Server.findOneAndUpdate(
 				{ _id: ServerId }, //pick a random channel to put messages in there
+				{ $addToSet: { users: _id } }
+			);
+			await Server.findOneAndUpdate(
+				{ _id: SecondServerID }, //pick a random channel to put messages in there
 				{ $addToSet: { users: _id } }
 			);
 			userIds.push(_id)
