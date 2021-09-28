@@ -12,7 +12,6 @@ const messageSchema = new Schema({
 	createdAt: {
 		type: Date,
 		default: Date.now,
-		get: (timestamp) => dateFormat(timestamp),
 	},
 	user_id: {
 		type: Schema.Types.ObjectId,
