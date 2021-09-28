@@ -42,7 +42,7 @@ db.once('open', async () => {
 
 		//create the channels
 		let secondChannelIds = [];
-		for (let i = 0; i < channelSeeds.length; i++) {
+		for (let i = 0; i < channelSeeds.length - 2; i++) {
 			const { _id } = await Channel.create(channelSeeds[i]);
 			secondChannelIds.push(_id)
 		}
